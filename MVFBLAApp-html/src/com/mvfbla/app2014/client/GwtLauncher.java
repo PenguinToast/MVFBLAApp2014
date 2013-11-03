@@ -1,6 +1,6 @@
 package com.mvfbla.app2014.client;
 
-import com.mvfbla.app2014.Main;
+import com.mvfbla.app2014.App2014Main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
@@ -14,6 +14,6 @@ public class GwtLauncher extends GwtApplication {
 
 	@Override
 	public ApplicationListener getApplicationListener () {
-		return new Main();
+		return new App2014Main();
 	}
 }
