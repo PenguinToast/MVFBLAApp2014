@@ -27,7 +27,7 @@ public class TestScreen implements Screen {
 		table.setFillParent(true);
 		table.setBackground("btnUp");
 		
-		table.add(new TextButton("TEST BasddasdddasdUTTON", skin).pad(100));
+		table.add(new TextButton("TEST BasddasdddasdUTTON", skin).pad(0));
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class TestScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		stage.setViewport(width, height);
+		stage.setViewport(400, width/height * 400);
 	}
 
 	@Override
