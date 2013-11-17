@@ -1,50 +1,32 @@
 package com.mvfbla.app2014.gui.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mvfbla.app2014.Global;
 
-public class TestScreen implements Screen {
-	protected Stage stage;
-	private Table table;
-
+public class TestScreen extends BaseScreen {
 	public TestScreen() {
-		OrthographicCamera camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-		stage = new Stage();
-		stage.setCamera(camera);
-		
-		Gdx.input.setInputProcessor(stage);
-		
-		Skin skin = new Skin(Gdx.files.internal("data/skin.json"), new TextureAtlas("game.atlas"));
-		table = new Table(skin);	
 		stage.addActor(table);
 		table.setFillParent(true);
 		table.setBackground("btnUp");
 		table.debug();
 		
-		table.add(new TextButton("Top Button", skin).pad(0)).expandX().top().colspan(3);
+		table.add(new TextButton("Top Button", Global.skin).pad(0)).expandX().top().colspan(3);
 		table.row();
-		table.add(new TextButton("Left Button", skin).pad(0)).expandY().left();
-		table.add(new TextButton("Middle Button", skin).pad(0)).expand();
-		table.add(new TextButton("Right Button", skin).pad(0)).expandY().right();
+		table.add(new TextButton("Left Button", Global.skin).pad(0)).expandY().left();
+		table.add(new TextButton("Middle Button", Global.skin).pad(0)).expand();
+		table.add(new TextButton("Right Button", Global.skin).pad(0)).expandY().right();
 		table.row();
-		table.add(new TextButton("Bottom Button", skin).pad(0)).expandX().bottom().colspan(3);
+		table.add(new TextButton("Bottom Button", Global.skin).pad(0)).expandX().bottom().colspan(3);
 		
-		Fighter fighter = new Fighter();
-		fighter.setPosition(250, 250);
-		stage.addActor(fighter);
 	}
-
+	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -57,18 +39,14 @@ public class TestScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		stage.setViewport(1000, 1000, true);
-//		table.layout();
+		stage.setViewport(1080, 1080, true);
 	}
 
 	@Override
 	public void show() {
-		
-	}
-
-	@Override
-	public void hide() {
-		
+		Fighter fighter = new Fighter();
+		fighter.setPosition(250, 250);
+		stage.addActor(fighter);
 	}
 
 	@Override
@@ -85,14 +63,14 @@ public class TestScreen implements Screen {
 	}
 	
 	public class Fighter extends Actor {
-		private Texture tex;
+		private TextureRegion tex;
 		public Fighter() {
-			tex = new Texture("data/Fighter.gif");
+			tex = Global.assets.get("game.atlas", TextureAtlas.class).findRegion("Fighter");
 		}
 		
 		@Override
 		public void draw(SpriteBatch batch, float parentAlpha) {
-			batch.draw(tex, getX(), getY(), tex.getWidth(), tex.getHeight());
+			batch.draw(tex, getX(), getY(), tex.getRegionWidth(), tex.getRegionHeight());
 		}
 	}
 }

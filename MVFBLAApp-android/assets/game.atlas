@@ -3,6 +3,18 @@ game.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Fighter
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+
+game2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 empty
   rotate: false
   xy: 132, 136

@@ -1,0 +1,19 @@
+
+preload.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 504, 220
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+fblalogo
+  rotate: false
+  xy: 2, 2
+  size: 500, 250
+  orig: 500, 250
+  offset: 0, 0
+  index: -1

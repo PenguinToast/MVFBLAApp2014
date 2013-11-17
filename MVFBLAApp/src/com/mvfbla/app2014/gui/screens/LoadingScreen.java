@@ -1,0 +1,87 @@
+package com.mvfbla.app2014.gui.screens;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mvfbla.app2014.Global;
+
+public class LoadingScreen implements Screen {
+	private SpriteBatch batch;
+	private Sprite loading;
+	private Sprite background;
+	private AssetManager assets;
+	
+	public LoadingScreen() {
+		assets = new AssetManager();
+		Global.assets = assets;
+		
+		batch = new SpriteBatch();
+
+		assets.load("preload.atlas", TextureAtlas.class);
+		assets.finishLoading();
+		TextureAtlas preload = assets.get("preload.atlas", TextureAtlas.class);
+		
+		loading = new Sprite(preload.findRegion("fblalogo"));
+		loading.setPosition(0.5f * (Global.WIDTH - loading.getWidth()), 0.5f * (Global.HEIGHT - loading.getHeight()));
+		
+		background = new Sprite(preload.findRegion("background"));
+		background.setSize(Global.WIDTH, Global.HEIGHT);
+		
+		assets.load("game.atlas", TextureAtlas.class);
+	}
+
+	@Override
+	public void render(float delta) {
+		if(assets.update()) {
+			Global.skin = new Skin(Gdx.files.internal("data/skin.json"), assets.get("game.atlas", TextureAtlas.class));
+			Global.skin.addRegions(assets.get("preload.atlas", TextureAtlas.class));
+			Global.game.transition(new TestScreen());
+			dispose();
+		}
+		
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
+		loading.rotate(90 * delta);
+		
+		batch.begin();
+		batch.disableBlending();
+		background.draw(batch);
+		batch.enableBlending();
+		loading.draw(batch);
+		batch.end();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
+	public void show() {
+
+	}
+
+	@Override
+	public void hide() {
+	}
+
+	@Override
+	public void dispose() {
+		
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
+	}
+
+}
