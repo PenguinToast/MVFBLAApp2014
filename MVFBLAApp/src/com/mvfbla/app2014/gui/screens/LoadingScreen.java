@@ -1,87 +1,62 @@
 package com.mvfbla.app2014.gui.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mvfbla.app2014.Global;
 
-public class LoadingScreen implements Screen {
-	private SpriteBatch batch;
-	private Sprite loading;
-	private Sprite background;
+public class LoadingScreen extends BaseScreen {
 	private AssetManager assets;
+	private static final float delay = 1.0f;
+	private float timer;
+	private ShapeRenderer shape;
 	
 	public LoadingScreen() {
+		super();
 		assets = new AssetManager();
 		Global.assets = assets;
 		
-		batch = new SpriteBatch();
-
 		assets.load("preload.atlas", TextureAtlas.class);
 		assets.finishLoading();
 		TextureAtlas preload = assets.get("preload.atlas", TextureAtlas.class);
 		
-		loading = new Sprite(preload.findRegion("fblalogo"));
-		loading.setPosition(0.5f * (Global.WIDTH - loading.getWidth()), 0.5f * (Global.HEIGHT - loading.getHeight()));
-		
-		background = new Sprite(preload.findRegion("background"));
-		background.setSize(Global.WIDTH, Global.HEIGHT);
+		Image logo = new Image(preload.findRegion("fblalogo"));
+		table.add(logo).expand();
 		
 		assets.load("game.atlas", TextureAtlas.class);
+		
+		shape = new ShapeRenderer();
 	}
 
 	@Override
 	public void render(float delta) {
-		if(assets.update()) {
-			Global.skin = new Skin(Gdx.files.internal("data/skin.json"), assets.get("game.atlas", TextureAtlas.class));
-			Global.skin.addRegions(assets.get("preload.atlas", TextureAtlas.class));
-			Global.game.transition(new TestScreen());
-			dispose();
-		}
-		
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		loading.rotate(90 * delta);
+		Gdx.gl.glEnable(GL10.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		
-		batch.begin();
-		batch.disableBlending();
-		background.draw(batch);
-		batch.enableBlending();
-		loading.draw(batch);
-		batch.end();
-	}
+		shape.begin(ShapeType.Filled);
+		shape.setColor(Color.BLACK);
+		shape.rect(0, 0, stage.getWidth(), stage.getHeight());	
+		shape.end();
 
-	@Override
-	public void resize(int width, int height) {
-
-	}
-
-	@Override
-	public void show() {
-
-	}
-
-	@Override
-	public void hide() {
-	}
-
-	@Override
-	public void dispose() {
-		
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
+		stage.act(delta);
+		stage.draw();
+		timer += delta;
+		if(assets.update() && timer > delay) {
+			Global.skin = new Skin(Gdx.files.internal("data/skin.json"), assets.get("game.atlas", TextureAtlas.class));
+			Global.skin.addRegions(assets.get("preload.atlas", TextureAtlas.class));
+			Global.game.transition(new TestScreen());
+		}
+		Gdx.gl.glDisable(GL10.GL_BLEND);
+	
 	}
 
 }

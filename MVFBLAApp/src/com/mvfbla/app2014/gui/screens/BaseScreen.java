@@ -15,7 +15,7 @@ public abstract class BaseScreen implements Screen {
 	public BaseScreen() {
 		OrthographicCamera camera = new OrthographicCamera(Global.WIDTH, Global.HEIGHT);
 
-		stage = new Stage();
+		stage = new Stage(Global.WIDTH, Global.HEIGHT, false);
 		stage.setCamera(camera);
 		
 		Gdx.input.setInputProcessor(stage);
