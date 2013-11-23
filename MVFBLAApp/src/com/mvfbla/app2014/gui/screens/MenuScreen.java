@@ -5,12 +5,9 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mvfbla.app2014.App2014Main;
@@ -54,7 +51,7 @@ public class MenuScreen extends BaseScreen {
 				((Game)Gdx.app.getApplicationListener()).setScreen(new Settings());
 			}
 		});*/
-		buttonPlay.getStyle().font.scale(.01f);
+		settings.pad(PADDING);
 		
 		buttonExit = new TextButton("EXIT", Global.skin);
 		buttonExit.addListener(new ClickListener(){
@@ -70,16 +67,13 @@ public class MenuScreen extends BaseScreen {
 		heading.setFontScale(2);
 		
 		// Putting stuff together
-		table.add(heading).spaceBottom(3*BUTTON_HEIGHT);
-		table.row();
-		table.add(buttonPlay).uniform().spaceBottom(BUTTON_HEIGHT).fill();
-		table.row();
-		table.add(settings).uniform().spaceBottom(BUTTON_HEIGHT).fill();
-		table.row();
-		table.add(buttonExit).uniform().fill();
-		
+		table.add(heading);
+		table.getCell(heading).spaceBottom(3*BUTTON_HEIGHT).row();
+		table.add(buttonPlay).uniform().spaceBottom(BUTTON_HEIGHT).row();
+		table.add(settings).uniform().spaceBottom(BUTTON_HEIGHT).row();
+		table.add(buttonExit).uniform();
+
 		Tween.registerAccessor(Actor.class, new ActorAccessor());
-		// Heading and buttons fade in
 		Timeline.createSequence().beginSequence()
 			.push(Tween.to(heading, ActorAccessor.RGB, .5f).target(0, 0, 1))
 			.push(Tween.to(heading, ActorAccessor.RGB, .5f).target(0, 1, 0))
@@ -90,6 +84,7 @@ public class MenuScreen extends BaseScreen {
 			.push(Tween.to(heading, ActorAccessor.RGB, .5f).target(1, 1, 1))
 			.end().repeat(Tween.INFINITY, 0).start(tweenManager);
 		
+		// Heading and buttons fade in
 		Timeline.createSequence().beginSequence()
 			.push(Tween.set(buttonExit, ActorAccessor.ALPHA).target(0))
 			.push(Tween.set(settings, ActorAccessor.ALPHA).target(0))
