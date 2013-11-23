@@ -2,7 +2,7 @@ package com.mvfbla.app2014.gui.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -69,7 +69,7 @@ public class TestScreen extends BaseScreen {
 		}
 		
 		@Override
-		public void draw(SpriteBatch batch, float parentAlpha) {
+		public void draw(Batch batch, float parentAlpha) {
 			batch.draw(tex, getX(), getY(), tex.getRegionWidth(), tex.getRegionHeight());
 		}
 	}

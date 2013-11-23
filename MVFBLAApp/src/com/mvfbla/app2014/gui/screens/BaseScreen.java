@@ -17,9 +17,9 @@ public abstract class BaseScreen implements Screen {
 
 		stage = new Stage(Global.WIDTH, Global.HEIGHT, false);
 		stage.setCamera(camera);
-		
+
 		Gdx.input.setInputProcessor(stage);
-		
+
 		table = new Table(Global.skin);
 		table.setFillParent(true);
 		stage.addActor(table);
@@ -31,7 +31,10 @@ public abstract class BaseScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
+		Gdx.gl10.glEnable(GL10.GL_ALPHA_TEST);
+		Gdx.gl10.glAlphaFunc(GL10.GL_GREATER, 0.5f);
 		stage.draw();
+		Gdx.gl10.glDisable(GL10.GL_ALPHA_TEST);
 	}
 
 	@Override
@@ -41,12 +44,12 @@ public abstract class BaseScreen implements Screen {
 
 	@Override
 	public void show() {
-		
+
 	}
 
 	@Override
 	public void hide() {
-		
+
 	}
 
 	@Override
