@@ -23,7 +23,7 @@
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		default: {
-			font: default, fontColor: black,
+			font: default, fontColor: white,
 		},
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
