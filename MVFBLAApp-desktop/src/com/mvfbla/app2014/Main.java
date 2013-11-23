@@ -10,7 +10,7 @@ public class Main {
 		TexturePacker2.process("../assets/preload", "../MVFBLAApp-android/assets/", "preload");
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "MVFBLAApp";
+		cfg.title = "MVFBLAApp2014";
 		cfg.useGL20 = false;
 		cfg.width = 480;
 		cfg.height = 320;

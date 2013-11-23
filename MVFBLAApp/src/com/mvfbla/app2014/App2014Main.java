@@ -6,7 +6,7 @@ import com.mvfbla.app2014.gui.screens.LoadingScreen;
 import com.mvfbla.app2014.gui.screens.TransitionScreen;
 
 public class App2014Main extends Game {
-	
+	public static final String TITLE = "MVFBLAApp2014", VERSION = "v0.0.1";
 	@Override
 	public void create() {		
 		Global.game = this;
