@@ -28,6 +28,7 @@ public class MenuScreen extends BaseScreen {
 		// Creating Animations
 		tweenManager = new TweenManager();
 	}
+	
 	@Override
 	public void render(float delta) {
 		tweenManager.update(delta);
@@ -37,7 +38,7 @@ public class MenuScreen extends BaseScreen {
 
 	@Override
 	public void show() {
-		buttonPlay = new TextButton("PLAY", Global.skin);
+		buttonPlay = new TextButton("ENTER FORUMS", Global.skin);
 		/*buttonPlay.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
 				((Game)Gdx.app.getApplicationListener()).setScreen(new LevelMenu());;
