@@ -1,7 +1,5 @@
 package com.mvfbla.app2014.gui.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,8 +10,6 @@ import com.mvfbla.app2014.Global;
 
 public class TestScreen extends BaseScreen {
 	public TestScreen() {
-		stage.addActor(table);
-		table.setFillParent(true);
 		table.setBackground("btnUp");
 		table.debug();
 		
@@ -29,17 +25,9 @@ public class TestScreen extends BaseScreen {
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		super.render(delta);
+//		Table.drawDebug(stage);
 
-		stage.act(delta);
-		stage.draw();
-		Table.drawDebug(stage);
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		stage.setViewport(1080, 1080, true);
 	}
 
 	@Override
@@ -47,19 +35,6 @@ public class TestScreen extends BaseScreen {
 		Fighter fighter = new Fighter();
 		fighter.setPosition(250, 250);
 		stage.addActor(fighter);
-	}
-
-	@Override
-	public void dispose() {
-		stage.dispose();
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
 	}
 	
 	public class Fighter extends Actor {

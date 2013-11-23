@@ -70,18 +70,13 @@ public class MenuScreen extends BaseScreen {
 		heading.setFontScale(2);
 		
 		// Putting stuff together
-		table.add(heading);
-		table.getCell(heading).spaceBottom(3*BUTTON_HEIGHT);
+		table.add(heading).spaceBottom(3*BUTTON_HEIGHT);
 		table.row();
-		table.add(buttonPlay).width(BUTTON_WIDTH);
-		table.getCell(buttonPlay).spaceBottom(BUTTON_HEIGHT);
+		table.add(buttonPlay).uniform().spaceBottom(BUTTON_HEIGHT).fill();
 		table.row();
-		table.add(settings).width(BUTTON_WIDTH);
-		table.getCell(settings).spaceBottom(BUTTON_HEIGHT);
+		table.add(settings).uniform().spaceBottom(BUTTON_HEIGHT).fill();
 		table.row();
-		table.add(buttonExit).width(BUTTON_WIDTH);
-
-		stage.addActor(table);
+		table.add(buttonExit).uniform().fill();
 		
 		Tween.registerAccessor(Actor.class, new ActorAccessor());
 		// Heading and buttons fade in
@@ -108,6 +103,5 @@ public class MenuScreen extends BaseScreen {
 		// Table fade in
 		Tween.from(table, ActorAccessor.ALPHA, .5f).target(0).start(tweenManager);
 		Tween.from(table, ActorAccessor.Y, .8f).target(Gdx.graphics.getHeight()/8).start(tweenManager);
-		
 	}
 }

@@ -29,17 +29,14 @@ public abstract class BaseScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
+		
 		stage.act(delta);
-		Gdx.gl10.glEnable(GL10.GL_ALPHA_TEST);
-		Gdx.gl10.glAlphaFunc(GL10.GL_GREATER, 0.5f);
 		stage.draw();
-		Gdx.gl10.glDisable(GL10.GL_ALPHA_TEST);
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		stage.setViewport(1080, 1080, false);
+		stage.setViewport(1080, 1080, true);
 	}
 
 	@Override

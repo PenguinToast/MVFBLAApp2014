@@ -12,8 +12,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "MVFBLAApp2014";
 		cfg.useGL20 = false;
-		cfg.width = 1200;
-		cfg.height = 780;
+		cfg.width = 700;
+		cfg.height = 400;
 		
 		new LwjglApplication(new App2014Main(), cfg);
 	}
