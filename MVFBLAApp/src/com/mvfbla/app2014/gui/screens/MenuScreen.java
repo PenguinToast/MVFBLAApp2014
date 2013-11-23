@@ -28,7 +28,6 @@ public class MenuScreen extends BaseScreen {
 		// Creating Animations
 		tweenManager = new TweenManager();
 	}
-	
 	@Override
 	public void render(float delta) {
 		tweenManager.update(delta);
