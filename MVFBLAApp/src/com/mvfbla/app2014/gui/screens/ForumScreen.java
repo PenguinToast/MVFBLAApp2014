@@ -1,41 +1,21 @@
 package com.mvfbla.app2014.gui.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
+
 
 public class ForumScreen extends BaseScreen {
-
-	@Override
-	public void render(float delta) {
+	
+	final String sampleData = "This is the first question";
+	public ForumScreen() {
 		
 	}
-
+	
 	@Override
-	public void resize(int width, int height) {
-
+	public void render(float delta) {
+		// Clear Colors
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
 	}
-
-	@Override
-	public void show() {
-
-	}
-
-	@Override
-	public void hide() {
-
-	}
-
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void resume() {
-
-	}
-
-	@Override
-	public void dispose() {
-
-	}
-
 }
