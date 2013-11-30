@@ -53,7 +53,7 @@ public class LoadingScreen extends BaseScreen {
 		if(assets.update() && timer > delay) {
 			Global.skin = new Skin(Gdx.files.internal("data/skin.json"), assets.get("game.atlas", TextureAtlas.class));
 			Global.skin.addRegions(assets.get("preload.atlas", TextureAtlas.class));
-			Global.game.transition(new MenuScreen());
+			Global.game.transition(new ForumScreen());
 		}
 		Gdx.gl.glDisable(GL10.GL_BLEND);
 	
