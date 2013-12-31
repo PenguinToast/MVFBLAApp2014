@@ -48,6 +48,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		Reply comment = (Reply)getChild(groupPosition, childPosition);
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		convertView = inflater.inflate(R.layout.expandlist_comment, null);	
+		
 		TextView tv = (TextView)convertView.findViewById(R.id.tvComment); 
 		tv.setText(comment.getText().toString());
 	
@@ -82,7 +83,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			LayoutInflater inf = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inf.inflate(R.layout.expandlist_question, null);
 		}
-		
+		TextView likes = (TextView)convertView.findViewById(R.id.numLikes);
+		likes.setText(question.getNumLikes() + "");
 		TextView tv = (TextView)convertView.findViewById(R.id.tvQuestion);
 		tv.setText(question.getText());
 		return convertView;

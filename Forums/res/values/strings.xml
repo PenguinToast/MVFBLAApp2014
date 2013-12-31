@@ -12,5 +12,6 @@
     <string name = "SortByDate">Sort By Date</string>
     <string name = "SortByViews">Sort By Views</string>
     <string name = "SortByLikes">Sort By Likes</string>
+    <string name = "addLike">Add Like</string>
 
 </resources>

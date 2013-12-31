@@ -148,6 +148,10 @@ public class ForumActivity extends Activity {
 		}
 		Collections.sort(questions);
 	}
+	
+	public void addLikes(View view) {
+		
+	}
 
 	
 }
