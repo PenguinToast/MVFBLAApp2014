@@ -150,6 +150,7 @@ public class ForumActivity extends Activity {
 		for(Question e :questions) {
 			e.setSortBy(sortBy);
 		}
+		Collections.sort(questions);
 	}
 
 	
