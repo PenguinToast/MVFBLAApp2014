@@ -1,6 +1,7 @@
 package com.ptype.forums;
 
 import java.util.ArrayList;
+import java.util.*;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -115,13 +116,32 @@ public class ForumActivity extends Activity {
 		ques.add(new Question("Hello"));
 		ques.add(new Question("Hello"));
 		
+		ques.get(4).incrementLikes();
+		ques.get(5).incrementLikes();
+		ques.get(5).incrementLikes();
+		ques.get(5).incrementLikes();
+		ques.get(1).incrementLikes();
+		ques.get(1).incrementLikes();
+		ques.get(2).incrementLikes();
+		ques.get(2).incrementLikes();
+		ques.get(2).incrementLikes();
+		ques.get(2).incrementLikes();
 		return ques;
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Toast.makeText(this, "Hello", Toast.LENGTH_LONG).show();
+		switch(item.getItemId()) {
+		case R.id.SortByDate: 
+			Arrays.sort(questions.toArray());
+			break;
+		default:
+			Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();
+		}
+		
+		expAdapter.notifyDataSetChanged();
 		return true;
 	}
 	
+
 	
 }

@@ -7,7 +7,8 @@
     <color name="CommentBackground">#FFAFABAB</color>
     <color name="Black">#000000</color>
     <color name="QuestionBackground">#FF7C7C7C</color>
-    <string name="addComment">Add a comment...</string>
+    <string name="addComment">Add a comment</string>
     <string name="send">Send</string>
+    <string name = "SortByDate">Date</string>
 
 </resources>

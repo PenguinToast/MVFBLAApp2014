@@ -31,6 +31,7 @@ public final class R {
     public static final class id {
         public static final int ExpList=0x7f090000;
         public static final int NewComment=0x7f090001;
+        public static final int SortByDate=0x7f090006;
         public static final int action_settings=0x7f090005;
         public static final int send_button=0x7f090002;
         public static final int tvComment=0x7f090003;
@@ -46,6 +47,7 @@ public final class R {
         public static final int forum=0x7f080000;
     }
     public static final class string {
+        public static final int SortByDate=0x7f050005;
         public static final int action_settings=0x7f050001;
         public static final int addComment=0x7f050003;
         public static final int app_name=0x7f050000;
