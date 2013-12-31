@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -89,7 +90,10 @@ public class ForumActivity extends Activity {
 		
 		Question ques1 = new Question("What are considered fruits?");
 		Comment comm1 = new Comment();
-		comm1.setComment("Apple!");
+		comm1.setComment("Apple is considered a fruit. It is one of the most "
+				+ "red of all the fruits and is actually very healthy. Although it "
+				+ "may not seem as though it is healthy, it is capable of providing many "
+				+ "nutrients a human body needs to survive.");
 		comms.add(comm1);
 		ques1.addComment(comms);
 		comms = new ArrayList<Comment>();
@@ -113,4 +117,11 @@ public class ForumActivity extends Activity {
 		
 		return ques;
 	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Toast.makeText(this, "Hello", Toast.LENGTH_LONG).show();
+		return true;
+	}
+	
+	
 }
