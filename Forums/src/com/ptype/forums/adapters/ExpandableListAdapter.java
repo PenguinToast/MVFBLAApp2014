@@ -10,8 +10,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.ptype.forums.R;
-import com.ptype.forums.classes.Comment;
 import com.ptype.forums.classes.Question;
+import com.ptype.forums.classes.Reply;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;
@@ -23,17 +23,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 
 	
-	public void addItem(Comment comment, Question question) {
+	public void addItem(Reply reply, Question question) {
 		if(!questions.contains(question)) {
 			questions.add(question);
 		}
 		int index = questions.indexOf(question);
-		questions.get(index).addComment(comment);
+		questions.get(index).addReply(reply);
 	}
 	
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return questions.get(groupPosition).getComments().get(childPosition);
+		return questions.get(groupPosition).getReplies().get(childPosition);
 	}
 
 	@Override
@@ -45,18 +45,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		
-		Comment comment = (Comment)getChild(groupPosition, childPosition);
+		Reply comment = (Reply)getChild(groupPosition, childPosition);
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		convertView = inflater.inflate(R.layout.expandlist_comment, null);	
 		TextView tv = (TextView)convertView.findViewById(R.id.tvComment); 
-		tv.setText(comment.getComment().toString());
+		tv.setText(comment.getText().toString());
 	
 		return convertView;
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return questions.get(groupPosition).getComments().size();
+		return questions.get(groupPosition).getReplies().size();
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 		
 		TextView tv = (TextView)convertView.findViewById(R.id.tvQuestion);
-		tv.setText(question.getQuestion());
+		tv.setText(question.getText());
 		return convertView;
 	}
 

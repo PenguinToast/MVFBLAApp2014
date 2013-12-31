@@ -1,7 +1,7 @@
 package com.ptype.forums;
 
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Collections;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,8 +16,8 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
 import com.ptype.forums.adapters.ExpandableListAdapter;
-import com.ptype.forums.classes.Comment;
 import com.ptype.forums.classes.Question;
+import com.ptype.forums.classes.Reply;
 
 public class ForumActivity extends Activity {
 
@@ -63,7 +63,7 @@ public class ForumActivity extends Activity {
 			@Override
 			public void onGroupCollapse(int groupPosition) {
 				Toast.makeText(getApplicationContext(), 
-						questions.get(groupPosition).getQuestion() + " Collapsed",
+						questions.get(groupPosition).getText() + " Collapsed",
 						Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -74,8 +74,8 @@ public class ForumActivity extends Activity {
 					int groupPosition, int childPosition, long id) {
 				
 				Toast.makeText(getApplicationContext(),
-						questions.get(groupPosition).getQuestion() + " : " +
-								questions.get(groupPosition).getComments().get(childPosition), Toast.LENGTH_SHORT).show();
+						questions.get(groupPosition).getText() + " : " +
+								questions.get(groupPosition).getReplies().get(childPosition), Toast.LENGTH_SHORT).show();
 				return false;
 			}
 			
@@ -91,20 +91,20 @@ public class ForumActivity extends Activity {
 	
 	public ArrayList<Question> setStandardGroup() {
 		ArrayList<Question> ques = new ArrayList<Question>();
-		ArrayList<Comment> comms = new ArrayList<Comment>();
+		ArrayList<Reply> comms = new ArrayList<Reply>();
 		
 		Question ques1 = new Question("What are considered fruits?");
-		Comment comm1 = new Comment();
-		comm1.setComment("Apple is considered a fruit. It is one of the most "
+		Reply comm1 = new Reply();
+		comm1.setText("Apple is considered a fruit. It is one of the most "
 				+ "red of all the fruits and is actually very healthy. Although it "
 				+ "may not seem as though it is healthy, it is capable of providing many "
 				+ "nutrients a human body needs to survive.");
 		comms.add(comm1);
-		ques1.addComment(comms);
-		comms = new ArrayList<Comment>();
+		ques1.addReply(comms);
+		comms = new ArrayList<Reply>();
 		
 		Question ques2 = new Question("What are considered vegetables?");
-		ques2.addComment(new Comment("Lettuce?"));
+		ques2.addReply(new Reply("Lettuce?"));
 		
 		ques.add(ques1);
 		ques.add(ques2);
