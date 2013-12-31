@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ptype.forums.R;
@@ -47,40 +44,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		final int GROUP_POSITION = groupPosition;
 		
-		if(childPosition < getChildrenCount(groupPosition)-1) {
-			Comment comment = (Comment)getChild(groupPosition, childPosition);
-			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.expandlist_comment, null);	
-			TextView tv = (TextView)convertView.findViewById(R.id.tvComment); 
-			tv.setText(comment.getComment().toString());
-		}
-		else {
-			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.expandlist_add_comment, null);
-			ImageView iv = (ImageView)convertView.findViewById(R.id.send_button);
-			final View CONVERT_VIEW = convertView;
-
-			iv.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					EditText et = (EditText)CONVERT_VIEW.findViewById(R.id.NewComment);
-					String message = et.getText().toString();
-					((Question)getGroup(GROUP_POSITION)).addComment(message);
-					System.out.println("Worked");
-					et.setText("");
-				}
-			});
-		}
-		
+		Comment comment = (Comment)getChild(groupPosition, childPosition);
+		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		convertView = inflater.inflate(R.layout.expandlist_comment, null);	
+		TextView tv = (TextView)convertView.findViewById(R.id.tvComment); 
+		tv.setText(comment.getComment().toString());
+	
 		return convertView;
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return questions.get(groupPosition).getComments().size() + 1;
+		return questions.get(groupPosition).getComments().size();
 	}
 
 	@Override

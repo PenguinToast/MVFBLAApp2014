@@ -70,7 +70,6 @@ public class ForumActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						questions.get(groupPosition).getQuestion() + " : " +
 								questions.get(groupPosition).getComments().get(childPosition), Toast.LENGTH_SHORT).show();
-				this.notifyAll();
 				return false;
 			}
 			
@@ -92,21 +91,25 @@ public class ForumActivity extends Activity {
 		Comment comm1 = new Comment();
 		comm1.setComment("Apple!");
 		comms.add(comm1);
-		comms.add(new Comment("Orange!"));
-		comms.add(new Comment("Pear!"));
 		ques1.addComment(comms);
 		comms = new ArrayList<Comment>();
 		
 		Question ques2 = new Question("What are considered vegetables?");
 		ques2.addComment(new Comment("Lettuce?"));
-		Comment comm21 = new Comment();
-		comm21.setComment("Pomegranate?");
-		ques2.addComment(comm21);
-		ques2.addComment("Pomegranate's not a fruit you noob...");
-		ques2.addComment("*Vegetable...");
 		
 		ques.add(ques1);
 		ques.add(ques2);
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
+		ques.add(new Question("Hello"));
 		
 		return ques;
 	}
