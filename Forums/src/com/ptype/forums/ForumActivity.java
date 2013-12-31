@@ -24,10 +24,10 @@ public class ForumActivity extends Activity {
 	private ExpandableListAdapter expAdapter;
 	private ArrayList<Question> questions;
 	private ExpandableListView expList;
-	static final int SORT_TIME = 1;
-	static final int SORT_VIEWS = 2;
-	static final int SORT_LIKES = 3;
-	static final int SORT_DEFAULT = 0;
+	public static final int SORT_TIME = 1;
+	public static final int SORT_VIEWS = 2;
+	public static final int SORT_LIKES = 3;
+	public static final int SORT_DEFAULT = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
