@@ -1,9 +1,9 @@
 package com.ptype.forums.classes;
 
 import java.util.ArrayList;
+import android.text.format.Time;
 
-public class Question {
-
+public class Question implements Comparable<Question>{
 	private String question;
 	private ArrayList<Comment> comments;
 	private int numLikes, numViews, numComments;
@@ -12,14 +12,15 @@ public class Question {
 	public Question() {
 		comments = new ArrayList<Comment>(0);
 		numLikes = 0;
+		numViews = 0;
 		numComments = comments.size();
-		
+		timePosted = new Time();
+		timePosted.setToNow();
 	}
+	
 	public Question(String question) {
+		this();
 		this.question = question;
-		comments = new ArrayList<Comment>(0);
-		numLikes = 0;
-		numComments = comments.size();
 	}
 	
 	public int getNumComments(){
@@ -54,6 +55,11 @@ public class Question {
 		return numLikes;
 	}
 	
+	@Override
+	public int compareTo(Question q){//allows questions to be sorted by time posted
+		return Time.compare(timePosted, q.timePosted);
+	}
+	
 	public void incrementLikes() {
 		numLikes++;
 	}
@@ -70,4 +76,11 @@ public class Question {
 		numComments--;
 	}
 	
+	public void incrementViews(){
+		numViews++;
+	}
+	
+	public void decrementViews(){
+		numViews--;
+	}
 }
