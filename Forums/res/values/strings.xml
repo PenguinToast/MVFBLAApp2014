@@ -9,6 +9,8 @@
     <color name="QuestionBackground">#FF7C7C7C</color>
     <string name="addComment">Add a comment</string>
     <string name="send">Send</string>
-    <string name = "SortByDate">Date</string>
+    <string name = "SortByDate">Sort By Date</string>
+    <string name = "SortByViews">Sort By Views</string>
+    <string name = "SortByLikes">Sort By Likes</string>
 
 </resources>

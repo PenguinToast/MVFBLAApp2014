@@ -120,23 +120,19 @@ public class ForumActivity extends Activity {
 		ques.add(new Question("Hello"));
 		ques.add(new Question("Hello"));
 		
-		ques.get(3).incrementLikes();
-		ques.get(4).incrementLikes();
-		ques.get(4).incrementLikes();
-		ques.get(4).incrementLikes();
-		ques.get(0).incrementLikes();
-		ques.get(0).incrementLikes();
-		ques.get(1).incrementLikes();
-		ques.get(1).incrementLikes();
-		ques.get(1).incrementLikes();
-		ques.get(1).incrementLikes();
 		return ques;
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case R.id.SortByTime: 
-			sort(this.SORT_TIME);
+			sort(ForumActivity.SORT_TIME);
+			break;
+		case R.id.SortByLikes:
+			sort(ForumActivity.SORT_LIKES);
+			break;
+		case R.id.SortByViews:
+			sort(ForumActivity.SORT_VIEWS);
 			break;
 		default:
 			Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();

@@ -9,6 +9,16 @@
         android:id = "@+id/SortByTime"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/SortByDate"/>
+        android:title="@string/SortByDate"/>    
+    <item 
+        android:id = "@+id/SortByViews"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/SortByViews"/>
+	<item 
+        android:id = "@+id/SortByLikes"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/SortByLikes"/>
 
 </menu>
