@@ -1,12 +1,15 @@
 package com.ptype.forums.classes;
 
 import java.util.ArrayList;
+
+import com.ptype.forums.ForumActivity;
+
 import android.text.format.Time;
 
 public class Question implements Comparable<Question>{
 	private String question;
 	private ArrayList<Comment> comments;
-	private int numLikes, numViews, numComments;
+	private int numLikes, numViews, numComments, sortBy;
 	private Time timePosted;
 	
 	public Question() {
@@ -59,10 +62,30 @@ public class Question implements Comparable<Question>{
 		return numViews;
 	}
 	
+	public Time getTimePosted(){
+		return this.timePosted;
+	}
+	
+	public void setSortBy(int x){
+		sortBy = x;
+	}
+	
 	@Override
 	public int compareTo(Question q){//allows questions to be sorted by time posted
 //		return Time.compare(timePosted, q.timePosted);
-		return this.numLikes - q.getNumLikes();
+		switch(sortBy){
+		case ForumActivity.SORT_TIME:
+			return Time.compare(q.getTimePosted(), this.getTimePosted());
+//			break;
+		case ForumActivity.SORT_VIEWS:
+			return q.getNumViews() - this.getNumViews();
+//			break;
+		case ForumActivity.SORT_LIKES:
+			return q.getNumLikes() - this.getNumLikes();
+//			break;
+		default://temporary just sort by number of likes
+			return q.getNumLikes() - this.getNumLikes();
+		}
 	}
 	
 	public void incrementLikes() {
