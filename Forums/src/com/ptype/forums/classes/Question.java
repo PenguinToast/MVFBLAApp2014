@@ -55,6 +55,10 @@ public class Question implements Comparable<Question>{
 		return numLikes;
 	}
 	
+	public int getNumViews(){
+		return numViews;
+	}
+	
 	@Override
 	public int compareTo(Question q){//allows questions to be sorted by time posted
 		return Time.compare(timePosted, q.timePosted);
