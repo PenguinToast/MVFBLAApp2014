@@ -6,16 +6,24 @@ public class Question {
 
 	private String question;
 	private ArrayList<Comment> comments;
-	private int numLikes;
+	private int numLikes, numViews, numComments;
+	private Time timePosted;
 	
 	public Question() {
-		comments = new ArrayList<Comment>();
+		comments = new ArrayList<Comment>(0);
 		numLikes = 0;
+		numComments = comments.size();
+		
 	}
 	public Question(String question) {
 		this.question = question;
-		comments = new ArrayList<Comment>();
+		comments = new ArrayList<Comment>(0);
 		numLikes = 0;
+		numComments = comments.size();
+	}
+	
+	public int getNumComments(){
+		return numComments;
 	}
 	
 	public String getQuestion() {
@@ -42,7 +50,7 @@ public class Question {
 		return comments;
 	}
 	
-	public int getLikes() {
+	public int getNumLikes() {
 		return numLikes;
 	}
 	
@@ -52,6 +60,14 @@ public class Question {
 	
 	public void decrementLikes() {
 		numLikes--;
+	}
+	
+	public void incrementComments(){
+		numComments++;
+	}
+	
+	public void decrementComments(){
+		numComments--;
 	}
 	
 }
