@@ -24,6 +24,10 @@ public class ForumActivity extends Activity {
 	private ExpandableListAdapter expAdapter;
 	private ArrayList<Question> questions;
 	private ExpandableListView expList;
+	private static final int SORT_TIME = 1;
+	private static final int SORT_VIEWS = 2;
+	private static final int SORT_LIKES = 3;
+	private static final int SORT_DEFAULT = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,23 +120,23 @@ public class ForumActivity extends Activity {
 		ques.add(new Question("Hello"));
 		ques.add(new Question("Hello"));
 		
+		ques.get(3).incrementLikes();
 		ques.get(4).incrementLikes();
-		ques.get(5).incrementLikes();
-		ques.get(5).incrementLikes();
-		ques.get(5).incrementLikes();
+		ques.get(4).incrementLikes();
+		ques.get(4).incrementLikes();
+		ques.get(0).incrementLikes();
+		ques.get(0).incrementLikes();
 		ques.get(1).incrementLikes();
 		ques.get(1).incrementLikes();
-		ques.get(2).incrementLikes();
-		ques.get(2).incrementLikes();
-		ques.get(2).incrementLikes();
-		ques.get(2).incrementLikes();
+		ques.get(1).incrementLikes();
+		ques.get(1).incrementLikes();
 		return ques;
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
-		case R.id.SortByDate: 
-			Arrays.sort(questions.toArray());
+		case R.id.SortByTime: 
+			sort(this.SORT_TIME);
 			break;
 		default:
 			Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();
@@ -142,6 +146,11 @@ public class ForumActivity extends Activity {
 		return true;
 	}
 	
+	public void sort(int sortBy) {
+		for(Question e :questions) {
+			e.setSortBy(sortBy);
+		}
+	}
 
 	
 }
