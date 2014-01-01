@@ -9,21 +9,21 @@ import android.text.format.Time;
 import java.util.*;
 
 public class Submission {
-	protected String text;
-	protected int numLikes, numViews, numReplies;
-	protected Time timePosted;
-	protected ArrayList<Reply> replies;
+	protected String text;//the text displayed in the submission
+	protected int numLikes, numViews, numReplies;//
+	protected Time timePosted;//records when the submission was posted
+	protected ArrayList<Reply> replies;//an ArrayList of all replies to this submission
 	
-	public Submission() {
-		replies = new ArrayList<Reply>(0);
+	public Submission() {//initialize class variables
+		replies = new ArrayList<Reply>(0);//
 		numLikes = 0;
 		numViews = 0;
 		numReplies = replies.size();
 		timePosted = new Time();
-		timePosted.setToNow();
+		timePosted.setToNow();//get the current time of creation
 	}
 	
-	public Submission(String text) {
+	public Submission(String text) {//overloaded
 		this();
 		this.text = text;
 	}
