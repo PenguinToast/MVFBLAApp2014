@@ -1,3 +1,8 @@
+/* This class is a type of submission. 
+ * It represents the questions posted to the forum.
+ */
+
+
 package com.ptype.forums.classes;
 
 import com.ptype.forums.ForumActivity;
