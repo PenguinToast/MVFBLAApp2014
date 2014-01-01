@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ptype.forums.R;
@@ -85,6 +86,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 		TextView likes = (TextView)convertView.findViewById(R.id.numLikes);
 		likes.setText(question.getNumLikes() + "");
+		ImageView iv = (ImageView)convertView.findViewById(R.id.addLike);
+		iv.setTag(Integer.valueOf(groupPosition));
 		TextView tv = (TextView)convertView.findViewById(R.id.tvQuestion);
 		tv.setText(question.getText());
 		return convertView;

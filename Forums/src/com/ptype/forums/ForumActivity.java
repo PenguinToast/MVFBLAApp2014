@@ -149,8 +149,11 @@ public class ForumActivity extends Activity {
 		Collections.sort(questions);
 	}
 	
+	// 
 	public void addLikes(View view) {
-		
+		int groupPosition = (Integer)view.getTag();
+		questions.get(groupPosition).incrementLikes();;
+		expAdapter.notifyDataSetChanged();
 	}
 
 	
