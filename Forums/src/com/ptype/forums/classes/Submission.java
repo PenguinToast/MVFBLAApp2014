@@ -1,3 +1,8 @@
+/* This class represents all submissions.
+ * It includes comments and questions to the forum.
+ */
+
+
 package com.ptype.forums.classes;
 
 import android.text.format.Time;
