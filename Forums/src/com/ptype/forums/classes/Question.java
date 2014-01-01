@@ -7,11 +7,11 @@ public class Question extends Submission implements Comparable<Question>{
 	private int sortBy;//int to determine how to sort. by time submitted, rating, or number of views
 	
 	public Question(){
-		this("");
+		this("");//calls overloaded constructor. the text of the question is an empty string
 	}
 	
 	public Question(String text){
-		super(text);
+		super(text);//creates a Submission 
 	}
 	
 	//set what method to sort submissions by. constants are in ForumActivity
