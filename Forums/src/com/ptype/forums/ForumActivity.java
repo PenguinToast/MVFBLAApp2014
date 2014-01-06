@@ -21,14 +21,20 @@ import com.ptype.forums.classes.Reply;
 
 public class ForumActivity extends Activity {
 
+	// Custom Adapter that allows the list to expand when a group is clicked on
 	private ExpandableListAdapter expAdapter;
+	// ArrayList of questions that are displayed through the custom adapter
 	private ArrayList<Question> questions;
+	// The Expandable listview displayed on this activity for the forum
 	private ExpandableListView expList;
+	
+	// final static ints that are available globally
 	public static final int SORT_TIME = 1;
 	public static final int SORT_VIEWS = 2;
 	public static final int SORT_LIKES = 3;
 	public static final int SORT_DEFAULT = 0;
 	
+	// Constructor that initiates the entire activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,6 +88,7 @@ public class ForumActivity extends Activity {
 		});
 	}
 	
+	// Creates the options menu
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -89,6 +96,7 @@ public class ForumActivity extends Activity {
 		return true;
 	}
 	
+	// Sample data to test the activity
 	public ArrayList<Question> setStandardGroup() {
 		ArrayList<Question> ques = new ArrayList<Question>();
 		ArrayList<Reply> comms = new ArrayList<Reply>();
@@ -123,6 +131,7 @@ public class ForumActivity extends Activity {
 		return ques;
 	}
 	
+	// Actionbar allows sorting for the menus
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 		case R.id.SortByTime: 
@@ -142,6 +151,7 @@ public class ForumActivity extends Activity {
 		return true;
 	}
 	
+	// Sorts the Arraylist by time, likes, and views
 	public void sort(int sortBy) {
 		for(Question e :questions) {
 			e.setSortBy(sortBy);
@@ -149,7 +159,8 @@ public class ForumActivity extends Activity {
 		Collections.sort(questions);
 	}
 	
-	// 
+	// Increments the number of likes for a certain question
+	// when the up arrow is pressed
 	public void addLikes(View view) {
 		int groupPosition = (Integer)view.getTag();
 		questions.get(groupPosition).incrementLikes();;
