@@ -47,13 +47,14 @@ public class DatabaseManager {
 	 * @param fb_id
 	 *            The Facebook ID of the user
 	 */
-	public void createUser(int fb_id) {
+	public boolean createUser(int fb_id) {
 		try {
 			createUser.setInt(1, fb_id);
 			createUser.setDate(2, new Date(System.currentTimeMillis()));
-			createUser.executeUpdate();
+			return createUser.executeUpdate() > 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
 	}
 
@@ -65,9 +66,9 @@ public class DatabaseManager {
 	 * @param post_by
 	 *            The userID of the user who created the post
 	 * @param post_parent
-	 *            The postID of the parent of the post - -1 for questions
+	 *            The postID of the parent of the post (-1 for questions)
 	 */
-	public void createPost(String content, int post_by, int post_parent) {
+	public boolean createPost(String content, int post_by, int post_parent) {
 		try {
 			createPost.setString(1, content);
 			createPost.setDate(2, new Date(System.currentTimeMillis()));
@@ -76,10 +77,12 @@ public class DatabaseManager {
 				createPost.setNull(4, Types.INTEGER);
 			} else {
 				createPost.setInt(4, post_parent);
+				
 			}
-			createPost.executeUpdate();
+			return createPost.executeUpdate() > 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
 	}
 
@@ -91,14 +94,19 @@ public class DatabaseManager {
 	 * @param update
 	 *            New content to replace old content with
 	 */
-	public void editPost(int postID, String update) {
+	public boolean editPost(int postID, String update) {
 		try {
 			editPost.setString(2, update);
 			editPost.setInt(1, postID);
-			editPost.executeUpdate();
-			updatePostTime(postID);
+			int result = editPost.executeUpdate();
+			if(result > 0) {
+				return updatePostTime(postID);
+			} else {
+				return false;
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
 	}
 
@@ -108,13 +116,14 @@ public class DatabaseManager {
 	 * @param postID
 	 *            ID of the post to update
 	 */
-	public void updatePostTime(int postID) {
+	public boolean updatePostTime(int postID) {
 		try {
 			timePost.setDate(1, new Date(System.currentTimeMillis()));
 			timePost.setInt(2, postID);
-			timePost.executeUpdate();
+			return timePost.executeUpdate() > 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
 	}
 
