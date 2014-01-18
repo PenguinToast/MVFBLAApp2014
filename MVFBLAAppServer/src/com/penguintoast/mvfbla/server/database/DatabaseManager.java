@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -79,6 +80,10 @@ public class DatabaseManager {
 	public static DatabaseManager getInstance() {
 		return INSTANCE;
 	}
+	
+	public Time dateToTime(Date date) {
+		return null;
+	}
 
 	public ArrayList<Submission> getTopLevelPosts() {
 		try {
@@ -86,7 +91,9 @@ public class DatabaseManager {
 			ResultSet results = getTopLevelPosts.executeQuery();
 			while(results.next()) {
 				Submission sub = new Submission();
-				
+				sub.setPostID(results.getInt("post_id"));
+				sub.setText(results.getString("post_content"));
+				sub.setTimePosted(dateToTime(results.getDate("post_date")));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

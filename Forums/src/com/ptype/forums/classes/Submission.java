@@ -5,23 +5,27 @@
 
 package com.ptype.forums.classes;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import android.text.format.Time;
-import java.util.*;
 
 public class Submission {
 	protected String text;//the text displayed in the submission
 	protected int numLikes, numReplies;//
-	protected Time timePosted, timeReplied;//records when the submission was posted
+	protected Date timePosted, timeReplied;//records when the submission was posted
 	protected ArrayList<Reply> replies;//an ArrayList of all replies to this submission
 	protected int parentID;
+	protected int postID;
 	
 	public Submission() {//initialize class variables
 		replies = new ArrayList<Reply>(0);//
 		numLikes = 0;
 		numReplies = replies.size();
-		timePosted = new Time();
-		timeReplied = new Time();
+		timePosted = new Date();
+		timeReplied = new Date();
 		parentID = -1;
+		postID = 0;
 	}
 	
 	public Submission(String text) {//overloaded
@@ -50,11 +54,11 @@ public class Submission {
 	}
 	
 	//return when this question was posted
-	public Time getTimePosted(){
+	public Date getTimePosted(){
 		return this.timePosted;
 	}
 	
-	public Time getTimeReplied() {
+	public Date getTimeReplied() {
 		return timeReplied;
 	}
 	
@@ -77,11 +81,11 @@ public class Submission {
 		this.numLikes = numLikes;
 	}
 	
-	public void setTimePosted(Time time) {
+	public void setTimePosted(Date time) {
 		this.timePosted = time;
 	}
 	
-	public void setTimeReplied(Time time) {
+	public void setTimeReplied(Date time) {
 		this.timeReplied = time;
 	}
 	
@@ -91,5 +95,13 @@ public class Submission {
 	
 	public void setParentID(int parentID) {
 		this.parentID = parentID;
+	}
+	
+	public void setPostID(int postID) {
+		this.postID = postID;
+	}
+	
+	public int getPostID() {
+		return postID;
 	}
 }

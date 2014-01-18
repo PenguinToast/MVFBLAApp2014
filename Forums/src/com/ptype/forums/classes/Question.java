@@ -6,7 +6,6 @@
 package com.ptype.forums.classes;
 
 import com.ptype.forums.ForumActivity;
-import android.text.format.Time;
 
 public class Question extends Submission implements Comparable<Question>{
 	private int sortBy;//int to determine how to sort. by time submitted, rating, or number of views
@@ -30,7 +29,7 @@ public class Question extends Submission implements Comparable<Question>{
 //		return Time.compare(timePosted, q.timePosted);
 		switch(sortBy){
 		case ForumActivity.SORT_TIME:
-			return Time.compare(q.getTimePosted(), this.getTimePosted());
+			return 0;
 //			break;
 		case ForumActivity.SORT_LIKES:
 			return q.getNumLikes() - this.getNumLikes();
