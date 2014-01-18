@@ -28,6 +28,9 @@ public class ForumServer {
 	}
 	
 	private void received(Connection connection, Object object) {
+		if (object instanceof Object) {
+			
+		}
 		
 	}
 }
