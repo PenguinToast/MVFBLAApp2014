@@ -6,6 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.util.ArrayList;
+
+import com.ptype.forums.classes.Submission;
 
 public class DatabaseManager {
 	private static DatabaseManager INSTANCE;
@@ -16,6 +19,9 @@ public class DatabaseManager {
 	private PreparedStatement editPost;
 	private PreparedStatement deletePost;
 	private PreparedStatement timePost;
+
+	private PreparedStatement getTopLevelPosts;
+	private PreparedStatement getPostReplies;
 
 	private PreparedStatement voteQuery;
 	private PreparedStatement voteAdd;
@@ -58,14 +64,44 @@ public class DatabaseManager {
 			pointsSet = connect.prepareStatement("UPDATE forums.users SET user_points=? WHERE user_id=?");
 			// Query points count of user - userID
 			pointsQuery = connect.prepareStatement("SELECT forums.users.user_points FROM forums.users WHERE user_id=?");
+			// Query top level posts
+			getTopLevelPosts = connect
+					.prepareStatement("SELECT * FROM forums.posts WHERE post_parent IS NULL ORDER BY post_date_replied DESC;");
+			// Query post replies - postParent
+			getPostReplies = connect
+					.prepareStatement("SELECT * FROM forums.posts WHERE post_parent = ? ORDER BY post_date_replied DESC;");
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	public DatabaseManager getInstance() {
+	public static DatabaseManager getInstance() {
 		return INSTANCE;
+	}
+
+	public ArrayList<Submission> getTopLevelPosts() {
+		try {
+			ArrayList<Submission> out = new ArrayList<Submission>();
+			ResultSet results = getTopLevelPosts.executeQuery();
+			while(results.next()) {
+				Submission sub = new Submission();
+				
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Submission> getReplies(int postID) {
+		try {
+			ArrayList<Submission> out = new ArrayList<Submission>();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -275,19 +311,21 @@ public class DatabaseManager {
 			return -1;
 		}
 	}
-	
+
 	/**
 	 * Adds points to a user
 	 * 
-	 * @param userID ID of user to add points to
-	 * @param points Number of points to add
+	 * @param userID
+	 *            ID of user to add points to
+	 * @param points
+	 *            Number of points to add
 	 * @return Whether or not the add was successful
 	 */
 	public boolean addPoints(int userID, int points) {
 		try {
 			int numPoints = getPoints(userID);
 			return setPoints(userID, numPoints + points);
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		}
