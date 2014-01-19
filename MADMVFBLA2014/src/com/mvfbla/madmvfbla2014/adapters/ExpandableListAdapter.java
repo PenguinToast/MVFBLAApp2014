@@ -1,4 +1,4 @@
-package com.mvfbla.mvfbla2014.adapters;
+package com.mvfbla.madmvfbla2014.adapters;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mvfbla.madmvfbla2014.R;
-import com.mvfbla.mvfbla2014.classes.Submission;
+import com.mvfbla.madmvfbla2014.classes.Submission;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;

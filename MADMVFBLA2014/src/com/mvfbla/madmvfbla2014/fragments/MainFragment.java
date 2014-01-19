@@ -1,4 +1,4 @@
-package com.mvfbla.mvfbla2014.fragments;
+package com.mvfbla.madmvfbla2014.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
