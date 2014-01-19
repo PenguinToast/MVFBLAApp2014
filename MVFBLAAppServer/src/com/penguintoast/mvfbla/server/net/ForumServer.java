@@ -47,6 +47,7 @@ public class ForumServer {
 		if (object instanceof NetLogin) {
 			NetLogin dat = (NetLogin) object;
 			connection.setFBID(dat.id);
+			connection.setUserID(database.getUserID(dat.id));
 		}
 		if (object instanceof NetTopLevelPosts) {
 			connection.sendTCP(new NetTopLevelPosts(database.getTopLevelPosts()));

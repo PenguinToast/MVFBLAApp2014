@@ -37,8 +37,11 @@ public class DatabaseManager {
 	public int getUserID(int fbID) {
 		try {
 			// Get user id from facebook id - fbID
-			PreparedStatement getUserID = connect.prepareStatement("SELECT forums.users.user_id FROM forums.users WHERE ");
-			
+			PreparedStatement getUserID = connect.prepareStatement("SELECT forums.users.user_id FROM forums.users WHERE user_fb_id=?;");
+			getUserID.setInt(1, fbID);
+			ResultSet results = getUserID.executeQuery();
+			results.first();
+			return results.getInt(1);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
