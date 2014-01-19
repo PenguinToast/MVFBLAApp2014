@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 
 public class ForumConnection extends Connection {
 	private int fbID;
+	private int userID;
 
 	public ForumConnection() {
 	}
@@ -12,8 +13,16 @@ public class ForumConnection extends Connection {
 		return fbID;
 	}
 	
+	public int getUserID() {
+		return userID;
+	}
+	
 	public void setFBID(int fbID) {
 		this.fbID = fbID;
+	}
+	
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 }

@@ -11,20 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ptype.forums.R;
-import com.ptype.forums.classes.Question;
-import com.ptype.forums.classes.Reply;
+import com.ptype.forums.classes.Submission;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;
-	private ArrayList<Question> questions;
+	private ArrayList<Submission> questions;
 	
-	public ExpandableListAdapter(Context context, ArrayList<Question> questions) {
+	public ExpandableListAdapter(Context context, ArrayList<Submission> questions) {
 		this.context = context;
 		this.questions = questions;
 	}
 
 	
-	public void addItem(Reply reply, Question question) {
+	public void addItem(Submission reply, Submission question) {
 		if(!questions.contains(question)) {
 			questions.add(question);
 		}
@@ -46,7 +45,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		
-		Reply comment = (Reply)getChild(groupPosition, childPosition);
+		Submission comment = (Submission)getChild(groupPosition, childPosition);
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		convertView = inflater.inflate(R.layout.expandlist_comment, null);	
 		
@@ -79,7 +78,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		Question question = (Question)getGroup(groupPosition);
+		Submission question = (Submission)getGroup(groupPosition);
 		if(convertView == null) {
 			LayoutInflater inf = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inf.inflate(R.layout.expandlist_question, null);

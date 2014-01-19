@@ -1,7 +1,6 @@
 package com.ptype.forums;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,15 +15,14 @@ import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Toast;
 
 import com.ptype.forums.adapters.ExpandableListAdapter;
-import com.ptype.forums.classes.Question;
-import com.ptype.forums.classes.Reply;
+import com.ptype.forums.classes.Submission;
 
 public class ForumActivity extends Activity {
 
 	// Custom Adapter that allows the list to expand when a group is clicked on
 	private ExpandableListAdapter expAdapter;
 	// ArrayList of questions that are displayed through the custom adapter
-	private ArrayList<Question> questions;
+	private ArrayList<Submission> questions;
 	// The Expandable listview displayed on this activity for the forum
 	private ExpandableListView expList;
 	
@@ -97,36 +95,36 @@ public class ForumActivity extends Activity {
 	}
 	
 	// Sample data to test the activity
-	public ArrayList<Question> setStandardGroup() {
-		ArrayList<Question> ques = new ArrayList<Question>();
-		ArrayList<Reply> comms = new ArrayList<Reply>();
+	public ArrayList<Submission> setStandardGroup() {
+		ArrayList<Submission> ques = new ArrayList<Submission>();
+		ArrayList<Submission> comms = new ArrayList<Submission>();
 		
-		Question ques1 = new Question("What are considered fruits?");
-		Reply comm1 = new Reply();
+		Submission ques1 = new Submission("What are considered fruits?");
+		Submission comm1 = new Submission();
 		comm1.setText("Apple is considered a fruit. It is one of the most "
 				+ "red of all the fruits and is actually very healthy. Although it "
 				+ "may not seem as though it is healthy, it is capable of providing many "
 				+ "nutrients a human body needs to survive.");
 		comms.add(comm1);
 		ques1.addReply(comms);
-		comms = new ArrayList<Reply>();
+		comms = new ArrayList<Submission>();
 		
-		Question ques2 = new Question("What are considered vegetables?");
-		ques2.addReply(new Reply("Lettuce?"));
+		Submission ques2 = new Submission("What are considered vegetables?");
+		ques2.addReply(new Submission("Lettuce?"));
 		
 		ques.add(ques1);
 		ques.add(ques2);
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
-		ques.add(new Question("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
+		ques.add(new Submission("Hello"));
 		
 		return ques;
 	}
@@ -153,10 +151,10 @@ public class ForumActivity extends Activity {
 	
 	// Sorts the Arraylist by time, likes, and views
 	public void sort(int sortBy) {
-		for(Question e :questions) {
-			e.setSortBy(sortBy);
+		for(Submission e :questions) {
+			//e.setSortBy(sortBy);
 		}
-		Collections.sort(questions);
+		//Collections.sort(questions);
 	}
 	
 	// Increments the number of likes for a certain question

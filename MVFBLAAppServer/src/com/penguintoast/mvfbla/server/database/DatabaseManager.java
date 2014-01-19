@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Time;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -14,23 +13,7 @@ import com.ptype.forums.classes.Submission;
 public class DatabaseManager {
 	private static DatabaseManager INSTANCE;
 
-	private PreparedStatement createUser;
-	private PreparedStatement createPost;
-
-	private PreparedStatement editPost;
-	private PreparedStatement deletePost;
-	private PreparedStatement timePost;
-
-	private PreparedStatement getTopLevelPosts;
-	private PreparedStatement getPostReplies;
-
-	private PreparedStatement voteQuery;
-	private PreparedStatement voteAdd;
-	private PreparedStatement voteRemove;
-	private PreparedStatement voteNum;
-
-	private PreparedStatement pointsSet;
-	private PreparedStatement pointsQuery;
+	private Connection connect;
 
 	static {
 		INSTANCE = new DatabaseManager();
@@ -40,38 +23,8 @@ public class DatabaseManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/forums?"
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/forums?"
 					+ "user=admin&password=starcraft1");
-
-			// Insert user - facebookID, date
-			createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, ?, 0);");
-			// Insert post - content, date, by, parent, date_replied
-			createPost = connect.prepareStatement("INSERT INTO forums.posts VALUES (default, ?, ?, ?, ?, ?);");
-			// Edit post - content, postID
-			editPost = connect.prepareStatement("UPDATE forums.posts SET post_content=? WHERE post_id=?;");
-			// Delete post - postID
-			deletePost = connect.prepareStatement("DELETE FROM forums.posts WHERE post_id=?");
-			// Update post replied time - date_replied, postID
-			timePost = connect.prepareStatement("UPDATE forums.posts SET post_date_replied=? WHERE post_id=?");
-			// Query user vote on post - userID, postID
-			voteQuery = connect.prepareStatement("SELECT COUNT(*) FROM forums.upvotes WHERE user_id=? AND post_id=?");
-			// Query vote count on post - postID
-			voteNum = connect.prepareStatement("SELECT COUNT(*) FROM forums.upvotes WHERE post_id=?");
-			// Add vote - userID, postID
-			voteAdd = connect.prepareStatement("INSERT INTO forums.upvotes values (?, ?)");
-			// Remove vote - userID, postID
-			voteRemove = connect.prepareStatement("DELETE FROM forums.upvotes WHERE user_id=? AND post_id=?");
-			// Set points of a user - points, userID
-			pointsSet = connect.prepareStatement("UPDATE forums.users SET user_points=? WHERE user_id=?");
-			// Query points count of user - userID
-			pointsQuery = connect.prepareStatement("SELECT forums.users.user_points FROM forums.users WHERE user_id=?");
-			// Query top level posts
-			getTopLevelPosts = connect
-					.prepareStatement("SELECT * FROM forums.posts WHERE post_parent IS NULL ORDER BY post_date_replied DESC;");
-			// Query post replies - postParent
-			getPostReplies = connect
-					.prepareStatement("SELECT * FROM forums.posts WHERE post_parent = ? ORDER BY post_date_replied DESC;");
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -81,30 +34,64 @@ public class DatabaseManager {
 		return INSTANCE;
 	}
 	
-	public Time dateToTime(Date date) {
-		return null;
+	public int getUserID(int fbID) {
+		try {
+			// Get user id from facebook id - fbID
+			PreparedStatement getUserID = connect.prepareStatement("SELECT forums.users.user_id FROM forums.users WHERE ");
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return -1;
 	}
 
 	public ArrayList<Submission> getTopLevelPosts() {
 		try {
+			// Query top level posts
+			PreparedStatement getTopLevelPosts = connect
+					.prepareStatement("SELECT * FROM forums.posts WHERE post_parent IS NULL ORDER BY post_date_replied DESC;");
 			ArrayList<Submission> out = new ArrayList<Submission>();
 			ResultSet results = getTopLevelPosts.executeQuery();
-			while(results.next()) {
+			while (results.next()) {
 				Submission sub = new Submission();
 				sub.setPostID(results.getInt("post_id"));
 				sub.setText(results.getString("post_content"));
-				sub.setTimePosted(dateToTime(results.getDate("post_date")));
+				sub.setTimePosted(results.getDate("post_date"));
+				sub.setUserID(results.getInt("post_by"));
+				sub.setParentID(-1);
+				sub.setTimeReplied(results.getDate("post_date_replied"));
+				sub.setReplies(getReplies(sub.getPostID()));
+				sub.setLikes(voteCount(sub.getPostID()));
+				out.add(sub);
 			}
+			return out;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Submission> getReplies(int postID) {
 		try {
+			// Query post replies - postParent
+			PreparedStatement getPostReplies = connect
+					.prepareStatement("SELECT * FROM forums.posts WHERE post_parent = ? ORDER BY post_date_replied DESC;");
 			ArrayList<Submission> out = new ArrayList<Submission>();
-			
+			getPostReplies.setInt(1, postID);
+			ResultSet results = getPostReplies.executeQuery();
+			while (results.next()) {
+				Submission sub = new Submission();
+				sub.setPostID(results.getInt("post_id"));
+				sub.setText(results.getString("post_content"));
+				sub.setTimePosted(results.getDate("post_date"));
+				sub.setUserID(results.getInt("post_by"));
+				sub.setParentID(postID);
+				sub.setTimeReplied(results.getDate("post_date_replied"));
+				sub.setReplies(getReplies(sub.getPostID()));
+				sub.setLikes(voteCount(sub.getPostID()));
+				out.add(sub);
+			}
+			return out;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -119,6 +106,8 @@ public class DatabaseManager {
 	 */
 	public boolean createUser(int fb_id) {
 		try {
+			// Insert user - facebookID, date
+			PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, ?, 0);");
 			createUser.setInt(1, fb_id);
 			createUser.setDate(2, new Date(System.currentTimeMillis()));
 			return createUser.executeUpdate() > 0;
@@ -140,6 +129,8 @@ public class DatabaseManager {
 	 */
 	public boolean createPost(String content, int post_by, int post_parent) {
 		try {
+			// Insert post - content, date, by, parent, date_replied
+			PreparedStatement createPost = connect.prepareStatement("INSERT INTO forums.posts VALUES (default, ?, ?, ?, ?, ?);");
 			createPost.setString(1, content);
 			createPost.setDate(2, new Date(System.currentTimeMillis()));
 			createPost.setInt(3, post_by);
@@ -167,6 +158,8 @@ public class DatabaseManager {
 	 */
 	public boolean editPost(int postID, String update) {
 		try {
+			// Edit post - content, postID
+			PreparedStatement editPost = connect.prepareStatement("UPDATE forums.posts SET post_content=? WHERE post_id=?;");
 			editPost.setString(2, update);
 			editPost.setInt(1, postID);
 			int result = editPost.executeUpdate();
@@ -189,6 +182,8 @@ public class DatabaseManager {
 	 */
 	public boolean updatePostTime(int postID) {
 		try {
+			// Update post replied time - date_replied, postID
+			PreparedStatement timePost = connect.prepareStatement("UPDATE forums.posts SET post_date_replied=? WHERE post_id=?");
 			timePost.setDate(1, new Date(System.currentTimeMillis()));
 			timePost.setInt(2, postID);
 			return timePost.executeUpdate() > 0;
@@ -206,6 +201,8 @@ public class DatabaseManager {
 	 */
 	public boolean deletePost(int postID) {
 		try {
+			// Delete post - postID
+			PreparedStatement deletePost = connect.prepareStatement("DELETE FROM forums.posts WHERE post_id=?");
 			deletePost.setInt(1, postID);
 			return deletePost.executeUpdate() > 0;
 		} catch (Exception ex) {
@@ -225,10 +222,14 @@ public class DatabaseManager {
 	public boolean votePost(int userID, int postID) {
 		try {
 			if (voteState(userID, postID)) {
+				// Remove vote - userID, postID
+				PreparedStatement voteRemove = connect.prepareStatement("DELETE FROM forums.upvotes WHERE user_id=? AND post_id=?");
 				voteRemove.setInt(1, userID);
 				voteRemove.setInt(2, postID);
 				return voteRemove.executeUpdate() > 0;
 			} else {
+				// Add vote - userID, postID
+				PreparedStatement voteAdd = connect.prepareStatement("INSERT INTO forums.upvotes values (?, ?)");
 				voteAdd.setInt(1, userID);
 				voteAdd.setInt(2, postID);
 				return voteAdd.executeUpdate() > 0;
@@ -250,6 +251,8 @@ public class DatabaseManager {
 	 */
 	public boolean voteState(int userID, int postID) {
 		try {
+			// Query user vote on post - userID, postID
+			PreparedStatement voteQuery = connect.prepareStatement("SELECT COUNT(*) FROM forums.upvotes WHERE user_id=? AND post_id=?");
 			voteQuery.setInt(1, userID);
 			voteQuery.setInt(2, postID);
 			ResultSet results = voteQuery.executeQuery();
@@ -270,6 +273,8 @@ public class DatabaseManager {
 	 */
 	public int voteCount(int postID) {
 		try {
+			// Query vote count on post - postID
+			PreparedStatement voteNum = connect.prepareStatement("SELECT COUNT(*) FROM forums.upvotes WHERE post_id=?");
 			voteNum.setInt(1, postID);
 			ResultSet results = voteNum.executeQuery();
 			results.first();
@@ -291,6 +296,8 @@ public class DatabaseManager {
 	 */
 	public boolean setPoints(int userID, int points) {
 		try {
+			// Set points of a user - points, userID
+			PreparedStatement pointsSet = connect.prepareStatement("UPDATE forums.users SET user_points=? WHERE user_id=?");
 			pointsSet.setInt(1, points);
 			pointsSet.setInt(2, userID);
 			return pointsSet.executeUpdate() > 0;
@@ -309,6 +316,8 @@ public class DatabaseManager {
 	 */
 	public int getPoints(int userID) {
 		try {
+			// Query points count of user - userID
+			PreparedStatement pointsQuery = connect.prepareStatement("SELECT forums.users.user_points FROM forums.users WHERE user_id=?");
 			pointsQuery.setInt(1, userID);
 			ResultSet results = pointsQuery.executeQuery();
 			results.first();
