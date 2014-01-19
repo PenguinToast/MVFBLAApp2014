@@ -1,4 +1,4 @@
-package com.mvfbla.mvfbla2014.net;
+package com.mvfbla.madmvfbla2014.net;
 
 public class Network {
 	

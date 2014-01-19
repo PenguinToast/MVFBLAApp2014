@@ -3,7 +3,7 @@
  */
 
 
-package com.mvfbla.mvfbla2014.classes;
+package com.mvfbla.madmvfbla2014.classes;
 
 import java.util.ArrayList;
 import java.util.Date;
