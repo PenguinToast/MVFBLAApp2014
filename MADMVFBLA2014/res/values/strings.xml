@@ -5,4 +5,13 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 	<string name="app_id">632890103437340</string>
+	<color name="CommentBackground">#FFAFABAB</color>
+    <color name="Black">#000000</color>
+    <color name="QuestionBackground">#FF7C7C7C</color>
+    <string name="addComment">Add a comment</string>
+    <string name="send">Send</string>
+    <string name = "SortByDate">Sort By Date</string>
+    <string name = "SortByViews">Sort By Views</string>
+    <string name = "SortByLikes">Sort By Likes</string>
+    <string name = "addLike">Add Like</string>
 </resources>
