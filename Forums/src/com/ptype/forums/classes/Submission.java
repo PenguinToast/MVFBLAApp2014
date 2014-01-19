@@ -10,17 +10,18 @@ import java.util.*;
 
 public class Submission {
 	protected String text;//the text displayed in the submission
-	protected int numLikes, numViews, numReplies;//
-	protected Time timePosted;//records when the submission was posted
+	protected int numLikes, numReplies;//
+	protected Time timePosted, timeReplied;//records when the submission was posted
 	protected ArrayList<Reply> replies;//an ArrayList of all replies to this submission
+	protected int parentID;
 	
 	public Submission() {//initialize class variables
 		replies = new ArrayList<Reply>(0);//
 		numLikes = 0;
-		numViews = 0;
 		numReplies = replies.size();
 		timePosted = new Time();
-		timePosted.setToNow();//get the current time of creation
+		timeReplied = new Time();
+		parentID = -1;
 	}
 	
 	public Submission(String text) {//overloaded
@@ -40,10 +41,6 @@ public class Submission {
 		return numLikes;
 	}
 	
-	public int getNumViews(){
-		return numViews;
-	}
-	
 	public int getNumReplies(){
 		return numReplies;
 	}
@@ -55,6 +52,10 @@ public class Submission {
 	//return when this question was posted
 	public Time getTimePosted(){
 		return this.timePosted;
+	}
+	
+	public Time getTimeReplied() {
+		return timeReplied;
 	}
 	
 	//overloaded method
@@ -71,29 +72,24 @@ public class Submission {
 	public void addReply(ArrayList<Reply> replies) {
 		this.replies.addAll(replies);
 	}
-		
 	
-	public void incrementLikes() {
-		numLikes++;
+	public void setLikes(int numLikes) {
+		this.numLikes = numLikes;
 	}
 	
-	public void decrementLikes() {
-		numLikes--;
+	public void setTimePosted(Time time) {
+		this.timePosted = time;
 	}
 	
-	public void incrementReplies(){
-		numReplies++;
+	public void setTimeReplied(Time time) {
+		this.timeReplied = time;
 	}
 	
-	public void decrementReplies(){
-		numReplies--;
+	public int getParentID() {
+		return parentID;
 	}
 	
-	public void incrementViews(){
-		numViews++;
-	}
-	
-	public void decrementViews(){
-		numViews--;
+	public void setParentID(int parentID) {
+		this.parentID = parentID;
 	}
 }

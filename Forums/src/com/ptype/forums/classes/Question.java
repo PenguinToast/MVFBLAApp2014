@@ -32,9 +32,6 @@ public class Question extends Submission implements Comparable<Question>{
 		case ForumActivity.SORT_TIME:
 			return Time.compare(q.getTimePosted(), this.getTimePosted());
 //			break;
-		case ForumActivity.SORT_VIEWS:
-			return q.getNumViews() - this.getNumViews();
-//			break;
 		case ForumActivity.SORT_LIKES:
 			return q.getNumLikes() - this.getNumLikes();
 //			break;

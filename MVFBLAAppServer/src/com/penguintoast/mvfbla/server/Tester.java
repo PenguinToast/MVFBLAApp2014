@@ -23,16 +23,13 @@ public class Tester {
 			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/forums?"
 					+ "user=admin&password=starcraft1");
 			
-			PreparedStatement prepared = connect.prepareStatement("insert into FORUMS.USERS values (default, ?, ?)");
-			prepared.setInt(1, 0);
-			prepared.setDate(2, Date.valueOf("2014-1-2"));
-			prepared.executeUpdate();
+			PreparedStatement prepared = connect.prepareStatement("SELECT COUNT(*) FROM forums.upvotes WHERE user_id=? AND post_id=?");
+			prepared.setInt(1, 3);
+			prepared.setInt(2, 1);
+			ResultSet results = prepared.executeQuery();
 			
-			Statement statement = connect.createStatement();
-			ResultSet results = statement.executeQuery("select * from FORUMS.USERS");
-			
-			System.out.println(results.getMetaData());
-			
+			results.first();
+			System.out.println(results.getInt(1));
 					
 		} catch (Exception ex) {
 			ex.printStackTrace();
