@@ -33,19 +33,61 @@ public class DatabaseManager {
 	public static DatabaseManager getInstance() {
 		return INSTANCE;
 	}
-	
+
+	public Submission readSubmission(ResultSet set) {
+		try {
+			Submission sub = new Submission();
+			sub.setPostID(set.getInt("post_id"));
+			sub.setText(set.getString("post_content"));
+			sub.setTimePosted(set.getDate("post_date"));
+			sub.setUserID(set.getInt("post_by"));
+			int parent = set.getInt("post_parent");
+			if (parent == 0) {
+				sub.setParentID(-1);
+			} else {
+				sub.setParentID(set.getInt("post_parent"));
+			}
+			sub.setTimeReplied(set.getDate("post_date_replied"));
+			sub.setReplies(getReplies(sub.getPostID()));
+			sub.setLikes(voteCount(sub.getPostID()));
+			return sub;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
 	public int getUserID(String fbID) {
 		try {
 			// Get user id from facebook id - fbID
-			PreparedStatement getUserID = connect.prepareStatement("SELECT forums.users.user_id FROM forums.users WHERE user_fb_id=?;");
+			PreparedStatement getUserID = connect
+					.prepareStatement("SELECT forums.users.user_id FROM forums.users WHERE user_fb_id=?;");
 			getUserID.setString(1, fbID);
 			ResultSet results = getUserID.executeQuery();
 			results.first();
 			return results.getInt(1);
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return -1;
+	}
+
+	public ArrayList<Submission> getUserPosts(int userID) {
+		try {
+			// Query posts from user - userID
+			PreparedStatement getUserPosts = connect
+					.prepareStatement("SELECT * FROM forums.posts WHERE post_by=? ORDER BY post_date_replied DESC");
+			ArrayList<Submission> out = new ArrayList<Submission>();
+			ResultSet results = getUserPosts.executeQuery();
+			while (results.next()) {
+				Submission sub = readSubmission(results);
+				out.add(sub);
+			}
+			return out;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 
 	public ArrayList<Submission> getTopLevelPosts() {
@@ -56,15 +98,7 @@ public class DatabaseManager {
 			ArrayList<Submission> out = new ArrayList<Submission>();
 			ResultSet results = getTopLevelPosts.executeQuery();
 			while (results.next()) {
-				Submission sub = new Submission();
-				sub.setPostID(results.getInt("post_id"));
-				sub.setText(results.getString("post_content"));
-				sub.setTimePosted(results.getDate("post_date"));
-				sub.setUserID(results.getInt("post_by"));
-				sub.setParentID(-1);
-				sub.setTimeReplied(results.getDate("post_date_replied"));
-				sub.setReplies(getReplies(sub.getPostID()));
-				sub.setLikes(voteCount(sub.getPostID()));
+				Submission sub = readSubmission(results);
 				out.add(sub);
 			}
 			return out;
@@ -83,15 +117,7 @@ public class DatabaseManager {
 			getPostReplies.setInt(1, postID);
 			ResultSet results = getPostReplies.executeQuery();
 			while (results.next()) {
-				Submission sub = new Submission();
-				sub.setPostID(results.getInt("post_id"));
-				sub.setText(results.getString("post_content"));
-				sub.setTimePosted(results.getDate("post_date"));
-				sub.setUserID(results.getInt("post_by"));
-				sub.setParentID(postID);
-				sub.setTimeReplied(results.getDate("post_date_replied"));
-				sub.setReplies(getReplies(sub.getPostID()));
-				sub.setLikes(voteCount(sub.getPostID()));
+				Submission sub = readSubmission(results);
 				out.add(sub);
 			}
 			return out;
@@ -255,7 +281,8 @@ public class DatabaseManager {
 	public boolean voteState(int userID, int postID) {
 		try {
 			// Query user vote on post - userID, postID
-			PreparedStatement voteQuery = connect.prepareStatement("SELECT COUNT(*) FROM forums.upvotes WHERE user_id=? AND post_id=?");
+			PreparedStatement voteQuery = connect
+					.prepareStatement("SELECT COUNT(*) FROM forums.upvotes WHERE user_id=? AND post_id=?");
 			voteQuery.setInt(1, userID);
 			voteQuery.setInt(2, postID);
 			ResultSet results = voteQuery.executeQuery();
@@ -320,7 +347,8 @@ public class DatabaseManager {
 	public int getPoints(int userID) {
 		try {
 			// Query points count of user - userID
-			PreparedStatement pointsQuery = connect.prepareStatement("SELECT forums.users.user_points FROM forums.users WHERE user_id=?");
+			PreparedStatement pointsQuery = connect
+					.prepareStatement("SELECT forums.users.user_points FROM forums.users WHERE user_id=?");
 			pointsQuery.setInt(1, userID);
 			ResultSet results = pointsQuery.executeQuery();
 			results.first();

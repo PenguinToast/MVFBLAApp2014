@@ -6,6 +6,8 @@ import com.esotericsoftware.kryonet.Server;
 import com.mvfbla.mvfbla2014.net.Network;
 import com.mvfbla.mvfbla2014.net.data.NetLogin;
 import com.mvfbla.mvfbla2014.net.data.NetTopLevelPosts;
+import com.mvfbla.mvfbla2014.net.data.NetUserPoints;
+import com.mvfbla.mvfbla2014.net.data.NetUserPosts;
 import com.mvfbla.mvfbla2014.net.data.NetVote;
 import com.penguintoast.mvfbla.server.database.DatabaseManager;
 
@@ -37,7 +39,7 @@ public class ForumServer {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	private void received(ForumConnection connection, Object object) {
 		if (object instanceof NetLogin) {
 			NetLogin dat = (NetLogin) object;
@@ -50,6 +52,22 @@ public class ForumServer {
 		if (object instanceof NetVote) {
 			NetVote dat = (NetVote) object;
 			database.votePost(connection.getUserID(), dat.postID);
+		}
+		if (object instanceof NetUserPosts) {
+			NetUserPosts dat = (NetUserPosts) object;
+			int userID = connection.getUserID();
+			if (dat.userID != -1) {
+				userID = dat.userID;
+			}
+			connection.sendTCP(new NetUserPosts(userID, database.getUserPosts(userID)));
+		}
+		if (object instanceof NetUserPoints) {
+			NetUserPoints dat = (NetUserPoints) object;
+			int userID = connection.getUserID();
+			if (dat.userID != 1) {
+				userID = dat.userID;
+			}
+			connection.sendTCP(new NetUserPoints(userID, database.getPoints(userID)));
 		}
 	}
 }
