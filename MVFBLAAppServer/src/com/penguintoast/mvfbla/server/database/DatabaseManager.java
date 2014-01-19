@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import com.ptype.forums.classes.Submission;
+import com.mvfbla.mvfbla2014.classes.Submission;
 
 public class DatabaseManager {
 	private static DatabaseManager INSTANCE;
@@ -34,11 +34,11 @@ public class DatabaseManager {
 		return INSTANCE;
 	}
 	
-	public int getUserID(int fbID) {
+	public int getUserID(String fbID) {
 		try {
 			// Get user id from facebook id - fbID
 			PreparedStatement getUserID = connect.prepareStatement("SELECT forums.users.user_id FROM forums.users WHERE user_fb_id=?;");
-			getUserID.setInt(1, fbID);
+			getUserID.setString(1, fbID);
 			ResultSet results = getUserID.executeQuery();
 			results.first();
 			return results.getInt(1);

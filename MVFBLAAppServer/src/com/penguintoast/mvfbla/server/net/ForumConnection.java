@@ -3,13 +3,13 @@ package com.penguintoast.mvfbla.server.net;
 import com.esotericsoftware.kryonet.Connection;
 
 public class ForumConnection extends Connection {
-	private int fbID;
+	private String fbID;
 	private int userID;
 
 	public ForumConnection() {
 	}
 	
-	public int getFBID() {
+	public String getFBID() {
 		return fbID;
 	}
 	
@@ -17,7 +17,7 @@ public class ForumConnection extends Connection {
 		return userID;
 	}
 	
-	public void setFBID(int fbID) {
+	public void setFBID(String fbID) {
 		this.fbID = fbID;
 	}
 	

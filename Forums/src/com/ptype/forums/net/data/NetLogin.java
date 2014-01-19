@@ -1,12 +1,12 @@
 package com.ptype.forums.net.data;
 
 public class NetLogin {
-	public int id;
+	public String id;
 
 	public NetLogin() {
 	}
 	
-	public NetLogin(int id) {
+	public NetLogin(String id) {
 		this.id = id;
 	}
 

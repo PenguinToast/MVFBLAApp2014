@@ -1,16 +1,13 @@
 package com.penguintoast.mvfbla.server.net;
 
-import java.util.ArrayList;
-
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.mvfbla.mvfbla2014.net.Network;
+import com.mvfbla.mvfbla2014.net.data.NetLogin;
+import com.mvfbla.mvfbla2014.net.data.NetTopLevelPosts;
+import com.mvfbla.mvfbla2014.net.data.NetVote;
 import com.penguintoast.mvfbla.server.database.DatabaseManager;
-import com.ptype.forums.classes.Submission;
-import com.ptype.forums.net.Network;
-import com.ptype.forums.net.data.NetLogin;
-import com.ptype.forums.net.data.NetTopLevelPosts;
-import com.ptype.forums.net.data.NetVote;
 
 public class ForumServer {
 	private Server server;
@@ -22,8 +19,6 @@ public class ForumServer {
 	public void start() {
 		try {
 			database = DatabaseManager.getInstance();
-			ArrayList<Submission> subs = database.getTopLevelPosts();
-			
 			server = new Server() {
 				@Override
 				protected Connection newConnection() {
