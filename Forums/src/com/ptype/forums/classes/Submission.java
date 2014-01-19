@@ -5,23 +5,25 @@
 
 package com.ptype.forums.classes;
 
-import android.text.format.Time;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Submission {
 	protected String text;//the text displayed in the submission
-	protected int numLikes, numReplies;//
-	protected Time timePosted, timeReplied;//records when the submission was posted
-	protected ArrayList<Reply> replies;//an ArrayList of all replies to this submission
+	protected int numLikes;//
+	protected Date timePosted, timeReplied;//records when the submission was posted
+	protected ArrayList<Submission> replies;//an ArrayList of all replies to this submission
 	protected int parentID;
+	protected int postID;
+	protected int userID;
 	
 	public Submission() {//initialize class variables
-		replies = new ArrayList<Reply>(0);//
+		replies = new ArrayList<Submission>(0);//
 		numLikes = 0;
-		numReplies = replies.size();
-		timePosted = new Time();
-		timeReplied = new Time();
+		timePosted = new Date();
+		timeReplied = new Date();
 		parentID = -1;
+		postID = 0;
 	}
 	
 	public Submission(String text) {//overloaded
@@ -41,47 +43,47 @@ public class Submission {
 		return numLikes;
 	}
 	
-	public int getNumReplies(){
-		return numReplies;
-	}
-	
-	public ArrayList<Reply> getReplies() {
+	public ArrayList<Submission> getReplies() {
 		return replies;
 	}
 	
 	//return when this question was posted
-	public Time getTimePosted(){
+	public Date getTimePosted(){
 		return this.timePosted;
 	}
 	
-	public Time getTimeReplied() {
+	public Date getTimeReplied() {
 		return timeReplied;
 	}
 	
 	//overloaded method
 	public void addReply(String comment) {
-		replies.add(new Reply(comment));
+		replies.add(new Submission(comment));
 	}
 	
 	//overloaded method
-	public void addReply(Reply comment) {
+	public void addReply(Submission comment) {
 		replies.add(comment);
 	}
 	
 	//overloaded method
-	public void addReply(ArrayList<Reply> replies) {
+	public void addReply(ArrayList<Submission> replies) {
 		this.replies.addAll(replies);
+	}
+	
+	public void setReplies(ArrayList<Submission> replies) {
+		this.replies = replies;
 	}
 	
 	public void setLikes(int numLikes) {
 		this.numLikes = numLikes;
 	}
 	
-	public void setTimePosted(Time time) {
+	public void setTimePosted(Date time) {
 		this.timePosted = time;
 	}
 	
-	public void setTimeReplied(Time time) {
+	public void setTimeReplied(Date time) {
 		this.timeReplied = time;
 	}
 	
@@ -91,5 +93,21 @@ public class Submission {
 	
 	public void setParentID(int parentID) {
 		this.parentID = parentID;
+	}
+	
+	public void setPostID(int postID) {
+		this.postID = postID;
+	}
+	
+	public int getPostID() {
+		return postID;
+	}
+	
+	public int getUserID() {
+		return userID;
+	}
+	
+	public void setUserID(int id) {
+		this.userID = id;
 	}
 }
