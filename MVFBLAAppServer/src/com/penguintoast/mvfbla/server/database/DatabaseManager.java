@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import com.mvfbla.mvfbla2014.classes.Submission;
+import com.mvfbla.madmvfbla2014.classes.Submission;
 
 public class DatabaseManager {
 	private static DatabaseManager INSTANCE;

@@ -3,12 +3,12 @@ package com.penguintoast.mvfbla.server.net;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.mvfbla.mvfbla2014.net.Network;
-import com.mvfbla.mvfbla2014.net.data.NetLogin;
-import com.mvfbla.mvfbla2014.net.data.NetTopLevelPosts;
-import com.mvfbla.mvfbla2014.net.data.NetUserPoints;
-import com.mvfbla.mvfbla2014.net.data.NetUserPosts;
-import com.mvfbla.mvfbla2014.net.data.NetVote;
+import com.mvfbla.madmvfbla2014.net.Network;
+import com.mvfbla.madmvfbla2014.net.data.NetLogin;
+import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
+import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
+import com.mvfbla.madmvfbla2014.net.data.NetUserPosts;
+import com.mvfbla.madmvfbla2014.net.data.NetVote;
 import com.penguintoast.mvfbla.server.database.DatabaseManager;
 
 public class ForumServer {

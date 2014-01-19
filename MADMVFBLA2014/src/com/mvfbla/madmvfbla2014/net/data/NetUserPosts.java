@@ -1,8 +1,8 @@
-package com.mvfbla.mvfbla2014.net.data;
+package com.mvfbla.madmvfbla2014.net.data;
 
 import java.util.ArrayList;
 
-import com.mvfbla.mvfbla2014.classes.Submission;
+import com.mvfbla.madmvfbla2014.classes.Submission;
 
 public class NetUserPosts {
 	public ArrayList<Submission> response;
