@@ -22,6 +22,7 @@ public class MainFragment extends Fragment {
 	    @Override
 	    public void call(Session session, SessionState state, Exception exception) {
 	        onSessionStateChange(session, state, exception);
+	        System.out.println("4");
 	    }
 	};
 	private UiLifecycleHelper uiHelper;
@@ -46,10 +47,13 @@ public class MainFragment extends Fragment {
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 	    if (state.isOpened()) {
 	        Log.i(TAG, "Logged in...");
+	        System.out.println("1");
 	    } else if (state.isClosed()) {
 	        Log.i(TAG, "Logged out...");
+	        System.out.println("2");
 	    }
 	}
+	
 	@Override
 	public void onResume() {
 	    super.onResume();
@@ -57,6 +61,7 @@ public class MainFragment extends Fragment {
 	    if (session != null &&
 	           (session.isOpened() || session.isClosed()) ) {
 	        onSessionStateChange(session, session.getState(), null);
+	        System.out.println("3");
 	    }
 	    uiHelper.onResume();
 	}
