@@ -27,7 +27,7 @@ public class MainActivity extends FragmentActivity {
 	    super.onCreate(savedInstanceState);
 	    try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.facebook.samples.loginhowto", 
+                    "com.mvfbla.madmvfbla2014", 
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
