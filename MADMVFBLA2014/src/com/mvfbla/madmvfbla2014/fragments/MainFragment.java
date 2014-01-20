@@ -51,6 +51,7 @@ public class MainFragment extends Fragment {
 	        System.out.println("2");
 	    }
 	}
+	
 	@Override
 	public void onResume() {
 	    super.onResume();

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import com.facebook.Session;
 import com.mvfbla.madmvfbla2014.fragments.MainFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -62,8 +63,18 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void toForumScreen (View view) {
-		Intent intent = new Intent(this, ForumActivity.class);
-		this.startActivity(intent);
+		if(isLoggedIn()) {
+			Intent intent = new Intent(this, ForumActivity.class);
+			this.startActivity(intent);
+		}
 	}
 
+	public boolean isLoggedIn() {
+	    Session session = Session.getActiveSession();
+	    if (session != null && session.isOpened()) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 }
