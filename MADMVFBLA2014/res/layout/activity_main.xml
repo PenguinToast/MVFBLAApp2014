@@ -19,5 +19,12 @@
         android:onClick= "toForumScreen"
         android:text="@string/GoToForums"
     />
+    <Button 
+        android:id="@+id/ToProfile"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_gravity = "center_horizontal"
+        android:onClick= "toProfileScreen"
+        android:text = "@string/GoToProfile"/>
 
 </LinearLayout>

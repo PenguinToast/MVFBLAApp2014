@@ -13,8 +13,16 @@ public class ProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
+		
 		TextView username = (TextView)findViewById(R.id.Username);
 		username.setText(User.getUsername());
+		
+		TextView points = (TextView)findViewById(R.id.NumPoints);
+		points.setText(getPointsText());
+		
 	}
 
+	public String getPointsText() {
+		return "Points : " + User.getPoints();
+	}
 }
