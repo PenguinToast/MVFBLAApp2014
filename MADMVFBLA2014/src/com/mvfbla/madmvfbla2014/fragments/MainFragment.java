@@ -1,5 +1,7 @@
 package com.mvfbla.madmvfbla2014.fragments;
 
+import java.util.Arrays;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,6 +43,7 @@ public class MainFragment extends Fragment {
 	    LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
 	    authButton.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
 	    authButton.setFragment(this);
+	    authButton.setReadPermissions(Arrays.asList("user_location"));
 
 	    return view;
 	}
