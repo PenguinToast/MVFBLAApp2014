@@ -29,6 +29,7 @@ public class ForumServer {
 					return new ForumConnection();
 				}
 			};
+			Network.register(server.getKryo());
 			server.start();
 			server.bind(Network.PORT);
 			server.addListener(new Listener() {
