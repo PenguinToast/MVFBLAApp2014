@@ -10,12 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionLoginBehavior;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.mvfbla.madmvfbla2014.R;
+import com.mvfbla.madmvfbla2014.classes.User;
 
 public class MainFragment extends Fragment {
 
@@ -50,7 +54,25 @@ public class MainFragment extends Fragment {
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 	    if (state.isOpened()) {
 	        Log.i(TAG, "Logged in...");
-	        System.out.println("1");
+	        final Session NewSession = Session.getActiveSession();
+		    if (NewSession != null && NewSession.isOpened()) {
+		        // If the session is open, make an API call to get user data
+		        // and define a new callback to handle the response
+		        Request request = Request.newMeRequest(NewSession, new Request.GraphUserCallback() {
+		            @Override
+		            public void onCompleted(GraphUser user, Response response) {
+		                // If the response is successful
+		                if (NewSession == Session.getActiveSession()) {
+		                    if (user != null) {
+		                        User.setId(user.getId());//user id
+		                        User.setUsername(user.getFirstName(), user.getLastName());//user's profile name
+		                    }   
+		                }   
+		            }
+		            
+		        }); 
+		        Request.executeBatchAsync(request);
+		    }  
 	    } else if (state.isClosed()) {
 	        Log.i(TAG, "Logged out...");
 	        System.out.println("2");

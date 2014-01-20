@@ -14,13 +14,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
-import com.facebook.Request;
-import com.facebook.Response;
 import com.facebook.Session;
-import com.facebook.model.GraphUser;
-import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.fragments.MainFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -68,26 +63,8 @@ public class MainActivity extends FragmentActivity {
 	
 	public void toForumScreen (View view) {
 		if(isLoggedIn()) {
-			Intent intent = new Intent(this, ForumActivity.class);
+		    Intent intent = new Intent(this, ForumActivity.class);
 			this.startActivity(intent);
-			final Session session = Session.getActiveSession();
-		    if (session != null && session.isOpened()) {
-		        // If the session is open, make an API call to get user data
-		        // and define a new callback to handle the response
-		        Request request = Request.newMeRequest(session, new Request.GraphUserCallback() {
-		            @Override
-		            public void onCompleted(GraphUser user, Response response) {
-		                // If the response is successful
-		                if (session == Session.getActiveSession()) {
-		                    if (user != null) {
-		                        User.setId(user.getId());//user id
-		                        User.setUsername(user.getFirstName(), user.getLastName());;//user's profile name
-		                    }   
-		                }   
-		            }
-		        }); 
-		        Request.executeBatchAsync(request);
-		    }  
 		}
 	}
 
@@ -98,5 +75,12 @@ public class MainActivity extends FragmentActivity {
 	    } else {
 	        return false;
 	    }
+	}
+	
+	public void toProfileScreen(View view) {
+		if(isLoggedIn()) {
+		    Intent intent = new Intent(this, ProfileActivity.class);
+			this.startActivity(intent);
+		}
 	}
 }
