@@ -4,6 +4,8 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.mvfbla.madmvfbla2014.net.Network;
+import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
+import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
 import com.mvfbla.madmvfbla2014.net.data.NetLogin;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
@@ -68,6 +70,15 @@ public class ForumServer {
 				userID = dat.userID;
 			}
 			connection.sendTCP(new NetUserPoints(userID, database.getPoints(userID)));
+		}
+		if (object instanceof NetCreatePost) {
+			NetCreatePost dat = (NetCreatePost) object;
+			int userID = connection.getUserID();
+			database.createPost(dat.content, userID, dat.parent);
+		}
+		if (object instanceof NetEditPost) {
+			NetEditPost dat = (NetEditPost) object;
+			database.editPost(dat.postID, dat.content);
 		}
 	}
 }

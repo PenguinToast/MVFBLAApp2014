@@ -34,9 +34,9 @@ public class MainActivity extends FragmentActivity {
 				Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
 			}
 		} catch (NameNotFoundException e) {
-
+			Log.e("KeyHash:", e.getMessage());
 		} catch (NoSuchAlgorithmException e) {
-
+			Log.e("KeyHash:", e.getMessage());
 		}
 		if (savedInstanceState == null) {
 			// Add the fragment on initial activity setup

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.Session;
+import com.facebook.SessionLoginBehavior;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
@@ -37,6 +38,7 @@ public class MainFragment extends Fragment {
 	        Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.activity_main, container, false);
 	    LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
+	    authButton.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
 	    authButton.setFragment(this);
 
 	    return view;
