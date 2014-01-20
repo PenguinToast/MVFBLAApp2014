@@ -11,8 +11,10 @@ import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
 import com.mvfbla.madmvfbla2014.net.data.NetLogin;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
+import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetVote;
+import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
 
 public class Network {
 	public static final int PORT = 56635;
@@ -74,8 +76,10 @@ public class Network {
 				NetLogin.class,
 				NetTopLevelPosts.class,
 				NetUserPoints.class,
+				NetUserPostCount.class,
 				NetUserPosts.class,
-				NetVote.class
+				NetVote.class,
+				NetVoteCount.class
 		};
 		for (int i = 0; i < toRegister.length; i++) {
 			kryo.register(toRegister[i]);

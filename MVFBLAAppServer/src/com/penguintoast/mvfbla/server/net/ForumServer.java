@@ -9,8 +9,10 @@ import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
 import com.mvfbla.madmvfbla2014.net.data.NetLogin;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
+import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetVote;
+import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
 import com.penguintoast.mvfbla.server.database.DatabaseManager;
 
 public class ForumServer {
@@ -67,10 +69,18 @@ public class ForumServer {
 		if (object instanceof NetUserPoints) {
 			NetUserPoints dat = (NetUserPoints) object;
 			int userID = connection.getUserID();
-			if (dat.userID != 1) {
+			if (dat.userID != -1) {
 				userID = dat.userID;
 			}
 			connection.sendTCP(new NetUserPoints(userID, database.getPoints(userID)));
+		}
+		if (object instanceof NetUserPostCount) {
+			NetUserPostCount dat = (NetUserPostCount) object;
+			int userID = connection.getUserID();
+			if (dat.userID != -1) {
+				userID = dat.userID;
+			}
+			connection.sendTCP(new NetUserPostCount(userID, database.getUserPostCount(userID)));
 		}
 		if (object instanceof NetCreatePost) {
 			NetCreatePost dat = (NetCreatePost) object;
@@ -80,6 +90,10 @@ public class ForumServer {
 		if (object instanceof NetEditPost) {
 			NetEditPost dat = (NetEditPost) object;
 			database.editPost(dat.postID, dat.content);
+		}
+		if (object instanceof NetVoteCount) {
+			NetVoteCount dat = (NetVoteCount) object;
+			connection.sendTCP(new NetVoteCount(dat.postID, database.voteCount(dat.postID)));
 		}
 	}
 }

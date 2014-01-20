@@ -71,6 +71,10 @@ public class DatabaseManager {
 		}
 		return -1;
 	}
+	
+	public int getUserPostCount(int userID) {
+		return getUserPosts(userID).size();
+	}
 
 	public ArrayList<Submission> getUserPosts(int userID) {
 		try {

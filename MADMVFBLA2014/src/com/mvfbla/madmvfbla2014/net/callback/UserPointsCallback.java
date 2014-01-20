@@ -1,11 +1,11 @@
 package com.mvfbla.madmvfbla2014.net.callback;
 
-import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
+import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 
-public abstract class UserPointsCallback implements Callback<NetUserPoints, Integer> {
+public abstract class UserPointsCallback implements Callback<NetUserPostCount, Integer> {
 
 	@Override
-	public void onCallback(NetUserPoints object) {
-		onResults(object.points);
+	public void onCallback(NetUserPostCount object) {
+		onResults(object.count);
 	}
 }
