@@ -82,7 +82,6 @@ public class MainActivity extends FragmentActivity {
 		                    if (user != null) {
 		                        User.setId(user.getId());//user id
 		                        User.setUsername(user.getFirstName(), user.getLastName());;//user's profile name
-		                        System.out.println(User.getUsername());
 		                    }   
 		                }   
 		            }
