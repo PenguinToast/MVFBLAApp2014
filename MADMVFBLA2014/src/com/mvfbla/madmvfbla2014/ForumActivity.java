@@ -175,8 +175,7 @@ public class ForumActivity extends Activity {
 	// when the up arrow is pressed
 	public void addLikes(View view) {
 		int groupPosition = (Integer) view.getTag();
-		// questions.get(groupPosition).incrementLikes();
-		expAdapter.notifyDataSetChanged();
+		questions.get(groupPosition).like(this, expAdapter);
 	}
 
 }
