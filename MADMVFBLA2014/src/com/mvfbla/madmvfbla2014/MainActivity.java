@@ -1,22 +1,14 @@
 package com.mvfbla.madmvfbla2014;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 import com.facebook.Session;
 import com.mvfbla.madmvfbla2014.fragments.MainFragment;
+import com.mvfbla.madmvfbla2014.net.Network;
 
 public class MainActivity extends FragmentActivity {
 
@@ -25,7 +17,8 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		try {
+		Network.init();
+		/* try {
 			PackageInfo info = getPackageManager().getPackageInfo(
 					"com.mvfbla.madmvfbla2014",
 					PackageManager.GET_SIGNATURES);
@@ -38,7 +31,7 @@ public class MainActivity extends FragmentActivity {
 			Log.e("KeyHash:", e.getMessage());
 		} catch (NoSuchAlgorithmException e) {
 			Log.e("KeyHash:", e.getMessage());
-		}
+		} */
 		if (savedInstanceState == null) {
 			// Add the fragment on initial activity setup
 			mainFragment = new MainFragment();

@@ -1,5 +1,8 @@
 package com.mvfbla.madmvfbla2014.net;
 
+import android.os.StrictMode;
+import android.util.Log;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.util.ObjectMap;
 import com.esotericsoftware.kryonet.Client;
@@ -17,14 +20,20 @@ import com.mvfbla.madmvfbla2014.net.data.NetVote;
 import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
 
 public class Network {
-	public static final int PORT = 56635;
+	public static final int PORT = 44443;
 
 	private static boolean connected;
 	private static Client client;
 	private static ObjectMap<Class, Callback> callbacks;
 
 	public static void init() {
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+		StrictMode.setThreadPolicy(policy); 
+		com.esotericsoftware.minlog.Log.TRACE();
 		client = new Client();
+		register(client.getKryo());
+		callbacks = new ObjectMap<Class, Callback>();
 		client.addListener(new Listener() {
 			@Override
 			public void received(Connection connection, Object object) {
@@ -41,8 +50,9 @@ public class Network {
 				connected = false;
 			}
 		});
+		
 		client.start();
-		attemptConnect();
+		Log.i("NETWORK", Boolean.toString(attemptConnect()));
 	}
 	
 	private static void received(Connection connection, Object object) {
@@ -53,15 +63,20 @@ public class Network {
 
 	public static boolean attemptConnect() {
 		try {
-			client.connect(3000, "192.168.0.100", PORT);
+			client.connect(2000, "penguintoast.no-ip.biz", Network.PORT);
 			return true;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
 
 	public static boolean isConnected() {
 		return connected;
+	}
+	
+	public static void sendObject(Object o) {
+		client.sendTCP(o);
 	}
 	
 	public static void setCallback(Class clazz, Callback callback) {
