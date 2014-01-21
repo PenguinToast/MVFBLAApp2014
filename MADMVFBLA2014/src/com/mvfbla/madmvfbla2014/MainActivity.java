@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
@@ -25,6 +26,8 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Drawable mainBackground = getResources().getDrawable(R.drawable.mainbackground);
+		
 		try {
 			PackageInfo info = getPackageManager().getPackageInfo(
 					"com.mvfbla.madmvfbla2014",
@@ -51,7 +54,7 @@ public class MainActivity extends FragmentActivity {
 			mainFragment = (MainFragment) getSupportFragmentManager()
 					.findFragmentById(android.R.id.content);
 		}
-
+		
 	}
 
 	@Override

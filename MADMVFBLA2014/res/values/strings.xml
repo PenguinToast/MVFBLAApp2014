@@ -3,7 +3,7 @@
 
     <string name="app_name">MADMVFBLA2014</string>
     <string name="action_settings">Settings</string>
-    <string name="GoToForums">Go To Forums</string>
+    <string name="Forums">Visit Forums</string>
 	<string name="app_id">632890103437340</string>
 	<color name="CommentBackground">#FFAFABAB</color>
     <color name="Black">#000000</color>
@@ -14,5 +14,5 @@
     <string name = "SortByViews">Sort By Views</string>
     <string name = "SortByLikes">Sort By Likes</string>
     <string name = "addLike">Add Like</string>
-    <string name = "GoToProfile">Go To Your Profile</string>
+    <string name = "YourPf">Your Profile</string>
 </resources>
