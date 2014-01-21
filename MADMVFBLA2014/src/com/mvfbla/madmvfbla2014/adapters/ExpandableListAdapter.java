@@ -3,6 +3,7 @@ package com.mvfbla.madmvfbla2014.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		iv.setTag(Integer.valueOf(groupPosition));
 		TextView tv = (TextView)convertView.findViewById(R.id.tvQuestion);
 		tv.setText(question.getText());
+		
+		if(isExpanded){
+			convertView.setBackgroundColor(Color.rgb(255,128,0));//react to press
+		}
+		else{
+			convertView.setBackgroundColor(Color.WHITE);
+		}
 		return convertView;
 	}
 
