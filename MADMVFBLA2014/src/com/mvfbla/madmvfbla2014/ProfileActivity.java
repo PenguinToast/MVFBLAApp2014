@@ -34,7 +34,7 @@ public class ProfileActivity extends Activity {
 			}
 		});
 		if (Network.isConnected()) {
-			Network.sendObject(new NetUserPoints(3));
+			Network.sendObject(new NetUserPoints());
 		}
 	}
 

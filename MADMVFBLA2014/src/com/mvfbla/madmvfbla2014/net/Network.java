@@ -8,6 +8,8 @@ import com.esotericsoftware.kryo.util.ObjectMap;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.facebook.Session;
+import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.callback.Callback;
 import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
 import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
@@ -29,7 +31,7 @@ public class Network {
 	public static void init() {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
-		StrictMode.setThreadPolicy(policy); 
+		StrictMode.setThreadPolicy(policy);
 		com.esotericsoftware.minlog.Log.TRACE();
 		client = new Client();
 		register(client.getKryo());
@@ -50,35 +52,40 @@ public class Network {
 				connected = false;
 			}
 		});
-		
+
 		client.start();
-		Log.i("NETWORK", Boolean.toString(attemptConnect()));
+		attemptConnect();
 	}
-	
+
 	private static void received(Connection connection, Object object) {
-		if(callbacks.containsKey(object.getClass())) {
+		if (callbacks.containsKey(object.getClass())) {
 			callbacks.get(object.getClass()).onCallback(object);
 		}
 	}
 
 	public static boolean attemptConnect() {
 		try {
-			client.connect(2000, "penguintoast.no-ip.biz", Network.PORT);
+			if (!connected && Session.getActiveSession().isOpened()) {
+				client.connect(3000, "penguintoast.no-ip.biz", Network.PORT);
+				client.sendTCP(new NetLogin(User.getId()));
+			}
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			return false;
 		}
 	}
 
 	public static boolean isConnected() {
+		if(!connected) {
+			attemptConnect();
+		}
 		return connected;
 	}
-	
+
 	public static void sendObject(Object o) {
 		client.sendTCP(o);
 	}
-	
+
 	public static void setCallback(Class clazz, Callback callback) {
 		callbacks.put(clazz, callback);
 	}
