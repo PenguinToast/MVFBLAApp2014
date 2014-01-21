@@ -2,29 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
     android:orientation="vertical">
 
-    <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        />
+    
+  
     <Button
-        android:id = "@+id/ToForum"
+        android:id = "@+id/Forums"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick= "toForumScreen"
-        android:text="@string/GoToForums"
+        android:text="@string/Forums"
+        android:layout_marginTop="15dp"
     />
+    
     <Button 
-        android:id="@+id/ToProfile"
+        android:id="@+id/VisitProfile"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:layout_gravity = "center_horizontal"
         android:onClick= "toProfileScreen"
-        android:text = "@string/GoToProfile"/>
+        android:text = "@string/YourPf"
+        android:color = "#FFFFFFFF"
+        android:layout_marginTop="10dp"/>
+    
+     <com.facebook.widget.LoginButton
+        android:id="@+id/authButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        />
 
 </LinearLayout>

@@ -18,20 +18,6 @@ public class MainActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Network.init();
-		/* try {
-			PackageInfo info = getPackageManager().getPackageInfo(
-					"com.mvfbla.madmvfbla2014",
-					PackageManager.GET_SIGNATURES);
-			for (Signature signature : info.signatures) {
-				MessageDigest md = MessageDigest.getInstance("SHA");
-				md.update(signature.toByteArray());
-				Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-			}
-		} catch (NameNotFoundException e) {
-			Log.e("KeyHash:", e.getMessage());
-		} catch (NoSuchAlgorithmException e) {
-			Log.e("KeyHash:", e.getMessage());
-		} */
 		if (savedInstanceState == null) {
 			// Add the fragment on initial activity setup
 			mainFragment = new MainFragment();
@@ -44,7 +30,7 @@ public class MainActivity extends FragmentActivity {
 			mainFragment = (MainFragment) getSupportFragmentManager()
 					.findFragmentById(android.R.id.content);
 		}
-
+		
 	}
 
 	@Override
