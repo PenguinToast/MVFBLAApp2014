@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.mvfbla.madmvfbla2014.adapters.ExpandableListAdapter;
 import com.mvfbla.madmvfbla2014.classes.Submission;
+import com.mvfbla.madmvfbla2014.net.Network;
+import com.mvfbla.madmvfbla2014.net.callback.TopLevelPostsCallback;
+import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 
 public class ForumActivity extends Activity {
 
@@ -25,24 +28,35 @@ public class ForumActivity extends Activity {
 	private ArrayList<Submission> questions;
 	// The Expandable listview displayed on this activity for the forum
 	private ExpandableListView expList;
-	
+
 	// final static ints that are available globally
 	public static final int SORT_TIME = 1;
 	public static final int SORT_VIEWS = 2;
 	public static final int SORT_LIKES = 3;
 	public static final int SORT_DEFAULT = 0;
-	
+
 	// Constructor that initiates the entire activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_forum);
-		
-		expList = (ExpandableListView)findViewById(R.id.ExpList);
-		questions = setStandardGroup();
+
+		expList = (ExpandableListView) findViewById(R.id.ExpList);
+		// questions = setStandardGroup();
+		questions = new ArrayList<Submission>();
+
+		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
+			@Override
+			public void onResults(ArrayList<Submission> result) {
+				questions.addAll(result);
+			}
+		});
+		if (Network.isConnected()) {
+			Network.sendObject(new NetTopLevelPosts());
+		}
 		expAdapter = new ExpandableListAdapter(ForumActivity.this, questions);
 		expList.setAdapter(expAdapter);
-		
+
 		expList.setOnGroupClickListener(new OnGroupClickListener() {
 
 			@Override
@@ -50,23 +64,23 @@ public class ForumActivity extends Activity {
 					int groupPosition, long id) {
 				return false;
 			}
-			
+
 		});
 		expList.setOnGroupExpandListener(new OnGroupExpandListener() {
 
 			@Override
 			public void onGroupExpand(int groupPosition) {
 				Toast.makeText(getApplicationContext(),
-		                questions.get(groupPosition) + " Expanded",
-		                Toast.LENGTH_SHORT).show();
+						questions.get(groupPosition) + " Expanded",
+						Toast.LENGTH_SHORT).show();
 			}
-			
+
 		});
 		expList.setOnGroupCollapseListener(new OnGroupCollapseListener() {
 
 			@Override
 			public void onGroupCollapse(int groupPosition) {
-				Toast.makeText(getApplicationContext(), 
+				Toast.makeText(getApplicationContext(),
 						questions.get(groupPosition).getText() + " Collapsed",
 						Toast.LENGTH_SHORT).show();
 			}
@@ -76,16 +90,16 @@ public class ForumActivity extends Activity {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
-				
+
 				Toast.makeText(getApplicationContext(),
 						questions.get(groupPosition).getText() + " : " +
 								questions.get(groupPosition).getReplies().get(childPosition), Toast.LENGTH_SHORT).show();
 				return false;
 			}
-			
+
 		});
 	}
-	
+
 	// Creates the options menu
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,12 +107,12 @@ public class ForumActivity extends Activity {
 		getMenuInflater().inflate(R.menu.forum, menu);
 		return true;
 	}
-	
+
 	// Sample data to test the activity
 	public ArrayList<Submission> setStandardGroup() {
 		ArrayList<Submission> ques = new ArrayList<Submission>();
 		ArrayList<Submission> comms = new ArrayList<Submission>();
-		
+
 		Submission ques1 = new Submission("What are considered fruits?");
 		Submission comm1 = new Submission();
 		comm1.setText("Apple is considered a fruit. It is one of the most "
@@ -108,10 +122,10 @@ public class ForumActivity extends Activity {
 		comms.add(comm1);
 		ques1.addReply(comms);
 		comms = new ArrayList<Submission>();
-		
+
 		Submission ques2 = new Submission("What are considered vegetables?");
 		ques2.addReply(new Submission("Lettuce?"));
-		
+
 		ques.add(ques1);
 		ques.add(ques2);
 		ques.add(new Submission("Hello"));
@@ -125,45 +139,44 @@ public class ForumActivity extends Activity {
 		ques.add(new Submission("Hello"));
 		ques.add(new Submission("Hello"));
 		ques.add(new Submission("Hello"));
-		
+
 		return ques;
 	}
-	
+
 	// Actionbar allows sorting for the menus
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
-		case R.id.SortByTime: 
-			sort(ForumActivity.SORT_TIME);
-			break;
-		case R.id.SortByLikes:
-			sort(ForumActivity.SORT_LIKES);
-			break;
-		case R.id.SortByViews:
-			sort(ForumActivity.SORT_VIEWS);
-			break;
-		default:
-			Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();
+		switch (item.getItemId()) {
+			case R.id.SortByTime:
+				sort(ForumActivity.SORT_TIME);
+				break;
+			case R.id.SortByLikes:
+				sort(ForumActivity.SORT_LIKES);
+				break;
+			case R.id.SortByViews:
+				sort(ForumActivity.SORT_VIEWS);
+				break;
+			default:
+				Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();
 		}
-		
+
 		expAdapter.notifyDataSetChanged();
 		return true;
 	}
-	
+
 	// Sorts the Arraylist by time, likes, and views
 	public void sort(int sortBy) {
-		for(Submission e :questions) {
-			//e.setSortBy(sortBy);
+		for (Submission e : questions) {
+			// e.setSortBy(sortBy);
 		}
-		//Collections.sort(questions);
+		// Collections.sort(questions);
 	}
-	
+
 	// Increments the number of likes for a certain question
 	// when the up arrow is pressed
 	public void addLikes(View view) {
-		int groupPosition = (Integer)view.getTag();
-		//questions.get(groupPosition).incrementLikes();
+		int groupPosition = (Integer) view.getTag();
+		// questions.get(groupPosition).incrementLikes();
 		expAdapter.notifyDataSetChanged();
 	}
 
-	
 }

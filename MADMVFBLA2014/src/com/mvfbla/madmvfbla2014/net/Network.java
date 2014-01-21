@@ -1,7 +1,9 @@
 package com.mvfbla.madmvfbla2014.net;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import android.os.StrictMode;
-import android.util.Log;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.util.ObjectMap;
@@ -9,6 +11,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.facebook.Session;
+import com.mvfbla.madmvfbla2014.classes.Submission;
 import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.callback.Callback;
 import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
@@ -101,7 +104,12 @@ public class Network {
 				NetUserPostCount.class,
 				NetUserPosts.class,
 				NetVote.class,
-				NetVoteCount.class
+				NetVoteCount.class,
+				
+				Submission.class,
+				ArrayList.class,
+				Date.class,
+				java.sql.Date.class
 		};
 		for (int i = 0; i < toRegister.length; i++) {
 			kryo.register(toRegister[i]);
