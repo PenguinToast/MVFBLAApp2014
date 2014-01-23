@@ -4,20 +4,26 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ptype.forums.adapters.ExpandableListAdapter;
 import com.ptype.forums.classes.Submission;
 
 public class ForumActivity extends Activity {
+	private String[] drawerTitles;
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
 
 	// Custom Adapter that allows the list to expand when a group is clicked on
 	private ExpandableListAdapter expAdapter;
@@ -38,11 +44,22 @@ public class ForumActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_forum);
 		
-		expList = (ExpandableListView)findViewById(R.id.ExpList);
+		drawerTitles = getResources().getStringArray(R.array.planets_array);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, drawerTitles));
+        // Set the list's click listener
+//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+	
 		questions = setStandardGroup();
+		expList = (ExpandableListView)findViewById(R.id.ExpList);
+
 		expAdapter = new ExpandableListAdapter(ForumActivity.this, questions);
 		expList.setAdapter(expAdapter);
-		
 		expList.setOnGroupClickListener(new OnGroupClickListener() {
 
 			@Override
