@@ -15,10 +15,10 @@
     <string name = "addLike">Add Like</string>
     
     <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
+        <item>Forums</item>
+        <item>Profile</item>
+        <item>Leaderboards</item>
+        <item>Settings</item>
         <item>Jupiter</item>
         <item>Saturn</item>
         <item>Uranus</item>
