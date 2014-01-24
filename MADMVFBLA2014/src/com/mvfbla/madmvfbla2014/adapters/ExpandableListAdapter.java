@@ -17,6 +17,7 @@ import com.mvfbla.madmvfbla2014.classes.Submission;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private ArrayList<Submission> questions;
+	private int lastExpandedGroupPosition;
 	
 	public ExpandableListAdapter(Context context, ArrayList<Submission> questions) {
 		this.context = context;
@@ -93,12 +94,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		
 		if(isExpanded){
 			convertView.setBackgroundColor(Color.rgb(255,128,0));//react to press
+//			convertView.setBackgroundColor(Color.parseColor(R.color.Orange + ""));
 		}
 		else{
 			convertView.setBackgroundColor(Color.WHITE);
 		}
 		return convertView;
 	}
+	
+	
 
 	@Override
 	public boolean hasStableIds() {
