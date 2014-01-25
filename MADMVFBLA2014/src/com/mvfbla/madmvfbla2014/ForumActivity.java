@@ -103,15 +103,16 @@ public class ForumActivity extends Activity {
 
 		});
 		expList.setOnGroupExpandListener(new OnGroupExpandListener() {
+	        int previousGroup = 0;
 
-			@Override
-			public void onGroupExpand(int groupPosition) {
-				Toast.makeText(getApplicationContext(),
-						questions.get(groupPosition) + " Expanded",
-						Toast.LENGTH_SHORT).show();
-			}
+	        @Override
+	        public void onGroupExpand(int groupPosition) {
+	            if(groupPosition != previousGroup)
+	                expList.collapseGroup(previousGroup);
+	            previousGroup = groupPosition;
+	        }
+	    });
 
-		});
 		expList.setOnGroupCollapseListener(new OnGroupCollapseListener() {
 
 			@Override
