@@ -2,7 +2,7 @@ package com.mvfbla.madmvfbla2014;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.textservice.SpellCheckerService.Session;
+//import android.service.textservice.SpellCheckerService.Session;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.facebook.Session;
 import com.mvfbla.madmvfbla2014.fragments.MainFragment;
 import com.mvfbla.madmvfbla2014.net.Network;
 
@@ -37,15 +38,15 @@ public class MainActivity extends FragmentActivity {
 					.findFragmentById(android.R.id.content);
 		}
 		
-		drawerTitles = getResources().getStringArray(R.array.planets_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, drawerTitles));
+//		drawerTitles = getResources().getStringArray(R.array.planets_array);
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+//
+//        // Set the adapter for the list view
+//        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+//                R.layout.drawer_list_item, drawerTitles));
 //         Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		
 	}
