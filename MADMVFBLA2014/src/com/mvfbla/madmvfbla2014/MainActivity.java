@@ -2,6 +2,7 @@ package com.mvfbla.madmvfbla2014;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.textservice.SpellCheckerService.Session;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.facebook.Session;
 import com.mvfbla.madmvfbla2014.fragments.MainFragment;
 import com.mvfbla.madmvfbla2014.net.Network;
 
