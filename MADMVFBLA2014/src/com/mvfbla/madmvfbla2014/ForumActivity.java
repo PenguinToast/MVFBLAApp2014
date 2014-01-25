@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 import com.mvfbla.madmvfbla2014.adapters.ExpandableListAdapter;
 import com.mvfbla.madmvfbla2014.classes.Submission;
+import com.mvfbla.madmvfbla2014.net.Network;
+import com.mvfbla.madmvfbla2014.net.callback.TopLevelPostsCallback;
+import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 
 public class ForumActivity extends Activity {
 	private String[] drawerTitles;
@@ -88,11 +91,22 @@ public class ForumActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
-		questions = setStandardGroup();
 		expList = (ExpandableListView) findViewById(R.id.ExpList);
+		// questions = setStandardGroup();
+		questions = new ArrayList<Submission>();
 
+		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
+			@Override
+			public void onResults(ArrayList<Submission> result) {
+				questions.addAll(result);
+			}
+		});
+		if (Network.isConnected()) {
+			Network.sendObject(new NetTopLevelPosts());
+		}
 		expAdapter = new ExpandableListAdapter(ForumActivity.this, questions);
 		expList.setAdapter(expAdapter);
+
 		expList.setOnGroupClickListener(new OnGroupClickListener() {
 
 			@Override
@@ -134,6 +148,9 @@ public class ForumActivity extends Activity {
 								+ questions.get(groupPosition).getReplies()
 										.get(childPosition), Toast.LENGTH_SHORT)
 						.show();
+				Toast.makeText(getApplicationContext(),
+						questions.get(groupPosition).getText() + " : " +
+								questions.get(groupPosition).getReplies().get(childPosition), Toast.LENGTH_SHORT).show();
 				return false;
 			}
 
@@ -271,8 +288,7 @@ public class ForumActivity extends Activity {
 	// when the up arrow is pressed
 	public void addLikes(View view) {
 		int groupPosition = (Integer) view.getTag();
-		// questions.get(groupPosition).incrementLikes();
-		expAdapter.notifyDataSetChanged();
+		questions.get(groupPosition).like(this, expAdapter);
 	}
 
 }

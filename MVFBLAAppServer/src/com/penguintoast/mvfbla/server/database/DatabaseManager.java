@@ -64,14 +64,20 @@ public class DatabaseManager {
 					.prepareStatement("SELECT forums.users.user_id FROM forums.users WHERE user_fb_id=?;");
 			getUserID.setString(1, fbID);
 			ResultSet results = getUserID.executeQuery();
-			results.first();
-			return results.getInt(1);
+			if (results.next()) {
+				return results.getInt(1);
+			} else {
+				PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (DEFAULT, ?, NOW(), 0);");
+				createUser.setString(1, fbID);
+				createUser.executeUpdate();
+				return getUserID(fbID);
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return -1;
 	}
-	
+
 	public int getUserPostCount(int userID) {
 		return getUserPosts(userID).size();
 	}

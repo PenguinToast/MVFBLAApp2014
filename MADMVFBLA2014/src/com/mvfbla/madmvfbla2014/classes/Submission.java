@@ -8,6 +8,14 @@ package com.mvfbla.madmvfbla2014.classes;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.Activity;
+
+import com.mvfbla.madmvfbla2014.adapters.ExpandableListAdapter;
+import com.mvfbla.madmvfbla2014.net.Network;
+import com.mvfbla.madmvfbla2014.net.callback.PostVotesCallback;
+import com.mvfbla.madmvfbla2014.net.data.NetVote;
+import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
+
 public class Submission {
 	protected String text;//the text displayed in the submission
 	protected int numLikes;//
@@ -29,6 +37,23 @@ public class Submission {
 	public Submission(String text) {//overloaded
 		this();
 		this.text = text;
+	}
+	
+	public void like(final Activity act, final ExpandableListAdapter expAdapter) {
+		Network.setCallback(NetVoteCount.class, new PostVotesCallback() {
+			@Override
+			public void onResults(Integer result) {
+				setLikes(result);
+				act.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						expAdapter.notifyDataSetChanged();
+					}
+				});
+			};
+		});
+		Network.sendObject(new NetVote(postID));
+		Network.sendObject(new NetVoteCount(postID));
 	}
 	
 	public String getText() {
