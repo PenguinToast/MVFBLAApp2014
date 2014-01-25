@@ -3,6 +3,7 @@ package com.mvfbla.madmvfbla2014.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.mvfbla.madmvfbla2014.classes.Submission;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private ArrayList<Submission> questions;
+	private int lastExpandedGroupPosition;
 	
 	public ExpandableListAdapter(Context context, ArrayList<Submission> questions) {
 		this.context = context;
@@ -89,8 +91,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		iv.setTag(Integer.valueOf(groupPosition));
 		TextView tv = (TextView)convertView.findViewById(R.id.tvQuestion);
 		tv.setText(question.getText());
+		
+		if(isExpanded){
+			convertView.setBackgroundColor(Color.rgb(255,128,0));//react to press
+//			convertView.setBackgroundColor(Color.parseColor(R.color.Orange + ""));
+		}
+		else{
+			convertView.setBackgroundColor(Color.WHITE);
+		}
 		return convertView;
 	}
+	
+	
 
 	@Override
 	public boolean hasStableIds() {

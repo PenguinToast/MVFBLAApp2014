@@ -18,6 +18,7 @@ import com.mvfbla.madmvfbla2014.adapters.ExpandableListAdapter;
 import com.mvfbla.madmvfbla2014.classes.Submission;
 
 public class ForumActivity extends Activity {
+	private int lastExpandedGroupPosition;
 
 	// Custom Adapter that allows the list to expand when a group is clicked on
 	private ExpandableListAdapter expAdapter;
@@ -57,8 +58,18 @@ public class ForumActivity extends Activity {
 			@Override
 			public void onGroupExpand(int groupPosition) {
 				Toast.makeText(getApplicationContext(),
-		                questions.get(groupPosition) + " Expanded",
-		                Toast.LENGTH_SHORT).show();
+						questions.get(groupPosition) + " Expanded",
+						Toast.LENGTH_SHORT).show();
+
+				// collapse the old expanded group, if not the same
+				// as new group to expand
+				if (groupPosition != lastExpandedGroupPosition) {
+					expList.collapseGroup(lastExpandedGroupPosition);
+				}
+
+				// super.onGroupExpanded(groupPosition);
+				lastExpandedGroupPosition = groupPosition;
+
 			}
 			
 		});
@@ -93,6 +104,7 @@ public class ForumActivity extends Activity {
 		getMenuInflater().inflate(R.menu.forum, menu);
 		return true;
 	}
+	
 	
 	// Sample data to test the activity
 	public ArrayList<Submission> setStandardGroup() {
@@ -151,16 +163,16 @@ public class ForumActivity extends Activity {
 	
 	// Sorts the Arraylist by time, likes, and views
 	public void sort(int sortBy) {
-		for(Submission e :questions) {
-			//e.setSortBy(sortBy);
-		}
+//		for(Submission e :questions) {
+//			//e.setSortBy(sortBy);
+//		}
 		//Collections.sort(questions);
 	}
 	
 	// Increments the number of likes for a certain question
 	// when the up arrow is pressed
 	public void addLikes(View view) {
-		int groupPosition = (Integer)view.getTag();
+//		int groupPosition = (Integer)view.getTag();
 		//questions.get(groupPosition).incrementLikes();
 		expAdapter.notifyDataSetChanged();
 	}
