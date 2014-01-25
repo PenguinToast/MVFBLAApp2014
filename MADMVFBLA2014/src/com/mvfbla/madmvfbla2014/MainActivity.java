@@ -3,7 +3,6 @@ package com.mvfbla.madmvfbla2014;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.View;
 
@@ -26,10 +25,19 @@ public class MainActivity extends FragmentActivity {
 					.beginTransaction()
 					.add(android.R.id.content, mainFragment)
 					.commit();
+			if(isLoggedIn())
+			{
+				System.out.println("isloggedin 1\n\n\n\n\n\n");
+				toForumScreen();
+			}
+			
 		} else {
 			// Or set the fragment from restored state info
 			mainFragment = (MainFragment) getSupportFragmentManager()
 					.findFragmentById(android.R.id.content);
+			if(isLoggedIn()) 
+				System.out.println("isloggedin 2\n\n\n\n\n\n");
+				toForumScreen();
 		}
 		
 	}
@@ -47,8 +55,15 @@ public class MainActivity extends FragmentActivity {
 			this.startActivity(intent);
 		}
 	}
+	
+	public void toForumScreen () {
+		if(isLoggedIn()) {
+		    Intent intent = new Intent(this, ForumActivity.class);
+			this.startActivity(intent);
+		}
+	}
 
-	public boolean isLoggedIn() {
+	public static boolean isLoggedIn() {
 	    Session session = Session.getActiveSession();
 	    if (session != null && session.isOpened()) {
 	        return true;
