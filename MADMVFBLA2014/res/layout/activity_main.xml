@@ -1,38 +1,55 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/mainbackground"
-    android:orientation="vertical">
+    android:layout_height="match_parent" >
 
-    
-  
-    <Button
-        android:id = "@+id/Forums"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:onClick= "toForumScreen"
-        android:text="@string/Forums"
-        android:layout_marginTop="15dp"
-    />
-    
-    <Button 
-        android:id="@+id/VisitProfile"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:layout_gravity = "center_horizontal"
-        android:onClick= "toProfileScreen"
-        android:text = "@string/YourPf"
-        android:color = "#FFFFFFFF"
-        android:layout_marginTop="10dp"/>
-    
-     <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        />
+    <!-- The main content view -->
 
-</LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/mainbackground"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/Forums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:onClick="toForumScreen"
+            android:text="@string/Forums" />
+
+        <Button
+            android:id="@+id/VisitProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:onClick="toProfileScreen"
+            android:text="@string/YourPf"
+            android:color="#FFFFFFFF" />
+
+        <com.facebook.widget.LoginButton
+            android:id="@+id/authButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+    <!-- The navigation drawer -->
+
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#111"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" />
+
+</android.support.v4.widget.DrawerLayout>
