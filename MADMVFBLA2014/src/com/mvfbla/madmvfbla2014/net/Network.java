@@ -1,7 +1,8 @@
 package com.mvfbla.madmvfbla2014.net;
 
+import java.util.ArrayDeque;
+
 import android.os.StrictMode;
-import android.util.Log;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.util.ObjectMap;
@@ -25,6 +26,7 @@ public class Network {
 	private static boolean connected;
 	private static Client client;
 	private static ObjectMap<Class, Callback> callbacks;
+	private static ArrayDeque<Object> sendQueue;
 
 	public static void init() {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -34,6 +36,7 @@ public class Network {
 		client = new Client();
 		register(client.getKryo());
 		callbacks = new ObjectMap<Class, Callback>();
+		sendQueue = new ArrayDeque<Object>();
 		client.addListener(new Listener() {
 			@Override
 			public void received(Connection connection, Object object) {
@@ -43,6 +46,12 @@ public class Network {
 			@Override
 			public void connected(Connection connection) {
 				connected = true;
+				if(!sendQueue.isEmpty()) {
+					Object next = null;
+					while((next = sendQueue.poll()) != null) {
+						client.sendTCP(next);
+					}
+				}
 			}
 
 			@Override
@@ -52,7 +61,6 @@ public class Network {
 		});
 		
 		client.start();
-		Log.i("NETWORK", Boolean.toString(attemptConnect()));
 	}
 	
 	private static void received(Connection connection, Object object) {
@@ -76,7 +84,11 @@ public class Network {
 	}
 	
 	public static void sendObject(Object o) {
-		client.sendTCP(o);
+		if(!isConnected()) {
+			sendQueue.offer(o);
+		} else {
+			client.sendTCP(o);
+		}
 	}
 	
 	public static void setCallback(Class clazz, Callback callback) {
