@@ -20,6 +20,7 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.mvfbla.madmvfbla2014.R;
 import com.mvfbla.madmvfbla2014.classes.User;
+import com.mvfbla.madmvfbla2014.net.Network;
 
 public class MainFragment extends Fragment {
 
@@ -67,6 +68,7 @@ public class MainFragment extends Fragment {
 		                    if (user != null) {
 		                        User.setId(user.getId());//user id
 		                        User.setUsername(user.getFirstName(), user.getLastName());//user's profile name
+		                        Network.attemptConnect();
 		                    }   
 		                }   
 		            }
