@@ -92,7 +92,6 @@ public class ForumActivity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 
 		expList = (ExpandableListView) findViewById(R.id.ExpList);
-		// questions = setStandardGroup();
 		questions = new ArrayList<Submission>();
 
 		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
@@ -130,9 +129,6 @@ public class ForumActivity extends Activity {
 
 			@Override
 			public void onGroupCollapse(int groupPosition) {
-				Toast.makeText(getApplicationContext(),
-						questions.get(groupPosition).getText() + " Collapsed",
-						Toast.LENGTH_SHORT).show();
 			}
 		});
 		expList.setOnChildClickListener(new OnChildClickListener() {
@@ -141,16 +137,7 @@ public class ForumActivity extends Activity {
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
 
-				Toast.makeText(
-						getApplicationContext(),
-						questions.get(groupPosition).getText()
-								+ " : "
-								+ questions.get(groupPosition).getReplies()
-										.get(childPosition), Toast.LENGTH_SHORT)
-						.show();
-				Toast.makeText(getApplicationContext(),
-						questions.get(groupPosition).getText() + " : " +
-								questions.get(groupPosition).getReplies().get(childPosition), Toast.LENGTH_SHORT).show();
+				
 				return false;
 			}
 
@@ -213,41 +200,6 @@ public class ForumActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.forum, menu);
 		return true;
-	}
-
-	// Sample data to test the activity
-	public ArrayList<Submission> setStandardGroup() {
-		ArrayList<Submission> ques = new ArrayList<Submission>();
-		ArrayList<Submission> comms = new ArrayList<Submission>();
-
-		Submission ques1 = new Submission("What are considered fruits?");
-		Submission comm1 = new Submission();
-		comm1.setText("Apple is considered a fruit. It is one of the most "
-				+ "red of all the fruits and is actually very healthy. Although it "
-				+ "may not seem as though it is healthy, it is capable of providing many "
-				+ "nutrients a human body needs to survive.");
-		comms.add(comm1);
-		ques1.addReply(comms);
-		comms = new ArrayList<Submission>();
-
-		Submission ques2 = new Submission("What are considered vegetables?");
-		ques2.addReply(new Submission("Lettuce?"));
-
-		ques.add(ques1);
-		ques.add(ques2);
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-		ques.add(new Submission("Hello"));
-
-		return ques;
 	}
 
 	// Actionbar allows sorting for the menus
