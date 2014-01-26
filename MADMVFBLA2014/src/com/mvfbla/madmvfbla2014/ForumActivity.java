@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +30,7 @@ import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.TopLevelPostsCallback;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 
-public class ForumActivity extends Activity {
+public class ForumActivity extends FragmentActivity {
 	private String[] drawerTitles;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -169,10 +172,26 @@ public class ForumActivity extends Activity {
 	private void selectItem(int position) {
 		// Create a new fragment and specify the planet to show based on
 		// position
-		// Fragment fragment = new PlanetFragment();
+//		 Fragment fragment = new PlanetFragment();
 		// Bundle args = new Bundle();
 		// args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
 		// fragment.setArguments(args);
+		switch(position){
+		case 0: 
+			Intent a = new Intent(ForumActivity.this, ForumActivity.class);
+			startActivity(a);
+//			ForumActivity a = new ForumActivity();
+//			FragmentManager fragmentManager = getFragmentManager();
+//		    fragmentManager.beginTransaction()
+//		                   .replace(R.id.content_frame, fragment)
+//		                   .commit();
+
+			break;
+		case 1:
+			Intent b = new Intent(ForumActivity.this, ProfileActivity.class);
+			startActivity(b);
+			break;
+		}
 
 		// Insert the fragment by replacing any existing fragment
 		// FragmentManager fragmentManager = getFragmentManager();

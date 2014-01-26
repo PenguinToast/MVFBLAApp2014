@@ -1,7 +1,7 @@
 package com.mvfbla.madmvfbla2014;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
 
 import com.mvfbla.madmvfbla2014.classes.User;
@@ -9,7 +9,7 @@ import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
