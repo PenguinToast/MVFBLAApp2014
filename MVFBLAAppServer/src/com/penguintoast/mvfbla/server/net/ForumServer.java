@@ -11,6 +11,7 @@ import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPosts;
+import com.mvfbla.madmvfbla2014.net.data.NetUsers;
 import com.mvfbla.madmvfbla2014.net.data.NetVote;
 import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
 import com.penguintoast.mvfbla.server.database.DatabaseManager;
@@ -95,6 +96,9 @@ public class ForumServer {
 		if (object instanceof NetVoteCount) {
 			NetVoteCount dat = (NetVoteCount) object;
 			connection.sendTCP(new NetVoteCount(dat.postID, database.voteCount(dat.postID), database.voteState(connection.getUserID(), dat.postID)));
+		}
+		if (object instanceof NetUsers) {
+			connection.sendTCP(new NetUsers(database.getUsers()));
 		}
 	}
 }

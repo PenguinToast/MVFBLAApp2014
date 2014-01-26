@@ -14,6 +14,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.facebook.Session;
 import com.mvfbla.madmvfbla2014.classes.Submission;
 import com.mvfbla.madmvfbla2014.classes.User;
+import com.mvfbla.madmvfbla2014.classes.UserData;
 import com.mvfbla.madmvfbla2014.net.callback.Callback;
 import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
 import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
@@ -22,6 +23,7 @@ import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPosts;
+import com.mvfbla.madmvfbla2014.net.data.NetUsers;
 import com.mvfbla.madmvfbla2014.net.data.NetVote;
 import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
 
@@ -49,6 +51,7 @@ public class Network {
 
 			@Override
 			public void connected(Connection connection) {
+				client.sendTCP(new NetLogin(User.getId(), User.getUsername()));
 				if (!sendQueue.isEmpty()) {
 					Object next = null;
 					while ((next = sendQueue.poll()) != null) {
@@ -78,7 +81,6 @@ public class Network {
 				public void run() {
 					try {
 						client.connect(3000, "penguintoast.no-ip.biz", Network.PORT);
-						client.sendTCP(new NetLogin(User.getId(), User.getUsername()));
 					} catch (Exception ex) {
 						return;
 					}
@@ -116,10 +118,12 @@ public class Network {
 				NetUserPoints.class,
 				NetUserPostCount.class,
 				NetUserPosts.class,
+				NetUsers.class,
 				NetVote.class,
 				NetVoteCount.class,
 
 				Submission.class,
+				UserData.class,
 				ArrayList.class,
 				Date.class,
 				java.sql.Date.class
