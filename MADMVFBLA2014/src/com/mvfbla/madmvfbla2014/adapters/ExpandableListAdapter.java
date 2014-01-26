@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
@@ -88,7 +87,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 		TextView likes = (TextView)convertView.findViewById(R.id.numLikes);
 		likes.setText(question.getNumLikes() + "");
-		final ImageView iv = (ImageView)convertView.findViewById(R.id.addLike);
+		ImageView iv = (ImageView)convertView.findViewById(R.id.addLike);
+		setVoteImage(iv, groupPosition);
 		iv.setTag(Integer.valueOf(groupPosition));
 		TextView tv = (TextView)convertView.findViewById(R.id.tvQuestion);
 		tv.setText(question.getText());
@@ -115,6 +115,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
+	}
+	public void setVoteImage(ImageView iv, int groupPosition) {
+		if(questions.get(groupPosition).getIsLiked())
+			iv.setImageResource(R.drawable.down_arrow);
+		else
+			iv.setImageResource(R.drawable.up_arrow);
 	}
 
 }
