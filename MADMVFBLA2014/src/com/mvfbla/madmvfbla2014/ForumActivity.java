@@ -180,6 +180,7 @@ public class ForumActivity extends FragmentActivity {
 		case 0: 
 			Intent a = new Intent(ForumActivity.this, ForumActivity.class);
 			startActivity(a);
+			
 //			ForumActivity a = new ForumActivity();
 //			FragmentManager fragmentManager = getFragmentManager();
 //		    fragmentManager.beginTransaction()
