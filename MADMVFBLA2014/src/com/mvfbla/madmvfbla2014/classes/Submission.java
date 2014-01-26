@@ -82,6 +82,10 @@ public class Submission {
 		return replies;
 	}
 	
+	public Submission getReply(int position) {
+		return replies.get(position);
+	}
+	
 	//return when this question was posted
 	public Date getTimePosted(){
 		return this.timePosted;
