@@ -1,7 +1,6 @@
 package com.penguintoast.mvfbla.server.database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +8,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import com.mvfbla.madmvfbla2014.classes.Submission;
+import com.mvfbla.madmvfbla2014.classes.UserData;
 
 public class DatabaseManager {
 	private static DatabaseManager INSTANCE;
@@ -57,6 +57,32 @@ public class DatabaseManager {
 			ex.printStackTrace();
 		}
 		return null;
+	}
+
+	public UserData readUserData(ResultSet set) {
+		try {
+			return new UserData(set.getString("user_name"), set.getInt(set.getInt("user_points")));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+
+	public ArrayList<UserData> getUsers() {
+		try {
+			ArrayList<UserData> out = new ArrayList<UserData>();
+
+			PreparedStatement getUsers = connect.prepareStatement("SELECT * from forums.users ORDER BY forums.users.user_points DESC");
+			ResultSet results = getUsers.executeQuery();
+			while (results.next()) {
+				UserData sub = readUserData(results);
+				out.add(sub);
+			}
+			return out;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 	public int getUserID(String fbID, String name) {
@@ -137,10 +163,11 @@ public class DatabaseManager {
 		}
 		return null;
 	}
-	
+
 	public int getPostOwner(int postID) {
 		try {
-			PreparedStatement getPostOwner = connect.prepareStatement("SELECT forums.posts.post_by FROM forums.posts WHERE post_id = ?;");
+			PreparedStatement getPostOwner = connect
+					.prepareStatement("SELECT forums.posts.post_by FROM forums.posts WHERE post_id = ?;");
 			getPostOwner.setInt(1, postID);
 			ResultSet results = getPostOwner.executeQuery();
 			results.first();
@@ -150,7 +177,7 @@ public class DatabaseManager {
 			return -1;
 		}
 	}
-	
+
 	public void setUserID(int id) {
 		this.userID = id;
 	}
@@ -187,7 +214,8 @@ public class DatabaseManager {
 	public boolean createPost(String content, int post_by, int post_parent) {
 		try {
 			// Insert post - content, date, by, parent, date_replied
-			PreparedStatement createPost = connect.prepareStatement("INSERT INTO forums.posts VALUES (default, ?, NOW(), ?, ?, NOW());");
+			PreparedStatement createPost = connect
+					.prepareStatement("INSERT INTO forums.posts VALUES (default, ?, NOW(), ?, ?, NOW());");
 			createPost.setString(1, content);
 			createPost.setInt(2, post_by);
 			if (post_parent < 0) {
@@ -280,7 +308,7 @@ public class DatabaseManager {
 				PreparedStatement voteRemove = connect.prepareStatement("DELETE FROM forums.upvotes WHERE user_id=? AND post_id=?");
 				voteRemove.setInt(1, userID);
 				voteRemove.setInt(2, postID);
-				
+
 				// Remove points from user
 				addPoints(getPostOwner(postID), -1);
 				return voteRemove.executeUpdate() > 0;
@@ -289,7 +317,7 @@ public class DatabaseManager {
 				PreparedStatement voteAdd = connect.prepareStatement("INSERT INTO forums.upvotes values (?, ?)");
 				voteAdd.setInt(1, userID);
 				voteAdd.setInt(2, postID);
-				
+
 				// Add points to user
 				addPoints(getPostOwner(postID), 1);
 				return voteAdd.executeUpdate() > 0;
