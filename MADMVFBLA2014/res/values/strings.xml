@@ -13,6 +13,9 @@
 
     <string name="addComment">Add a comment</string>
     <string name="send">Send</string>
+    <string name="login">Please log into Facebook</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
     <string name="SortByDate">Sort By Date</string>
     <string name="SortByViews">Sort By Views</string>
     <string name="SortByLikes">Sort By Likes</string>

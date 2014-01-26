@@ -1,5 +1,6 @@
 package com.mvfbla.madmvfbla2014;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.service.textservice.SpellCheckerService.Session;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.facebook.Session;
+import com.mvfbla.madmvfbla2014.fragments.LoginDialogFragment;
 import com.mvfbla.madmvfbla2014.fragments.MainFragment;
 import com.mvfbla.madmvfbla2014.net.Network;
 
@@ -44,16 +46,18 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	public void toForumScreen (View view) {
-		if(isLoggedIn()) {
-		    Intent intent = new Intent(this, ForumActivity.class);
-			this.startActivity(intent);
-		}
+		this.toForumScreen();
 	}
 	
 	public void toForumScreen () {
 		if(isLoggedIn()) {
-		    Intent intent = new Intent(this, ForumActivity.class);
-			this.startActivity(intent);
+		    Intent intent = new Intent(MainActivity.this, ForumActivity.class);
+			startActivity(intent);
+		}
+		else{
+			LoginDialogFragment f = new LoginDialogFragment();
+			
+			f.show(getSupportFragmentManager(), "");
 		}
 	}
 
@@ -68,8 +72,14 @@ public class MainActivity extends FragmentActivity {
 	
 	public void toProfileScreen(View view) {
 		if(isLoggedIn()) {
-		    Intent intent = new Intent(this, ProfileActivity.class);
-			this.startActivity(intent);
+		    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+			startActivity(intent);
 		}
+		else{
+			LoginDialogFragment f = new LoginDialogFragment();
+			
+			f.show(getSupportFragmentManager(), "");
+		}
+
 	}
 }
