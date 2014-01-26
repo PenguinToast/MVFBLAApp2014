@@ -3,11 +3,12 @@ package com.mvfbla.madmvfbla2014;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -167,6 +168,10 @@ public class ForumActivity extends DrawerActivity {
 	public void SubmitPost(View view) {
 		EditText post = (EditText)findViewById(R.id.NewPost);
 		String newPost = post.getText().toString();
+		
+		if(newPost.equals("")) {
+			return;
+		}
 		// Just change the -1 to the parent post ID for replies
 		Network.sendObject(new NetCreatePost(newPost, -1));
 
@@ -184,5 +189,10 @@ public class ForumActivity extends DrawerActivity {
 			}
 		});
 		Network.sendObject(new NetTopLevelPosts());
+		
+		InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE); 
+		inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                   InputMethodManager.HIDE_NOT_ALWAYS);
 	}
 }
