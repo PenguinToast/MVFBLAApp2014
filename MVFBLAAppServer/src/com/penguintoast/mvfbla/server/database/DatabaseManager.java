@@ -136,6 +136,19 @@ public class DatabaseManager {
 		}
 		return null;
 	}
+	
+	public int getPostOwner(int postID) {
+		try {
+			PreparedStatement getPostOwner = connect.prepareStatement("SELECT forums.posts.post_by FROM forums.posts WHERE post_id = ?;");
+			getPostOwner.setInt(1, postID);
+			ResultSet results = getPostOwner.executeQuery();
+			results.first();
+			return results.getInt(1);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return -1;
+		}
+	}
 
 	/**
 	 * Creates a new user in the forums
@@ -265,12 +278,18 @@ public class DatabaseManager {
 				PreparedStatement voteRemove = connect.prepareStatement("DELETE FROM forums.upvotes WHERE user_id=? AND post_id=?");
 				voteRemove.setInt(1, userID);
 				voteRemove.setInt(2, postID);
+				
+				// Remove points from user
+				addPoints(getPostOwner(postID), -1);
 				return voteRemove.executeUpdate() > 0;
 			} else {
 				// Add vote - userID, postID
 				PreparedStatement voteAdd = connect.prepareStatement("INSERT INTO forums.upvotes values (?, ?)");
 				voteAdd.setInt(1, userID);
 				voteAdd.setInt(2, postID);
+				
+				// Add points to user
+				addPoints(getPostOwner(postID), 1);
 				return voteAdd.executeUpdate() > 0;
 			}
 		} catch (Exception ex) {
