@@ -18,21 +18,15 @@
     <string name="SortByLikes">Sort By Likes</string>
     <string name="addLike">Add Like</string>
     <string name="YourPf">Your Profile</string>
-    
 
-    <string-array name="planets_array">
+    <string-array name="drawer_array">
         <item>Forums</item>
         <item>Profile</item>
         <item>Leaderboards</item>
         <item>Settings</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
     </string-array>
-    
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    
 
 </resources>
