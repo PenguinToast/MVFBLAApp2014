@@ -1,11 +1,6 @@
 package com.mvfbla.madmvfbla2014;
 
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mvfbla.madmvfbla2014.classes.User;
