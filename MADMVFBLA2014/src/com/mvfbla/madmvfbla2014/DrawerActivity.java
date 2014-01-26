@@ -27,12 +27,6 @@ public class DrawerActivity extends Activity {
 	protected static final int LEADERBOARD_VIEW= 3;
 	protected static final int SETTINGS_VIEW = 4;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-	}
-
 	@SuppressLint("NewApi")
 	protected void initNavDrawer() {
 		mTitle = mDrawerTitle = getTitle();

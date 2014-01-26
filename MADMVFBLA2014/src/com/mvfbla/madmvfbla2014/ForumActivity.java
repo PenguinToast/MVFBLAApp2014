@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
@@ -154,4 +156,9 @@ public class ForumActivity extends DrawerActivity {
 		questions.get(groupPosition).getReply(childPosition).like(this, expAdapter, view);
 	}
 
+	public void SubmitPost(View view) {
+		EditText post = (EditText)findViewById(R.id.NewPost);
+		String newPost = post.getText().toString();
+		questions.add(new Submission(newPost));
+	}
 }
