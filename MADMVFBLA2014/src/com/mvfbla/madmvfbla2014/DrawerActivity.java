@@ -20,17 +20,17 @@ public class DrawerActivity extends Activity {
 	protected ActionBarDrawerToggle mDrawerToggle;
 	protected CharSequence mDrawerTitle;
 	protected CharSequence mTitle;
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState){
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 
 	}
-	
+
 	@SuppressLint("NewApi")
-	protected void initNavDrawer(){
-		drawerTitles = getResources().getStringArray(R.array.planets_array);
+	protected void initNavDrawer() {
+		mTitle = mDrawerTitle = getTitle();
+		drawerTitles = getResources().getStringArray(R.array.drawer_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -45,7 +45,7 @@ public class DrawerActivity extends Activity {
 
 			/** Called when a drawer has settled in a completely closed state. */
 			public void onDrawerClosed(View view) {
-				super.onDrawerClosed(view);
+				// super.onDrawerClosed(view);
 				getActionBar().setTitle(mTitle);
 				invalidateOptionsMenu(); // creates call to
 											// onPrepareOptionsMenu()
@@ -53,7 +53,7 @@ public class DrawerActivity extends Activity {
 
 			/** Called when a drawer has settled in a completely open state. */
 			public void onDrawerOpened(View drawerView) {
-				super.onDrawerOpened(drawerView);
+				// super.onDrawerOpened(drawerView);
 				getActionBar().setTitle(mDrawerTitle);
 				invalidateOptionsMenu(); // creates call to
 											// onPrepareOptionsMenu()
@@ -76,7 +76,7 @@ public class DrawerActivity extends Activity {
 			selectItem(position);
 		}
 	}
-	
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -89,7 +89,7 @@ public class DrawerActivity extends Activity {
 		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		//
@@ -99,48 +99,24 @@ public class DrawerActivity extends Activity {
 		}
 		return false;
 	}
-	
+
 	/** Swaps fragments in the main content view */
 	protected void selectItem(int position) {
-		// Create a new fragment and specify the planet to show based on
-		// position
-//		 Fragment fragment = new PlanetFragment();
-		// Bundle args = new Bundle();
-		// args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-		// fragment.setArguments(args);
-		switch(position){
-		case 0: 
-			Intent a = new Intent(DrawerActivity.this, ForumActivity.class);
-			startActivity(a);
-			
-//			Fragment a = new ForumActivity();
-//			FragmentManager fragmentManager = getFragmentManager();
-//		    fragmentManager.beginTransaction()
-//		                   .replace(R.id.content_frame, a)
-//		                   .commit();
-
+		Intent i = new Intent(DrawerActivity.this, DrawerActivity.class);
+		switch (position) {
+		case 0: // create a new intent for Forums
+			i = new Intent(DrawerActivity.this, ForumActivity.class);
 			break;
-		case 1:
-			Intent b = new Intent(DrawerActivity.this, ProfileActivity.class);
-			startActivity(b);
-//			FragmentActivity b = (ProfileActivity) new FragmentActivity();
-//			FragmentManager fragmentManager = getFragmentManager();
-//		    fragmentManager.beginTransaction()
-//		                   .replace(R.id.content_frame, b)
-//		                   .commit();
+		case 1:// create a new intent for Profile
+			i = new Intent(DrawerActivity.this, ProfileActivity.class);
 			break;
 		}
-
-		// Insert the fragment by replacing any existing fragment
-		// FragmentManager fragmentManager = getFragmentManager();
-		// fragmentManager.beginTransaction()
-		// .replace(R.id.content_frame, fragment)
-		// .commit();
-
 		// Highlight the selected item, update the title, and close the drawer
 		mDrawerList.setItemChecked(position, true);
 		setTitle(drawerTitles[position]);
 		mDrawerLayout.closeDrawer(mDrawerList);
+		startActivity(i);
+
 	}
 
 	@Override

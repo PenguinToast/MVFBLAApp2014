@@ -32,7 +32,6 @@ import com.mvfbla.madmvfbla2014.net.callback.TopLevelPostsCallback;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 
 public class ForumActivity extends DrawerActivity {
-	
 	// Custom Adapter that allows the list to expand when a group is clicked on
 	private ExpandableListAdapter expAdapter;
 	// ArrayList of questions that are displayed through the custom adapter
@@ -104,6 +103,7 @@ public class ForumActivity extends DrawerActivity {
 
 		});
 		super.initNavDrawer();
+		setTitle("Forums");//set the action bar to display "Forums"
 	}
 
 
@@ -116,9 +116,12 @@ public class ForumActivity extends DrawerActivity {
 	}
 
 	// Actionbar allows sorting for the menus
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		// Handle your other action bar items...
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		// Handle other action bar items...
 		switch (item.getItemId()) {
 			case R.id.SortByTime:
 				sort(ForumActivity.SORT_TIME);

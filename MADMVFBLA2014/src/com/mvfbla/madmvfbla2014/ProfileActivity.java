@@ -39,6 +39,7 @@ public class ProfileActivity extends DrawerActivity {
 		});
 		Network.sendObject(new NetUserPoints());
 		super.initNavDrawer();
+		setTitle("Profile");//set the action bar to display "Profile"
 	}
 
 	public String getPointsText() {
