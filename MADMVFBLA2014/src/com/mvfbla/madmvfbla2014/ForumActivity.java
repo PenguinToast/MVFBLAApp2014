@@ -97,6 +97,7 @@ public class ForumActivity extends Activity {
 		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
 			@Override
 			public void onResults(ArrayList<Submission> result) {
+				questions.clear();
 				questions.addAll(result);
 			}
 		});
