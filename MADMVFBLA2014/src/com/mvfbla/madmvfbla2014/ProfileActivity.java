@@ -38,6 +38,7 @@ public class ProfileActivity extends DrawerActivity {
 			}
 		});
 		Network.sendObject(new NetUserPoints());
+		super.initNavDrawer();
 	}
 
 	public String getPointsText() {

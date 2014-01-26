@@ -1,12 +1,13 @@
 package com.mvfbla.madmvfbla2014;
 
-import com.mvfbla.madmvfbla2014.ForumActivity.DrawerItemClickListener;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,12 @@ public class DrawerActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		
+
+	}
+	
+	@SuppressLint("NewApi")
+	protected void initNavDrawer(){
 		drawerTitles = getResources().getStringArray(R.array.planets_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -58,7 +65,6 @@ public class DrawerActivity extends Activity {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-
 	}
 
 	// listener for the navigation drawer on left
@@ -71,6 +77,29 @@ public class DrawerActivity extends Activity {
 		}
 	}
 	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		//
+		// return true;
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		return false;
+	}
+	
 	/** Swaps fragments in the main content view */
 	protected void selectItem(int position) {
 		// Create a new fragment and specify the planet to show based on
@@ -81,7 +110,7 @@ public class DrawerActivity extends Activity {
 		// fragment.setArguments(args);
 		switch(position){
 		case 0: 
-			Intent a = new Intent(ForumActivity.this, ForumActivity.class);
+			Intent a = new Intent(DrawerActivity.this, ForumActivity.class);
 			startActivity(a);
 			
 //			Fragment a = new ForumActivity();
@@ -92,7 +121,7 @@ public class DrawerActivity extends Activity {
 
 			break;
 		case 1:
-			Intent b = new Intent(ForumActivity.this, ProfileActivity.class);
+			Intent b = new Intent(DrawerActivity.this, ProfileActivity.class);
 			startActivity(b);
 //			FragmentActivity b = (ProfileActivity) new FragmentActivity();
 //			FragmentManager fragmentManager = getFragmentManager();

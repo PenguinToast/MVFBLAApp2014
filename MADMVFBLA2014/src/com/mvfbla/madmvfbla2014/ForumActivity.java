@@ -103,24 +103,9 @@ public class ForumActivity extends DrawerActivity {
 			}
 
 		});
+		super.initNavDrawer();
 	}
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		// Sync the toggle state after onRestoreInstanceState has occurred.
-		mDrawerToggle.syncState();
-	}
-
-	
-
-	
 
 	// Creates the options menu
 	@Override
@@ -132,11 +117,7 @@ public class ForumActivity extends DrawerActivity {
 
 	// Actionbar allows sorting for the menus
 	public boolean onOptionsItemSelected(MenuItem item) {
-		//
-		// return true;
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
+		
 		// Handle your other action bar items...
 		switch (item.getItemId()) {
 			case R.id.SortByTime:
@@ -158,9 +139,9 @@ public class ForumActivity extends DrawerActivity {
 
 	// Sorts the Arraylist by time, likes, and views
 	public void sort(int sortBy) {
-		for (Submission q : questions) {
-			// e.setSortBy(sortBy);
-		}
+//		for (Submission q : questions) {
+//			// e.setSortBy(sortBy);
+//		}
 		// Collections.sort(questions);
 	}
 
