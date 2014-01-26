@@ -89,6 +89,7 @@ public class DatabaseManager {
 			// Query posts from user - userID
 			PreparedStatement getUserPosts = connect
 					.prepareStatement("SELECT * FROM forums.posts WHERE post_by=? ORDER BY post_date_replied DESC");
+			getUserPosts.setInt(1, userID);
 			ArrayList<Submission> out = new ArrayList<Submission>();
 			ResultSet results = getUserPosts.executeQuery();
 			while (results.next()) {
