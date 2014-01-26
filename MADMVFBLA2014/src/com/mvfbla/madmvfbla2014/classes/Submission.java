@@ -46,19 +46,20 @@ public class Submission {
 	public void like(final Activity act, final ExpandableListAdapter expAdapter, final View view) {
 		Network.setCallback(NetVoteCount.class, new PostVotesCallback() {
 			@Override
-			public void onResults(Integer result) {
-				setLikes(result);
+			public void onResults(Object[] result) {
+				setLikes((Integer) result[0]);
+				isLiked = (Boolean) result[1];
 				act.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
+						ImageView newView = (ImageView)view;
+						if(isLiked) 
+							newView.setImageResource(R.drawable.down_arrow);
+						else
+							newView.setImageResource(R.drawable.up_arrow);
 						expAdapter.notifyDataSetChanged();
 					}
 				});
-				ImageView newView = (ImageView)view;
-				if(isLiked) 
-					newView.setImageResource(R.drawable.down_arrow);
-				else
-					newView.setImageResource(R.drawable.up_arrow);
 			};
 		});
 		Network.sendObject(new NetVote(postID));
@@ -148,6 +149,11 @@ public class Submission {
 	public void changeIsLiked() {
 		isLiked = !isLiked;
 	}
+	
+	public void setLiked(boolean liked) {
+		this.isLiked = liked;
+	}
+	
 	public boolean getIsLiked() {
 		return isLiked;
 	}

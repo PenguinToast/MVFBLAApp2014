@@ -14,6 +14,7 @@ public class DatabaseManager {
 	private static DatabaseManager INSTANCE;
 
 	private Connection connect;
+	private int userID;
 
 	static {
 		INSTANCE = new DatabaseManager();
@@ -50,6 +51,7 @@ public class DatabaseManager {
 			sub.setTimeReplied(set.getDate("post_date_replied"));
 			sub.setReplies(getReplies(sub.getPostID()));
 			sub.setLikes(voteCount(sub.getPostID()));
+			sub.setLiked(voteState(userID, sub.getPostID()));
 			return sub;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -148,6 +150,10 @@ public class DatabaseManager {
 			ex.printStackTrace();
 			return -1;
 		}
+	}
+	
+	public void setUserID(int id) {
+		this.userID = id;
 	}
 
 	/**

@@ -50,6 +50,7 @@ public class ForumServer {
 			NetLogin dat = (NetLogin) object;
 			connection.setFBID(dat.id);
 			connection.setUserID(database.getUserID(dat.id));
+			database.setUserID(connection.getUserID());
 		}
 		if (object instanceof NetTopLevelPosts) {
 			connection.sendTCP(new NetTopLevelPosts(database.getTopLevelPosts()));
@@ -93,7 +94,7 @@ public class ForumServer {
 		}
 		if (object instanceof NetVoteCount) {
 			NetVoteCount dat = (NetVoteCount) object;
-			connection.sendTCP(new NetVoteCount(dat.postID, database.voteCount(dat.postID)));
+			connection.sendTCP(new NetVoteCount(dat.postID, database.voteCount(dat.postID), database.voteState(connection.getUserID(), dat.postID)));
 		}
 	}
 }

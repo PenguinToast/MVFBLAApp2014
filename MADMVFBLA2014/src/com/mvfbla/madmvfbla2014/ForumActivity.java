@@ -101,9 +101,7 @@ public class ForumActivity extends Activity {
 				questions.addAll(result);
 			}
 		});
-		if (Network.isConnected()) {
-			Network.sendObject(new NetTopLevelPosts());
-		}
+		Network.sendObject(new NetTopLevelPosts());
 		expAdapter = new ExpandableListAdapter(ForumActivity.this, questions);
 		expList.setAdapter(expAdapter);
 
@@ -117,15 +115,15 @@ public class ForumActivity extends Activity {
 
 		});
 		expList.setOnGroupExpandListener(new OnGroupExpandListener() {
-	        int previousGroup = 0;
+			int previousGroup = 0;
 
-	        @Override
-	        public void onGroupExpand(int groupPosition) {
-	            if(groupPosition != previousGroup)
-	                expList.collapseGroup(previousGroup);
-	            previousGroup = groupPosition;
-	        }
-	    });
+			@Override
+			public void onGroupExpand(int groupPosition) {
+				if (groupPosition != previousGroup)
+					expList.collapseGroup(previousGroup);
+				previousGroup = groupPosition;
+			}
+		});
 
 		expList.setOnGroupCollapseListener(new OnGroupCollapseListener() {
 
@@ -139,7 +137,6 @@ public class ForumActivity extends Activity {
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
 
-				
 				return false;
 			}
 
@@ -213,17 +210,17 @@ public class ForumActivity extends Activity {
 		}
 		// Handle your other action bar items...
 		switch (item.getItemId()) {
-		case R.id.SortByTime:
-			sort(ForumActivity.SORT_TIME);
-			break;
-		case R.id.SortByLikes:
-			sort(ForumActivity.SORT_LIKES);
-			break;
-		case R.id.SortByViews:
-			sort(ForumActivity.SORT_VIEWS);
-			break;
-		default:
-			Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();
+			case R.id.SortByTime:
+				sort(ForumActivity.SORT_TIME);
+				break;
+			case R.id.SortByLikes:
+				sort(ForumActivity.SORT_LIKES);
+				break;
+			case R.id.SortByViews:
+				sort(ForumActivity.SORT_VIEWS);
+				break;
+			default:
+				Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();
 		}
 
 		expAdapter.notifyDataSetChanged();
@@ -243,7 +240,7 @@ public class ForumActivity extends Activity {
 	public void addLikes(View view) {
 		int groupPosition = (Integer) view.getTag();
 		questions.get(groupPosition).like(this, expAdapter, view);
-		
+
 	}
 
 }

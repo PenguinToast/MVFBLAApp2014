@@ -28,7 +28,6 @@ import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
 public class Network {
 	public static final int PORT = 44443;
 
-	private static boolean connected;
 	private static Client client;
 	private static ObjectMap<Class, Callback> callbacks;
 	private static ArrayDeque<Object> sendQueue;
@@ -50,7 +49,6 @@ public class Network {
 
 			@Override
 			public void connected(Connection connection) {
-				connected = true;
 				if (!sendQueue.isEmpty()) {
 					Object next = null;
 					while ((next = sendQueue.poll()) != null) {
@@ -61,7 +59,6 @@ public class Network {
 
 			@Override
 			public void disconnected(Connection connection) {
-				connected = false;
 			}
 		});
 
@@ -75,7 +72,7 @@ public class Network {
 	}
 
 	public static boolean attemptConnect() {
-		if (!connected && Session.getActiveSession().isOpened()) {
+		if (!isConnected() && Session.getActiveSession().isOpened()) {
 			Thread t = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -93,7 +90,7 @@ public class Network {
 	}
 
 	public static boolean isConnected() {
-		return connected;
+		return client.isConnected();
 	}
 
 	public static void sendObject(Object o) {
