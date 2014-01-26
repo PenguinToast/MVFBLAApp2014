@@ -34,10 +34,6 @@ public class ForumActivity extends DrawerActivity {
 	public static final int SORT_LIKES = 3;
 	public static final int SORT_DEFAULT = 0;
 	
-	public static final int NEWPOST_VIEW = 0;
-	public static final int FORUM_VIEW = 1;
-	public static final int PROFILE_VIEW= 2;
-	public static final int LEADERBOARD_VIEW= 3;
 	
 
 	// Constructor that initiates the entire activity
