@@ -1,11 +1,6 @@
 package com.mvfbla.madmvfbla2014;
 
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mvfbla.madmvfbla2014.classes.User;
@@ -43,6 +38,19 @@ public class ProfileActivity extends DrawerActivity {
 			}
 		});
 		Network.sendObject(new NetUserPoints());
+		
+		Network.setCallback(NetUserPostCount.class, new UserPostCountCallback() {
+			@Override
+			public void onResults(final Integer result) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						posts.setText("Posts : " + Integer.toString(result));
+					}
+				});
+			}
+		});
+		Network.sendObject(new NetUserPostCount());
 		super.initNavDrawer();
 		setTitle("Profile");//set the action bar to display "Profile"
 	}
