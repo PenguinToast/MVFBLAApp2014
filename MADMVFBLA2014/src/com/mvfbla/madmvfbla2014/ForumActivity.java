@@ -159,6 +159,8 @@ public class ForumActivity extends DrawerActivity {
 	public void SubmitPost(View view) {
 		EditText post = (EditText)findViewById(R.id.NewPost);
 		String newPost = post.getText().toString();
+		post.setText("");
 		questions.add(new Submission(newPost));
+		expAdapter.notifyDataSetChanged();
 	}
 }
