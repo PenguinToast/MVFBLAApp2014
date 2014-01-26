@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.mvfbla.madmvfbla2014.R;
 import com.mvfbla.madmvfbla2014.adapters.ExpandableListAdapter;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.PostVotesCallback;
@@ -24,6 +27,7 @@ public class Submission {
 	protected int parentID;
 	protected int postID;
 	protected int userID;
+	protected boolean isLiked = false;
 	
 	public Submission() {//initialize class variables
 		replies = new ArrayList<Submission>(0);//
@@ -39,7 +43,7 @@ public class Submission {
 		this.text = text;
 	}
 	
-	public void like(final Activity act, final ExpandableListAdapter expAdapter) {
+	public void like(final Activity act, final ExpandableListAdapter expAdapter, final View view) {
 		Network.setCallback(NetVoteCount.class, new PostVotesCallback() {
 			@Override
 			public void onResults(Integer result) {
@@ -50,6 +54,11 @@ public class Submission {
 						expAdapter.notifyDataSetChanged();
 					}
 				});
+				ImageView newView = (ImageView)view;
+				if(isLiked) 
+					newView.setImageResource(R.drawable.down_arrow);
+				else
+					newView.setImageResource(R.drawable.up_arrow);
 			};
 		});
 		Network.sendObject(new NetVote(postID));
@@ -134,5 +143,12 @@ public class Submission {
 	
 	public void setUserID(int id) {
 		this.userID = id;
+	}
+	
+	public void changeIsLiked() {
+		isLiked = !isLiked;
+	}
+	public boolean getIsLiked() {
+		return isLiked;
 	}
 }

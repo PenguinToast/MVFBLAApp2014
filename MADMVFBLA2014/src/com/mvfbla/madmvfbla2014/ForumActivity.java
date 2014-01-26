@@ -18,6 +18,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -231,7 +232,7 @@ public class ForumActivity extends Activity {
 
 	// Sorts the Arraylist by time, likes, and views
 	public void sort(int sortBy) {
-		for (Submission e : questions) {
+		for (Submission q : questions) {
 			// e.setSortBy(sortBy);
 		}
 		// Collections.sort(questions);
@@ -241,7 +242,8 @@ public class ForumActivity extends Activity {
 	// when the up arrow is pressed
 	public void addLikes(View view) {
 		int groupPosition = (Integer) view.getTag();
-		questions.get(groupPosition).like(this, expAdapter);
+		questions.get(groupPosition).like(this, expAdapter, view);
+		
 	}
 
 }

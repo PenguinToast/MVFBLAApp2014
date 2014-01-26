@@ -6,17 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.facebook.Session;
 import com.mvfbla.madmvfbla2014.fragments.MainFragment;
 import com.mvfbla.madmvfbla2014.net.Network;
 
 public class MainActivity extends FragmentActivity {
-	private String[] drawerTitles;
-	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
 
 	private MainFragment mainFragment;
 
@@ -46,17 +41,7 @@ public class MainActivity extends FragmentActivity {
 				toForumScreen();
 		}
 		
-//		drawerTitles = getResources().getStringArray(R.array.planets_array);
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-//
-//        // Set the adapter for the list view
-//        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-//                R.layout.drawer_list_item, drawerTitles));
-//         Set the list's click listener
-//        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		
 	}
 
 	@Override

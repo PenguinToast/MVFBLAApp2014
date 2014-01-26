@@ -3,10 +3,10 @@ package com.mvfbla.madmvfbla2014.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
@@ -88,7 +88,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 		TextView likes = (TextView)convertView.findViewById(R.id.numLikes);
 		likes.setText(question.getNumLikes() + "");
-		ImageView iv = (ImageView)convertView.findViewById(R.id.addLike);
+		final ImageView iv = (ImageView)convertView.findViewById(R.id.addLike);
 		iv.setTag(Integer.valueOf(groupPosition));
 		TextView tv = (TextView)convertView.findViewById(R.id.tvQuestion);
 		tv.setText(question.getText());
