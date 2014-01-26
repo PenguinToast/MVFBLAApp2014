@@ -3,11 +3,12 @@ package com.mvfbla.madmvfbla2014;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -161,6 +162,12 @@ public class ForumActivity extends DrawerActivity {
 		String newPost = post.getText().toString();
 		post.setText("");
 		questions.add(new Submission(newPost));
+		
+		InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE); 
+		inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                   InputMethodManager.HIDE_NOT_ALWAYS);
+		
 		expAdapter.notifyDataSetChanged();
 	}
 }

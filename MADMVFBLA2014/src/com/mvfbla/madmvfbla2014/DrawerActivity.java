@@ -21,11 +21,10 @@ public class DrawerActivity extends Activity {
 	protected CharSequence mDrawerTitle;
 	protected CharSequence mTitle;
 	
-	protected static final int NEWPOST_VIEW = 0;
-	protected static final int FORUM_VIEW = 1;
-	protected static final int PROFILE_VIEW= 2;
-	protected static final int LEADERBOARD_VIEW= 3;
-	protected static final int SETTINGS_VIEW = 4;
+	protected static final int FORUM_VIEW = 0;
+	protected static final int PROFILE_VIEW= 1;
+	protected static final int LEADERBOARD_VIEW= 2;
+	protected static final int SETTINGS_VIEW = 3;
 
 	@SuppressLint("NewApi")
 	protected void initNavDrawer() {

@@ -22,7 +22,6 @@
     <string name = "Submit">Submit</string>
 
     <string-array name="drawer_array">
-        <item>Create a Post</item>
         <item>Forums</item>
         <item>Profile</item>
         <item>Leaderboards</item>
