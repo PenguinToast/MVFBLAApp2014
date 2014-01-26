@@ -26,19 +26,11 @@ public class MainActivity extends FragmentActivity {
 					.beginTransaction()
 					.add(android.R.id.content, mainFragment)
 					.commit();
-			if(isLoggedIn())
-			{
-				System.out.println("isloggedin 1\n\n\n\n\n\n");
-				toForumScreen();
-			}
 			
 		} else {
 			// Or set the fragment from restored state info
 			mainFragment = (MainFragment) getSupportFragmentManager()
 					.findFragmentById(android.R.id.content);
-			if(isLoggedIn()) 
-				System.out.println("isloggedin 2\n\n\n\n\n\n");
-				toForumScreen();
 		}
 		
 
