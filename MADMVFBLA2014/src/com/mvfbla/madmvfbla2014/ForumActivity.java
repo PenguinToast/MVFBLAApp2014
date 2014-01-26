@@ -3,8 +3,6 @@ package com.mvfbla.madmvfbla2014;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
