@@ -175,6 +175,10 @@ public class ForumActivity extends DrawerActivity {
 		inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                    InputMethodManager.HIDE_NOT_ALWAYS);
 		
+		
+		if(newPost.equals("")) {
+			return;
+		}
 		// Just change the -1 to the parent post ID for replies
 		Network.sendObject(new NetCreatePost(newPost, -1));
 
