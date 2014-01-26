@@ -28,7 +28,6 @@ import com.mvfbla.madmvfbla2014.net.data.NetVoteCount;
 public class Network {
 	public static final int PORT = 44443;
 
-	private static boolean connected;
 	private static Client client;
 	private static ObjectMap<Class, Callback> callbacks;
 	private static ArrayDeque<Object> sendQueue;
@@ -50,10 +49,9 @@ public class Network {
 
 			@Override
 			public void connected(Connection connection) {
-				connected = true;
-				if(!sendQueue.isEmpty()) {
+				if (!sendQueue.isEmpty()) {
 					Object next = null;
-					while((next = sendQueue.poll()) != null) {
+					while ((next = sendQueue.poll()) != null) {
 						client.sendTCP(next);
 					}
 				}
@@ -61,7 +59,6 @@ public class Network {
 
 			@Override
 			public void disconnected(Connection connection) {
-				connected = false;
 			}
 		});
 
@@ -75,26 +72,30 @@ public class Network {
 	}
 
 	public static boolean attemptConnect() {
-		try {
-			if (!connected && Session.getActiveSession().isOpened()) {
-				client.connect(3000, "penguintoast.no-ip.biz", Network.PORT);
-				client.sendTCP(new NetLogin(User.getId()));
-			}
-			return true;
-		} catch (Exception ex) {
-			return false;
+		if (!isConnected() && Session.getActiveSession().isOpened()) {
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						client.connect(3000, "penguintoast.no-ip.biz", Network.PORT);
+						client.sendTCP(new NetLogin(User.getId()));
+					} catch (Exception ex) {
+						return;
+					}
+				}
+			});
+			t.start();
 		}
+		return true;
 	}
 
 	public static boolean isConnected() {
-		if(!connected) {
-			attemptConnect();
-		}
-		return connected;
+		return client.isConnected();
 	}
 
 	public static void sendObject(Object o) {
-		if(!isConnected()) {
+		if (!isConnected()) {
+			attemptConnect();
 			sendQueue.offer(o);
 		} else {
 			client.sendTCP(o);
@@ -117,7 +118,7 @@ public class Network {
 				NetUserPosts.class,
 				NetVote.class,
 				NetVoteCount.class,
-				
+
 				Submission.class,
 				ArrayList.class,
 				Date.class,
