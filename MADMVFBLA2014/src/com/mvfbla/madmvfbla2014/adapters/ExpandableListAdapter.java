@@ -51,6 +51,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		convertView = inflater.inflate(R.layout.expandlist_comment, null);	
 		
+		TextView likes = (TextView)convertView.findViewById(R.id.numLikeComment);
+		likes.setText(comment.getNumLikes() + "");
+		ImageView iv = (ImageView)convertView.findViewById(R.id.addLikeComment);
+		setVoteImage(iv, groupPosition, childPosition);
+		iv.setTag(Integer.valueOf(groupPosition) + "," + Integer.valueOf(childPosition));
 		TextView tv = (TextView)convertView.findViewById(R.id.tvComment); 
 		tv.setText(comment.getText().toString());
 	
@@ -118,6 +123,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 	public void setVoteImage(ImageView iv, int groupPosition) {
 		if(questions.get(groupPosition).getIsLiked())
+			iv.setImageResource(R.drawable.down_arrow);
+		else
+			iv.setImageResource(R.drawable.up_arrow);
+	}
+	
+	public void setVoteImage(ImageView iv, int groupPosition, int childPosition) {
+		if(questions.get(groupPosition).getReply(childPosition).getIsLiked())
 			iv.setImageResource(R.drawable.down_arrow);
 		else
 			iv.setImageResource(R.drawable.up_arrow);

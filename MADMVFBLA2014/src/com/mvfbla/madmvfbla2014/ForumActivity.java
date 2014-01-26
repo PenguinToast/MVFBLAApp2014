@@ -239,7 +239,14 @@ public class ForumActivity extends Activity {
 	public void addLikes(View view) {
 		int groupPosition = (Integer) view.getTag();
 		questions.get(groupPosition).like(this, expAdapter, view);
-
+	}
+	
+	public void addLikeToReply(View view) {
+		String values = (String)view.getTag();
+		String [] positionString = values.split(",");
+		int groupPosition = Integer.parseInt(positionString[0]);
+		int childPosition = Integer.parseInt(positionString[1]);
+		questions.get(groupPosition).getReply(childPosition).like(this, expAdapter, view);
 	}
 
 }
