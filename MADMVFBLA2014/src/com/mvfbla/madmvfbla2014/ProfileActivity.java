@@ -7,7 +7,9 @@ import android.widget.TextView;
 import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
+import com.mvfbla.madmvfbla2014.net.callback.UserPostCountCallback;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
+import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 
 public class ProfileActivity extends FragmentActivity {
 
@@ -21,6 +23,9 @@ public class ProfileActivity extends FragmentActivity {
 
 		final TextView points = (TextView) findViewById(R.id.NumPoints);
 		points.setText("Loading...");
+		
+		final TextView posts = (TextView) findViewById(R.id.NumPosts);
+		posts.setText("Loading...");
 
 		Network.setCallback(NetUserPoints.class, new UserPointsCallback() {
 			@Override
@@ -34,6 +39,19 @@ public class ProfileActivity extends FragmentActivity {
 			}
 		});
 		Network.sendObject(new NetUserPoints());
+		
+		Network.setCallback(NetUserPostCount.class, new UserPostCountCallback() {
+			@Override
+			public void onResults(final Integer result) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						posts.setText("Posts : " + Integer.toString(result));
+					}
+				});
+			}
+		});
+		Network.sendObject(new NetUserPostCount());
 	}
 
 	public String getPointsText() {
