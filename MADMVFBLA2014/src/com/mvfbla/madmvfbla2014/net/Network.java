@@ -78,7 +78,7 @@ public class Network {
 				public void run() {
 					try {
 						client.connect(3000, "penguintoast.no-ip.biz", Network.PORT);
-						client.sendTCP(new NetLogin(User.getId()));
+						client.sendTCP(new NetLogin(User.getId(), User.getUsername()));
 					} catch (Exception ex) {
 						return;
 					}

@@ -59,7 +59,7 @@ public class DatabaseManager {
 		return null;
 	}
 
-	public int getUserID(String fbID) {
+	public int getUserID(String fbID, String name) {
 		try {
 			// Get user id from facebook id - fbID
 			PreparedStatement getUserID = connect
@@ -69,10 +69,8 @@ public class DatabaseManager {
 			if (results.next()) {
 				return results.getInt(1);
 			} else {
-				PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (DEFAULT, ?, NOW(), 0);");
-				createUser.setString(1, fbID);
-				createUser.executeUpdate();
-				return getUserID(fbID);
+				createUser(fbID, name);
+				return getUserID(fbID, name);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -163,12 +161,12 @@ public class DatabaseManager {
 	 * @param fb_id
 	 *            The Facebook ID of the user
 	 */
-	public boolean createUser(int fb_id) {
+	public boolean createUser(String fb_id, String name) {
 		try {
 			// Insert user - facebookID, date
-			PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, ?, 0);");
-			createUser.setInt(1, fb_id);
-			createUser.setDate(2, new Date(System.currentTimeMillis()));
+			PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, NOW(), 0, ?);");
+			createUser.setString(1, fb_id);
+			createUser.setString(2, name);
 			return createUser.executeUpdate() > 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
