@@ -21,6 +21,7 @@ import com.mvfbla.madmvfbla2014.adapters.ExpandableListAdapter;
 import com.mvfbla.madmvfbla2014.classes.Submission;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.TopLevelPostsCallback;
+import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 
 public class ForumActivity extends DrawerActivity {
@@ -53,7 +54,14 @@ public class ForumActivity extends DrawerActivity {
 		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
 			@Override
 			public void onResults(ArrayList<Submission> result) {
+				questions.clear();
 				questions.addAll(result);
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						expAdapter.notifyDataSetChanged();
+					}
+				});
 			}
 		});
 		Network.sendObject(new NetTopLevelPosts());
@@ -161,13 +169,28 @@ public class ForumActivity extends DrawerActivity {
 		EditText post = (EditText)findViewById(R.id.NewPost);
 		String newPost = post.getText().toString();
 		post.setText("");
-		questions.add(new Submission(newPost));
 		
 		InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE); 
 		inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                    InputMethodManager.HIDE_NOT_ALWAYS);
 		
-		expAdapter.notifyDataSetChanged();
+		// Just change the -1 to the parent post ID for replies
+		Network.sendObject(new NetCreatePost(newPost, -1));
+
+		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
+			@Override
+			public void onResults(ArrayList<Submission> result) {
+				questions.clear();
+				questions.addAll(result);
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						expAdapter.notifyDataSetChanged();
+					}
+				});
+			}
+		});
+		Network.sendObject(new NetTopLevelPosts());
 	}
 }

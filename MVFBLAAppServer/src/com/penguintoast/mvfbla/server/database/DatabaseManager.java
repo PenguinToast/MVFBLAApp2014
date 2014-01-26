@@ -89,6 +89,7 @@ public class DatabaseManager {
 			// Query posts from user - userID
 			PreparedStatement getUserPosts = connect
 					.prepareStatement("SELECT * FROM forums.posts WHERE post_by=? ORDER BY post_date_replied DESC");
+			getUserPosts.setInt(1, userID);
 			ArrayList<Submission> out = new ArrayList<Submission>();
 			ResultSet results = getUserPosts.executeQuery();
 			while (results.next()) {
@@ -188,17 +189,15 @@ public class DatabaseManager {
 	public boolean createPost(String content, int post_by, int post_parent) {
 		try {
 			// Insert post - content, date, by, parent, date_replied
-			PreparedStatement createPost = connect.prepareStatement("INSERT INTO forums.posts VALUES (default, ?, ?, ?, ?, ?);");
+			PreparedStatement createPost = connect.prepareStatement("INSERT INTO forums.posts VALUES (default, ?, NOW(), ?, ?, NOW());");
 			createPost.setString(1, content);
-			createPost.setDate(2, new Date(System.currentTimeMillis()));
-			createPost.setInt(3, post_by);
+			createPost.setInt(2, post_by);
 			if (post_parent < 0) {
-				createPost.setNull(4, Types.INTEGER);
+				createPost.setNull(3, Types.INTEGER);
 			} else {
-				createPost.setInt(4, post_parent);
+				createPost.setInt(3, post_parent);
 				updatePostTime(post_parent);
 			}
-			createPost.setDate(5, new Date(System.currentTimeMillis()));
 			return createPost.executeUpdate() > 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -241,9 +240,8 @@ public class DatabaseManager {
 	public boolean updatePostTime(int postID) {
 		try {
 			// Update post replied time - date_replied, postID
-			PreparedStatement timePost = connect.prepareStatement("UPDATE forums.posts SET post_date_replied=? WHERE post_id=?");
-			timePost.setDate(1, new Date(System.currentTimeMillis()));
-			timePost.setInt(2, postID);
+			PreparedStatement timePost = connect.prepareStatement("UPDATE forums.posts SET post_date_replied=NOW() WHERE post_id=?");
+			timePost.setInt(1, postID);
 			return timePost.executeUpdate() > 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
