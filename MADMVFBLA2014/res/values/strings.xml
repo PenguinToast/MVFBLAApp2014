@@ -11,6 +11,7 @@
     <color name="QuestionBackground">#FFFFFF</color>
     <color name="Orange">#FF8000</color>
 
+    <string name = "EnterPost">Enter a new post&#8230;</string>
     <string name="addComment">Add a comment</string>
     <string name="send">Send</string>
     <string name="SortByDate">Sort By Date</string>
@@ -18,8 +19,10 @@
     <string name="SortByLikes">Sort By Likes</string>
     <string name="addLike">Add Like</string>
     <string name="YourPf">Your Profile</string>
+    <string name = "Submit">Submit</string>
 
     <string-array name="drawer_array">
+        <item>Create a Post</item>
         <item>Forums</item>
         <item>Profile</item>
         <item>Leaderboards</item>

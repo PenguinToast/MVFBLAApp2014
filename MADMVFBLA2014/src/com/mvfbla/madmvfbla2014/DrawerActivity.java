@@ -20,12 +20,12 @@ public class DrawerActivity extends Activity {
 	protected ActionBarDrawerToggle mDrawerToggle;
 	protected CharSequence mDrawerTitle;
 	protected CharSequence mTitle;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-	}
+	
+	protected static final int NEWPOST_VIEW = 0;
+	protected static final int FORUM_VIEW = 1;
+	protected static final int PROFILE_VIEW= 2;
+	protected static final int LEADERBOARD_VIEW= 3;
+	protected static final int SETTINGS_VIEW = 4;
 
 	@SuppressLint("NewApi")
 	protected void initNavDrawer() {
@@ -104,11 +104,13 @@ public class DrawerActivity extends Activity {
 	protected void selectItem(int position) {
 		Intent i = new Intent(DrawerActivity.this, DrawerActivity.class);
 		switch (position) {
-		case 0: // create a new intent for Forums
+		case DrawerActivity.FORUM_VIEW: // create a new intent for Forums
 			i = new Intent(DrawerActivity.this, ForumActivity.class);
 			break;
-		case 1:// create a new intent for Profile
+		case DrawerActivity.PROFILE_VIEW:// create a new intent for Profile
 			i = new Intent(DrawerActivity.this, ProfileActivity.class);
+			break;
+		default:
 			break;
 		}
 		// Highlight the selected item, update the title, and close the drawer

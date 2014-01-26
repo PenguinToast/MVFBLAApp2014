@@ -18,8 +18,27 @@
         <ExpandableListView
             android:id="@+id/ExpList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:groupIndicator="@null" />
+            android:layout_height="0dp"
+            android:groupIndicator="@null" 
+            android:layout_weight = ".9"/>
+        <LinearLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:orientation = "horizontal">
+        	<EditText 
+	            android:id = "@+id/NewPost"
+	            android:hint = "@string/EnterPost"
+	            android:layout_width = "0dp"
+	            android:layout_height = "wrap_content"
+	            android:layout_weight = ".8"/>
+        	<Button
+        	    android:id = "@+id/SubmitNewPost"
+        	    android:layout_width = "wrap_content"
+        	    android:layout_height = "wrap_content"
+        	    android:text = "@string/Submit"
+        	    android:onClick="SubmitPost"/>
+        	
+        </LinearLayout>
     </LinearLayout>
 
     <!-- The navigation drawer -->
