@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -181,16 +182,21 @@ public class ForumActivity extends FragmentActivity {
 			Intent a = new Intent(ForumActivity.this, ForumActivity.class);
 			startActivity(a);
 			
-//			ForumActivity a = new ForumActivity();
+//			Fragment a = new ForumActivity();
 //			FragmentManager fragmentManager = getFragmentManager();
 //		    fragmentManager.beginTransaction()
-//		                   .replace(R.id.content_frame, fragment)
+//		                   .replace(R.id.content_frame, a)
 //		                   .commit();
 
 			break;
 		case 1:
 			Intent b = new Intent(ForumActivity.this, ProfileActivity.class);
 			startActivity(b);
+//			FragmentActivity b = (ProfileActivity) new FragmentActivity();
+//			FragmentManager fragmentManager = getFragmentManager();
+//		    fragmentManager.beginTransaction()
+//		                   .replace(R.id.content_frame, b)
+//		                   .commit();
 			break;
 		}
 
