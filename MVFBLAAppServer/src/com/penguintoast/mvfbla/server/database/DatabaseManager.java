@@ -61,7 +61,7 @@ public class DatabaseManager {
 
 	public UserData readUserData(ResultSet set) {
 		try {
-			return new UserData(set.getString("user_name"), set.getInt(set.getInt("user_points")));
+			return new UserData(set.getString("user_name"), set.getInt("user_points"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
