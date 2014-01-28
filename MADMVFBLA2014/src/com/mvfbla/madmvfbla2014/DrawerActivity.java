@@ -109,6 +109,9 @@ public class DrawerActivity extends Activity {
 		case DrawerActivity.PROFILE_VIEW:// create a new intent for Profile
 			i = new Intent(DrawerActivity.this, ProfileActivity.class);
 			break;
+		case DrawerActivity.LEADERBOARD_VIEW:
+			i = new Intent(DrawerActivity.this, LeaderboardActivity.class);
+			break;
 		default:
 			break;
 		}
