@@ -183,9 +183,6 @@ public class ForumActivity extends DrawerActivity {
 		}
 		// Just change the -1 to the parent post ID for replies
 		Network.sendObject(new NetCreatePost(newPost, currentGroupId));
-		currentGroupId = 1;
-		expList.collapseGroup(currentGroup);
-		expList.expandGroup(0);
 
 		if(currentGroupId == -1) {	
 			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
@@ -204,6 +201,7 @@ public class ForumActivity extends DrawerActivity {
 			Network.sendObject(new NetTopLevelPosts());
 		}
 		else{
+			final int nextGroup = currentGroupId;
 			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
 				@Override
 				public void onResults(ArrayList<Submission> result) {
@@ -213,6 +211,14 @@ public class ForumActivity extends DrawerActivity {
 						@Override
 						public void run() {
 							expAdapter.notifyDataSetChanged();
+							expList.collapseGroup(currentGroup);
+							
+							for(int i = 0; i < questions.size(); i++) {
+								if(questions.get(i).getPostID() == nextGroup) {
+									expList.expandGroup(i);
+									return;
+								}
+							}
 						}
 					});
 				}
