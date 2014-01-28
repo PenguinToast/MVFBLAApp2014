@@ -26,7 +26,7 @@ public class ForumServer {
 	public void start() {
 		try {
 			database = DatabaseManager.getInstance();
-			server = new Server() {
+			server = new Server(163840, 20480) {
 				@Override
 				protected Connection newConnection() {
 					return new ForumConnection();

@@ -39,7 +39,7 @@ public class Network {
 
 		StrictMode.setThreadPolicy(policy);
 		com.esotericsoftware.minlog.Log.TRACE();
-		client = new Client();
+		client = new Client(81920, 20480);
 		register(client.getKryo());
 		callbacks = new ObjectMap<Class, Callback>();
 		sendQueue = new ArrayDeque<Object>();
