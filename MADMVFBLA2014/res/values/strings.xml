@@ -12,6 +12,7 @@
     <color name="Orange">#FF8000</color>
 
     <string name = "EnterPost">Enter a new post&#8230;</string>
+    <string name = "Loading">Loading&#8230;</string>
     <string name="addComment">Add a comment</string>
     <string name="send">Send</string>
     <string name="SortByDate">Sort By Date</string>

@@ -38,8 +38,6 @@ public class ForumActivity extends DrawerActivity {
 	public static final int SORT_LIKES = 3;
 	public static final int SORT_DEFAULT = 0;
 	
-	
-
 	// Constructor that initiates the entire activity
 	@SuppressLint("NewApi")
 	@Override
