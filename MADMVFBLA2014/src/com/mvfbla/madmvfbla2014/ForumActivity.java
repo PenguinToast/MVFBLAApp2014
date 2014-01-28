@@ -31,7 +31,6 @@ public class ForumActivity extends DrawerActivity {
 	private ArrayList<Submission> questions;
 	// The Expandable listview displayed on this activity for the forum
 	private ExpandableListView expList;
-	private ArrayList<Submission> replies;
 
 	// final static ints that are available globally
 	public static final int SORT_TIME = 1;
@@ -184,8 +183,9 @@ public class ForumActivity extends DrawerActivity {
 		}
 		// Just change the -1 to the parent post ID for replies
 		Network.sendObject(new NetCreatePost(newPost, currentGroupId));
-		System.out.println("Current group id " + currentGroupId);
-		System.out.println("Current group " + currentGroup);
+		currentGroupId = 1;
+		expList.collapseGroup(currentGroup);
+		expList.expandGroup(0);
 
 		if(currentGroupId == -1) {	
 			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
