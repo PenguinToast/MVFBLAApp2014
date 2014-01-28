@@ -204,12 +204,11 @@ public class ForumActivity extends DrawerActivity {
 			Network.sendObject(new NetTopLevelPosts());
 		}
 		else{
-			replies = questions.get(currentGroup).getReplies();
 			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
 				@Override
 				public void onResults(ArrayList<Submission> result) {
-					replies.clear();
-					replies.addAll(result.get(currentGroup).getReplies());
+					questions.clear();
+					questions.addAll(result);
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
