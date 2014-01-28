@@ -38,7 +38,7 @@ public class ForumActivity extends DrawerActivity {
 	public static final int SORT_VIEWS = 2;
 	public static final int SORT_LIKES = 3;
 	public static final int SORT_DEFAULT = 0;
-	private int previousGroup, currentGroupId = -1;
+	private int previousGroup, currentGroup, currentGroupId = -1;
 	// Constructor that initiates the entire activity
 	@SuppressLint("NewApi")
 	@Override
@@ -72,6 +72,8 @@ public class ForumActivity extends DrawerActivity {
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View v,
 					int groupPosition, long id) {
+				currentGroup = groupPosition;
+				currentGroupId = questions.get(previousGroup).getPostID();
 				return false;
 			}
 
@@ -83,6 +85,7 @@ public class ForumActivity extends DrawerActivity {
 				if (groupPosition != previousGroup)
 					expList.collapseGroup(previousGroup);
 				previousGroup = groupPosition;
+				currentGroup = groupPosition;
 				currentGroupId = questions.get(previousGroup).getPostID();
 			}
 		});
@@ -181,7 +184,8 @@ public class ForumActivity extends DrawerActivity {
 		}
 		// Just change the -1 to the parent post ID for replies
 		Network.sendObject(new NetCreatePost(newPost, currentGroupId));
-		System.out.println("Current group id" + currentGroupId);
+		System.out.println("Current group id " + currentGroupId);
+		System.out.println("Current group " + currentGroup);
 
 		if(currentGroupId == -1) {	
 			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
@@ -200,12 +204,12 @@ public class ForumActivity extends DrawerActivity {
 			Network.sendObject(new NetTopLevelPosts());
 		}
 		else{
-			replies = questions.get(previousGroup).getReplies();
+			replies = questions.get(currentGroup).getReplies();
 			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
 				@Override
 				public void onResults(ArrayList<Submission> result) {
 					replies.clear();
-					replies.addAll(result.get(previousGroup).getReplies());
+					replies.addAll(result.get(currentGroup).getReplies());
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
