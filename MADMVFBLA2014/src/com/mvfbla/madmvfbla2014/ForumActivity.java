@@ -182,30 +182,48 @@ public class ForumActivity extends DrawerActivity {
 			return;
 		}
 		// Just change the -1 to the parent post ID for replies
-			Network.sendObject(new NetCreatePost(newPost, currentGroupId));
-		expList.collapseGroup(currentGroup);
-		
-		
-		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
-			@Override
-			public void onResults(ArrayList<Submission> result) {
-				questions.clear();
-				questions.addAll(result);
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						expAdapter.notifyDataSetChanged();
-					}
-				});
-			}
-		});
-		
-		Network.sendObject(new NetTopLevelPosts());
-		
-		for(int i = 0; i <questions.size(); i++) {
-			if(questions.get(i).getPostID() == currentGroupId) {
-				expList.expandGroup(i);
-			}
+		Network.sendObject(new NetCreatePost(newPost, currentGroupId));
+
+		if(currentGroupId == -1) {	
+			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
+				@Override
+				public void onResults(ArrayList<Submission> result) {
+					questions.clear();
+					questions.addAll(result);
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							expAdapter.notifyDataSetChanged();
+						}
+					});
+				}
+			});
+			Network.sendObject(new NetTopLevelPosts());
+		}
+		else{
+			final int nextGroup = currentGroupId;
+			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
+				@Override
+				public void onResults(ArrayList<Submission> result) {
+					questions.clear();
+					questions.addAll(result);
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							expAdapter.notifyDataSetChanged();
+							expList.collapseGroup(currentGroup);
+							
+							for(int i = 0; i < questions.size(); i++) {
+								if(questions.get(i).getPostID() == nextGroup) {
+									expList.expandGroup(i);
+									return;
+								}
+							}
+						}
+					});
+				}
+			});
+			Network.sendObject(new NetTopLevelPosts());
 		}
 		System.out.println(currentGroupId);
 	}
