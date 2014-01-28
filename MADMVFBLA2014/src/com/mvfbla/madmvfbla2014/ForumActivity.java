@@ -31,13 +31,14 @@ public class ForumActivity extends DrawerActivity {
 	private ArrayList<Submission> questions;
 	// The Expandable listview displayed on this activity for the forum
 	private ExpandableListView expList;
+	private ArrayList<Submission> replies;
 
 	// final static ints that are available globally
 	public static final int SORT_TIME = 1;
 	public static final int SORT_VIEWS = 2;
 	public static final int SORT_LIKES = 3;
 	public static final int SORT_DEFAULT = 0;
-	
+	private int previousGroup, currentGroupId = -1;
 	// Constructor that initiates the entire activity
 	@SuppressLint("NewApi")
 	@Override
@@ -76,13 +77,13 @@ public class ForumActivity extends DrawerActivity {
 
 		});
 		expList.setOnGroupExpandListener(new OnGroupExpandListener() {
-			int previousGroup = 0;
 
 			@Override
 			public void onGroupExpand(int groupPosition) {
 				if (groupPosition != previousGroup)
 					expList.collapseGroup(previousGroup);
 				previousGroup = groupPosition;
+				currentGroupId = questions.get(previousGroup).getPostID();
 			}
 		});
 
@@ -90,6 +91,7 @@ public class ForumActivity extends DrawerActivity {
 
 			@Override
 			public void onGroupCollapse(int groupPosition) {
+				currentGroupId = -1;
 			}
 		});
 		expList.setOnChildClickListener(new OnChildClickListener() {
@@ -178,21 +180,41 @@ public class ForumActivity extends DrawerActivity {
 			return;
 		}
 		// Just change the -1 to the parent post ID for replies
-		Network.sendObject(new NetCreatePost(newPost, -1));
+		Network.sendObject(new NetCreatePost(newPost, currentGroupId));
+		System.out.println("Current group id" + currentGroupId);
 
-		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
-			@Override
-			public void onResults(ArrayList<Submission> result) {
-				questions.clear();
-				questions.addAll(result);
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						expAdapter.notifyDataSetChanged();
-					}
-				});
-			}
-		});
-		Network.sendObject(new NetTopLevelPosts());
+		if(currentGroupId == -1) {	
+			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
+				@Override
+				public void onResults(ArrayList<Submission> result) {
+					questions.clear();
+					questions.addAll(result);
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							expAdapter.notifyDataSetChanged();
+						}
+					});
+				}
+			});
+			Network.sendObject(new NetTopLevelPosts());
+		}
+		else{
+			replies = questions.get(previousGroup).getReplies();
+			Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
+				@Override
+				public void onResults(ArrayList<Submission> result) {
+					replies.clear();
+					replies.addAll(result.get(previousGroup).getReplies());
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							expAdapter.notifyDataSetChanged();
+						}
+					});
+				}
+			});
+			Network.sendObject(new NetTopLevelPosts());
+		}
 	}
 }
