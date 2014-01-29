@@ -26,7 +26,7 @@
         <item>Forums</item>
         <item>Profile</item>
         <item>Leaderboards</item>
-        <item>Settings</item>
+        <item>Test Yourself</item>
     </string-array>
 
     <string name="drawer_open">Open navigation drawer</string>

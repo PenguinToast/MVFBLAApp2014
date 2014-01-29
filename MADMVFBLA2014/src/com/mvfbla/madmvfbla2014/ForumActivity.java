@@ -225,5 +225,6 @@ public class ForumActivity extends DrawerActivity {
 			});
 			Network.sendObject(new NetTopLevelPosts());
 		}
+		System.out.println(currentGroupId);
 	}
 }

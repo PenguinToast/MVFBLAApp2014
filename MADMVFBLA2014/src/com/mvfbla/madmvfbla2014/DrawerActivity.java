@@ -24,7 +24,7 @@ public class DrawerActivity extends Activity {
 	protected static final int FORUM_VIEW = 0;
 	protected static final int PROFILE_VIEW= 1;
 	protected static final int LEADERBOARD_VIEW= 2;
-	protected static final int SETTINGS_VIEW = 3;
+	protected static final int TEST_VIEW = 3;
 
 	@SuppressLint("NewApi")
 	protected void initNavDrawer() {
@@ -101,16 +101,19 @@ public class DrawerActivity extends Activity {
 
 	/** Swaps fragments in the main content view */
 	protected void selectItem(int position) {
-		Intent i = new Intent(DrawerActivity.this, DrawerActivity.class);
+		Intent i = new Intent(DrawerActivity.this,DrawerActivity.class);
 		switch (position) {
 		case DrawerActivity.FORUM_VIEW: // create a new intent for Forums
-			i = new Intent(DrawerActivity.this, ForumActivity.class);
+			i = new Intent(DrawerActivity.this,ForumActivity.class);
 			break;
 		case DrawerActivity.PROFILE_VIEW:// create a new intent for Profile
-			i = new Intent(DrawerActivity.this, ProfileActivity.class);
+			i = new Intent(DrawerActivity.this,ProfileActivity.class);
 			break;
 		case DrawerActivity.LEADERBOARD_VIEW:
-			i = new Intent(DrawerActivity.this, LeaderboardActivity.class);
+			i = new Intent(DrawerActivity.this,LeaderboardActivity.class);
+			break;
+		case DrawerActivity.TEST_VIEW:
+			i = new Intent(DrawerActivity.this,TestingActivity.class);
 			break;
 		default:
 			break;
