@@ -7,6 +7,7 @@ import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
 import com.mvfbla.madmvfbla2014.net.callback.UserPostCountCallback;
+import com.mvfbla.madmvfbla2014.net.data.NetUserExpertiseLevel;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 
@@ -25,6 +26,9 @@ public class ProfileActivity extends DrawerActivity {
 		
 		final TextView posts = (TextView) findViewById(R.id.NumPosts);
 		posts.setText("Loading...");
+		
+		final TextView expertise = (TextView) findViewById(R.id.ExpertiseLevel);
+		expertise.setText("Loading...");
 
 		Network.setCallback(NetUserPoints.class, new UserPointsCallback() {
 			@Override
@@ -38,6 +42,20 @@ public class ProfileActivity extends DrawerActivity {
 			}
 		});
 		Network.sendObject(new NetUserPoints());
+		
+		Network.setCallback(NetUserExpertiseLevel.class, new UserPointsCallback() {
+			@Override
+			public void onResults(final Integer result) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						points.setText("Expertise Level : " + Integer.toString(result));
+					}
+				});
+			}
+		});
+		Network.sendObject(new NetUserPoints());
+
 		
 		Network.setCallback(NetUserPostCount.class, new UserPostCountCallback() {
 			@Override
