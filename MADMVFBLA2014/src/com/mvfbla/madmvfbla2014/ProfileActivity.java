@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.Network;
+import com.mvfbla.madmvfbla2014.net.callback.UserLevelCallback;
 import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
 import com.mvfbla.madmvfbla2014.net.callback.UserPostCountCallback;
 import com.mvfbla.madmvfbla2014.net.data.NetUserExpertiseLevel;
@@ -43,18 +44,18 @@ public class ProfileActivity extends DrawerActivity {
 		});
 		Network.sendObject(new NetUserPoints());
 		
-		Network.setCallback(NetUserExpertiseLevel.class, new UserPointsCallback() {
+		Network.setCallback(NetUserExpertiseLevel.class, new UserLevelCallback() {
 			@Override
-			public void onResults(final Integer result) {
+			public void onResults(final String result) {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						points.setText("Expertise Level : " + Integer.toString(result));
+						points.setText("Expertise Level : " + (result));
 					}
 				});
 			}
 		});
-		Network.sendObject(new NetUserPoints());
+		Network.sendObject(new NetUserExpertiseLevel());
 
 		
 		Network.setCallback(NetUserPostCount.class, new UserPostCountCallback() {
