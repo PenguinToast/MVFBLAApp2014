@@ -1,0 +1,79 @@
+<android.support.v4.widget.DrawerLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- The main content view -->
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:orientation = "vertical">
+
+        <TextView
+            android:id="@+id/QuestionForTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "@string/Loading"
+            android:layout_marginTop = "20dp"
+            android:layout_marginBottom = "40dp"
+            android:layout_marginLeft = "25dp"
+            android:layout_marginRight = "25dp"
+            android:textSize = "30sp"
+            />
+        <LinearLayout
+            android:orientation = "horizontal"
+            android:layout_width = "match_parent"
+            android:layout_height = "50dp"
+            android:layout_marginTop = "50dp">
+        	<Button
+                android:id="@+id/Answer1"
+                android:layout_weight = ".5"
+                android:layout_width = "0dp"
+                android:layout_height = "match_parent"
+                android:text= "@string/Loading"
+                android:onClick="checkAnswer1"></Button>
+        	<Button
+                android:id="@+id/Answer2"
+                android:layout_weight = ".5"
+                android:layout_width = "0dp"
+                android:layout_height = "match_parent"
+                android:text= "@string/Loading"
+                android:onClick="checkAnswer2"></Button>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation = "horizontal"
+            android:layout_width = "match_parent"
+            android:layout_height = "50dp">
+        	<Button
+                android:id="@+id/Answer3"
+                android:layout_weight = ".5"
+                android:layout_width = "0dp"
+                android:layout_height = "match_parent"
+                android:text= "@string/Loading"
+                android:onClick="checkAnswer3"></Button>
+        	<Button
+                android:id="@+id/Answer4"
+                android:layout_weight = ".5"
+                android:layout_width = "0dp"
+                android:layout_height = "match_parent"
+                android:text= "@string/Loading"
+                android:onClick = "checkAnswer4"></Button>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- The navigation drawer -->
+
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#111"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" />
+
+</android.support.v4.widget.DrawerLayout>
