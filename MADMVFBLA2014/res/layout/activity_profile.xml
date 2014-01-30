@@ -51,6 +51,25 @@
             android:text = "@string/Loading"
             android:layout_centerHorizontal="true"
 	        android:layout_marginTop="170dp"></TextView>
+        
+        <Button
+            android:id = "@+id/CheckIn"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_alignParentTop = "true"
+            android:text = "@string/CheckIn"
+            android:layout_centerHorizontal="true"
+	        android:layout_marginTop="350dp"
+	        android:onClick = "checkIn"
+            ></Button>
+        <TextView 
+            android:id = "@+id/Location"
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_alignParentTop = "true"
+            android:textSize = "20sp"
+            android:layout_centerHorizontal="true"
+	        android:layout_marginTop="390dp"></TextView>
     </RelativeLayout>
 
     <!-- The navigation drawer -->
