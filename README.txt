@@ -18,3 +18,11 @@ Method 2:
 3) Navigate to the .apk file on the phone using a file browser on the phone
 4) Open and install it
 5) Use app by finding its icon in the phone's application list, and touching it
+
+Usage:
+You must be logged in with Facebook to use the app.
+If you are not connected to the internet, any actions that you make, i.e. posting, will be queued and executed when a connection is reestablished.
+You are awarded points for bravery upon your first question, and points for being helpful upon your first reply.
+Select a post to reply to it, deselect it to make a new post.
+Points are gained when someone likes your posts, and when you answer questions correctly when you test yourself.
+All user data is linked to your Facebook profile, so data is saved across different devices.
