@@ -16,6 +16,9 @@ public class DatabaseManager {
 	private Connection connect;
 	private int userID;
 
+	private static final String connectLine = "jdbc:mysql://madmvfbla2014.c0jt4uqoizci.us-west-2.rds.amazonaws.com:3306/forums?"
+			+ "user=admin&password=starcraft1";
+
 	static {
 		INSTANCE = new DatabaseManager();
 	}
@@ -24,8 +27,7 @@ public class DatabaseManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/forums?"
-					+ "user=admin&password=starcraft1");
+			connect = DriverManager.getConnection(connectLine);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -33,6 +35,16 @@ public class DatabaseManager {
 
 	public static DatabaseManager getInstance() {
 		return INSTANCE;
+	}
+
+	public void ensureValid() {
+		try {
+			if (!connect.isValid(3000)) {
+				connect = DriverManager.getConnection(connectLine);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public Submission readSubmission(ResultSet set) {
