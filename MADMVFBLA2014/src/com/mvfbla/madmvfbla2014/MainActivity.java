@@ -90,4 +90,18 @@ public class MainActivity extends FragmentActivity {
 		}
 
 	}
+	
+	public void toLBScreen(View view) {
+		if(isLoggedIn()) {
+			Intent intent = new Intent(this, LeaderboardActivity.class);
+			this.startActivity(intent);
+		}
+	}
+	
+	public void toTestScreen(View view) {
+		if(isLoggedIn()) {
+			Intent intent = new Intent(this, TestingActivity.class);
+			this.startActivity(intent);
+		}
+	}
 }
