@@ -1,3 +1,7 @@
+/* Adapter that handles the
+ * expandable list present in ForumActivity.
+ */
+
 package com.mvfbla.madmvfbla2014.adapters;
 
 import java.util.ArrayList;
@@ -15,16 +19,15 @@ import com.mvfbla.madmvfbla2014.R;
 import com.mvfbla.madmvfbla2014.classes.Submission;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
-	private Context context;
-	private ArrayList<Submission> questions;
-	private int lastExpandedGroupPosition;
+	private Context context;//Interface to global information about an application environment
+	private ArrayList<Submission> questions;//list of the questions
 	
 	public ExpandableListAdapter(Context context, ArrayList<Submission> questions) {
 		this.context = context;
 		this.questions = questions;
 	}
 
-	
+	//called when want to add submission to forum
 	public void addItem(Submission reply, Submission question) {
 		if(!questions.contains(question)) {
 			questions.add(question);
@@ -33,16 +36,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		questions.get(index).addReply(reply);
 	}
 	
+	//returns child of particular post
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		return questions.get(groupPosition).getReplies().get(childPosition);
 	}
 
+	//returns id of child of particular post
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
 		return childPosition;
 	}
 
+	//returns the View of child. includes icon of vote and child's text
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
@@ -62,26 +68,31 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 
+	//number of children
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		return questions.get(groupPosition).getReplies().size();
 	}
 
+	//return post at groupPosition
 	@Override
 	public Object getGroup(int groupPosition) {
 		return questions.get(groupPosition);
 	}
 
+	//size of forums
 	@Override
 	public int getGroupCount() {
 		return questions.size();
 	}
 
+	//returns id of particular post
 	@Override
 	public long getGroupId(int groupPosition) {
 		return groupPosition;
 	}
 
+	//returns the View of a post. includes icon for voting and post's text
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
@@ -110,8 +121,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 	
-	
-
 	@Override
 	public boolean hasStableIds() {
 		return false;
@@ -121,6 +130,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}
+	
+	//toggles the appearance of vote icon
 	public void setVoteImage(ImageView iv, int groupPosition) {
 		if(questions.get(groupPosition).getIsLiked())
 			iv.setImageResource(R.drawable.down_arrow);

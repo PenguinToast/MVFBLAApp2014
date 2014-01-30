@@ -1,3 +1,7 @@
+/* This adapter handles the user data
+ * displayed in the leaderboard.
+ */
+
 package com.mvfbla.madmvfbla2014.adapters;
 
 import java.util.ArrayList;
@@ -18,11 +22,13 @@ public class LeaderboardAdapter extends ArrayAdapter<UserData> {
 	private final Context context;
 	
 	public LeaderboardAdapter(Context context, ArrayList<UserData> leaderboard) {
+		//retrieve the layout of the leaderboard from xml
 		super(context, R.layout.leaderboard_rowlayout, leaderboard);
 		this.leaderboard = leaderboard;
 		this.context = context;
 	}
 	
+	//return view for user in leaderboards. includes number of points the user has
 	public View getView(int position, View convertView, ViewGroup parent) {
 	    LayoutInflater inflater = (LayoutInflater) context
 	        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
