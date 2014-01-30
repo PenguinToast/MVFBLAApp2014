@@ -1,3 +1,7 @@
+/* This class is a fragment that handles
+ * the first screen seen upon start up.
+ */
+
 package com.mvfbla.madmvfbla2014.fragments;
 
 import java.util.Arrays;
@@ -26,95 +30,103 @@ public class MainFragment extends Fragment {
 
 	private static final String TAG = "MainFragment";
 	private Session.StatusCallback callback = new Session.StatusCallback() {
-	    @Override
-	    public void call(Session session, SessionState state, Exception exception) {
-	        onSessionStateChange(session, state, exception);
-	        System.out.println("4");
-	    }
+		@Override
+		public void call(Session session, SessionState state,
+				Exception exception) {
+			onSessionStateChange(session, state, exception);
+			// System.out.println("4");
+		}
 	};
 	private UiLifecycleHelper uiHelper;
 
-	
-	public void onCreate (Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);// call Fragment's constructor
 		uiHelper = new UiLifecycleHelper(getActivity(), callback);
-	    uiHelper.onCreate(savedInstanceState);
+		uiHelper.onCreate(savedInstanceState);
 	}
-	@Override
-	public View onCreateView(LayoutInflater inflater, 
-	        ViewGroup container, 
-	        Bundle savedInstanceState) {
-		
-	    View view = inflater.inflate(R.layout.activity_main, container, false);
-	    LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
-	    authButton.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
-	    authButton.setFragment(this);
-	    authButton.setReadPermissions(Arrays.asList("user_location"));
 
-	    return view;
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// retrieve layout from xml
+		View view = inflater.inflate(R.layout.activity_main, container, false);
+		LoginButton authButton = (LoginButton) view// the facebook login button
+				.findViewById(R.id.authButton);
+		authButton.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
+		authButton.setFragment(this);
+		authButton.setReadPermissions(Arrays.asList("user_location"));
+		return view;
 	}
-	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-	    if (state.isOpened()) {
-	        Log.i(TAG, "Logged in...");
-	        final Session NewSession = Session.getActiveSession();
-		    if (NewSession != null && NewSession.isOpened()) {
-		        // If the session is open, make an API call to get user data
-		        // and define a new callback to handle the response
-		        Request request = Request.newMeRequest(NewSession, new Request.GraphUserCallback() {
-		            @Override
-		            public void onCompleted(GraphUser user, Response response) {
-		                // If the response is successful
-		                if (NewSession == Session.getActiveSession()) {
-		                    if (user != null) {
-		                        User.setId(user.getId());//user id
-		                        User.setUsername(user.getFirstName(), user.getLastName());//user's profile name
-		                        Network.attemptConnect();
-		                    }   
-		                }   
-		            }
-		            
-		        }); 
-		        Request.executeBatchAsync(request);
-		    }  
-	    } else if (state.isClosed()) {
-	        Log.i(TAG, "Logged out...");
-	        System.out.println("2");
-	    }
+
+	private void onSessionStateChange(Session session, SessionState state,
+			Exception exception) {
+		if (state.isOpened()) {
+			Log.i(TAG, "Logged in...");
+			final Session NewSession = Session.getActiveSession();
+			if (NewSession != null && NewSession.isOpened()) {
+				// If the session is open, make an API call to get user data
+				// and define a new callback to handle the response
+				Request request = Request.newMeRequest(NewSession,
+						new Request.GraphUserCallback() {
+							@Override
+							public void onCompleted(GraphUser user,
+									Response response) {
+								// If the response is successful
+								if (NewSession == Session.getActiveSession()) {
+									if (user != null) {
+										User.setId(user.getId());// user id
+										User.setUsername(user.getFirstName(),
+												user.getLastName());// user's
+																	// profile
+																	// name
+										Network.attemptConnect();
+									}
+								}
+							}
+
+						});
+				Request.executeBatchAsync(request);
+			}
+		} else if (state.isClosed()) {
+			Log.i(TAG, "Logged out...");
+			System.out.println("2");
+		}
 	}
-	
+
 	@Override
 	public void onResume() {
-	    super.onResume();
-	    Session session = Session.getActiveSession();
-	    if (session != null &&
-	           (session.isOpened() || session.isClosed()) ) {
-	        onSessionStateChange(session, session.getState(), null);
-	        System.out.println("3");
-	    }
-	    uiHelper.onResume();
+		super.onResume();//call Fragment's onResume()
+		Session session = Session.getActiveSession();
+		if (session != null && (session.isOpened() || session.isClosed())) {
+			onSessionStateChange(session, session.getState(), null);//refresh
+//			System.out.println("3");
+		}
+		uiHelper.onResume();
 	}
 
+	/* For when the state of this fragment is altered. */
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    super.onActivityResult(requestCode, resultCode, data);
-	    uiHelper.onActivityResult(requestCode, resultCode, data);
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
 	public void onPause() {
-	    super.onPause();
-	    uiHelper.onPause();
+		super.onPause();
+		uiHelper.onPause();
 	}
 
 	@Override
 	public void onDestroy() {
-	    super.onDestroy();
-	    uiHelper.onDestroy();
+		super.onDestroy();
+		uiHelper.onDestroy();
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-	    super.onSaveInstanceState(outState);
-	    uiHelper.onSaveInstanceState(outState);
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
 	}
 }

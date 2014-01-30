@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- The main content view for MainActivity-->
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/mainbackground"
     android:orientation="vertical" >
-
+    
+	<!-- Displays two buttons. One leads to the Forums, and the other 
+		leads to the profile. Can only be pressed on when the user is 
+		logged in. Otherwise, the user will receive no response from buttons -->
     <Button
         android:id="@+id/Forums"
         android:layout_width="wrap_content"

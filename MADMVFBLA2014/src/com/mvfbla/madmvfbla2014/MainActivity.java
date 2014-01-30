@@ -1,3 +1,7 @@
+/* This class represents the 
+ * initial screen the user encounters when opening the app.
+ */
+
 package com.mvfbla.madmvfbla2014;
 
 import android.app.Dialog;
@@ -20,7 +24,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Network.init();		
+		Network.init();		//initialize the network to server
 		if (savedInstanceState == null) {
 			// Add the fragment on initial activity setup
 			mainFragment = new MainFragment();
@@ -45,10 +49,12 @@ public class MainActivity extends FragmentActivity {
 		return true;
 	}
 	
+	//switch intent to Forums
 	public void toForumScreen (View view) {
 		this.toForumScreen();
 	}
 	
+	//overloaded 
 	public void toForumScreen () {
 		if(isLoggedIn()) {
 		    Intent intent = new Intent(MainActivity.this, ForumActivity.class);
@@ -61,6 +67,7 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
+	//to determine whether to allow users access rest of app
 	public static boolean isLoggedIn() {
 	    Session session = Session.getActiveSession();
 	    if (session != null && session.isOpened()) {
@@ -70,6 +77,7 @@ public class MainActivity extends FragmentActivity {
 	    }
 	}
 	
+	//switch intent to user's Profile
 	public void toProfileScreen(View view) {
 		if(isLoggedIn()) {
 		    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);

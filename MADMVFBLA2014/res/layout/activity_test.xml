@@ -12,6 +12,7 @@
         android:layout_height="match_parent" 
         android:orientation = "vertical">
 
+        <!-- Displays the question for the screen -->
         <TextView
             android:id="@+id/QuestionForTest"
             android:layout_width="wrap_content"
@@ -23,10 +24,13 @@
             android:layout_marginRight = "25dp"
             android:textSize = "30sp"
             />
+        <!-- Layouts that contain two buttons each, where if clicked,
+        	the answer on the button will be checked to see if it is the correct
+        	answer. -->
         <LinearLayout
             android:orientation = "horizontal"
             android:layout_width = "match_parent"
-            android:layout_height = "50dp"
+            android:layout_height = "wrap_content"
             android:layout_marginTop = "50dp">
         	<Button
                 android:id="@+id/Answer1"
@@ -46,7 +50,7 @@
         <LinearLayout
             android:orientation = "horizontal"
             android:layout_width = "match_parent"
-            android:layout_height = "50dp">
+            android:layout_height = "wrap_content">
         	<Button
                 android:id="@+id/Answer3"
                 android:layout_weight = ".5"

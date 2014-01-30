@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Child for the ExpandableListView  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="35dp"
     android:background="@color/CommentBackground"
     android:orientation="horizontal" >
+    
+    <!-- Displays the number of likes for the comment/reply -->
     <TextView 
 	    android:id ="@+id/numLikeComment"
 	    android:layout_width = "0dip"
@@ -17,6 +22,7 @@
 	    android:textColor="@color/Black"
 	    />    
 	    
+    <!-- Displays the image to like the comment/reply -->
     <ImageView 
         android:id="@+id/addLikeComment"
         android:layout_width = "20dp"
@@ -30,6 +36,7 @@
         android:onClick="addLikeToReply"
         />
     
+    <!-- Displays the comment text -->
     <TextView 
         android:id="@+id/tvComment"
         android:layout_width="0dip"

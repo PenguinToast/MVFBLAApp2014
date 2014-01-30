@@ -1,3 +1,7 @@
+/* This class represents the activity in which
+ * the user views the forums.
+ */
+
 package com.mvfbla.madmvfbla2014;
 
 import java.util.ArrayList;
@@ -42,36 +46,37 @@ public class ForumActivity extends DrawerActivity {
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_forum);
-
+		super.onCreate(savedInstanceState);//call DrawerActivity's constructor
+		setContentView(R.layout.activity_forum);//using layout from layout.xml
 		
+		//create from resources in xml
 		expList = (ExpandableListView) findViewById(R.id.ExpList);
 		questions = new ArrayList<Submission>();
+		
+		expAdapter = new ExpandableListAdapter(ForumActivity.this, questions);
+		expList.setAdapter(expAdapter);
 
+		//get entire forum from server 
 		Network.setCallback(NetTopLevelPosts.class, new TopLevelPostsCallback() {
 			@Override
 			public void onResults(ArrayList<Submission> result) {
 				questions.clear();
-				questions.addAll(result);
+				questions.addAll(result);//refreshes state of forum with updated forums
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						expAdapter.notifyDataSetChanged();
+						expAdapter.notifyDataSetChanged();//tell the adapter that the contents have changed
 					}
 				});
 			}
 		});
 		Network.sendObject(new NetTopLevelPosts());
-		expAdapter = new ExpandableListAdapter(ForumActivity.this, questions);
-		expList.setAdapter(expAdapter);
-
+		
 		expList.setOnGroupClickListener(new OnGroupClickListener() {
-
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View v,
 					int groupPosition, long id) {
-				currentGroup = groupPosition;
+				currentGroup = groupPosition;//store which post has been expanded
 				currentGroupId = questions.get(previousGroup).getPostID();
 				return false;
 			}
@@ -81,6 +86,7 @@ public class ForumActivity extends DrawerActivity {
 
 			@Override
 			public void onGroupExpand(int groupPosition) {
+				//only allows one post to be expanded. closes last opened if new post is expanded
 				if (groupPosition != previousGroup)
 					expList.collapseGroup(previousGroup);
 				previousGroup = groupPosition;
@@ -93,15 +99,13 @@ public class ForumActivity extends DrawerActivity {
 
 			@Override
 			public void onGroupCollapse(int groupPosition) {
-				currentGroupId = -1;
+				currentGroupId = -1;//no post expanded
 			}
 		});
 		expList.setOnChildClickListener(new OnChildClickListener() {
-
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
-
 				return false;
 			}
 
@@ -159,6 +163,7 @@ public class ForumActivity extends DrawerActivity {
 		questions.get(groupPosition).like(this, expAdapter, view);
 	}
 	
+	//called when user votes a reply up
 	public void addLikeToReply(View view) {
 		String values = (String)view.getTag();
 		String [] positionString = values.split(",");
@@ -167,6 +172,7 @@ public class ForumActivity extends DrawerActivity {
 		questions.get(groupPosition).getReply(childPosition).like(this, expAdapter, view);
 	}
 
+	//user wants to submit a post to the forum
 	public void SubmitPost(View view) {
 		EditText post = (EditText)findViewById(R.id.NewPost);
 		String newPost = post.getText().toString();
@@ -179,7 +185,7 @@ public class ForumActivity extends DrawerActivity {
 		
 		
 		if(newPost.equals("")) {
-			return;
+			return;//no blank submissions
 		}
 		// Just change the -1 to the parent post ID for replies
 		Network.sendObject(new NetCreatePost(newPost, currentGroupId));
@@ -189,7 +195,7 @@ public class ForumActivity extends DrawerActivity {
 				@Override
 				public void onResults(ArrayList<Submission> result) {
 					questions.clear();
-					questions.addAll(result);
+					questions.addAll(result);//refresh forum
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
@@ -211,11 +217,11 @@ public class ForumActivity extends DrawerActivity {
 						@Override
 						public void run() {
 							expAdapter.notifyDataSetChanged();
-							expList.collapseGroup(currentGroup);
+							expList.collapseGroup(currentGroup);//
 							
 							for(int i = 0; i < questions.size(); i++) {
 								if(questions.get(i).getPostID() == nextGroup) {
-									expList.expandGroup(i);
+									expList.expandGroup(i);//expand the post that matches currentGroupId
 									return;
 								}
 							}
@@ -225,6 +231,6 @@ public class ForumActivity extends DrawerActivity {
 			});
 			Network.sendObject(new NetTopLevelPosts());
 		}
-		System.out.println(currentGroupId);
+//		System.out.println(currentGroupId);
 	}
 }

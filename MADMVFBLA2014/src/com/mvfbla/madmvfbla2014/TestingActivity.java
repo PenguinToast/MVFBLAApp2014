@@ -1,3 +1,7 @@
+/* This class represents the activity
+ * in which the user may take practice tests for his or her competition.
+ */
+
 package com.mvfbla.madmvfbla2014;
 
 import java.io.BufferedReader;
@@ -10,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
@@ -23,11 +28,11 @@ public class TestingActivity extends DrawerActivity {
 		setContentView(R.layout.activity_test);
 		reset();
 			
-		super.initNavDrawer();
+		super.initNavDrawer();//initialize navigation drawer from DrawerActivity
 	}
 
 	private ArrayList<String> getQuestion() {
-		try {
+		try {//read the questions, which are retrieve from the server
 			String[] files = getAssets().list("questions");
 			int chosenFile = (int) (Math.random() * files.length);
 			InputStream is = getAssets().open("questions/" + files[chosenFile]);
@@ -66,6 +71,7 @@ public class TestingActivity extends DrawerActivity {
 		return null;
 	}
 	
+	//refreshes the questions
 	public void reset() {
 		ArrayList<String> question = getQuestion();
 		
@@ -91,17 +97,23 @@ public class TestingActivity extends DrawerActivity {
 		this.answer = a;
 	}
 
+	//called if user answers a question correctly
 	public void correct() {
 		Network.sendObject(new NetAddPoints(1));
-		// Show dialog for yay!
+		Toast.makeText(this, "Yay! You got it right! You earned 1 point!",Toast.LENGTH_SHORT).show();;
+
 		reset();
 	}
 
+	//called if user answers a question incorrectly
 	public void incorrect() {
 		// Show dialog for fail
+		Toast.makeText(this, "Sorry! You got it wrong! The answer was " + answer,Toast.LENGTH_SHORT).show();;
 		reset();
 	}
 
+	/* These methods check if answers are correctly chosen. */
+	
 	public void checkAnswer1(View view) {
 		Button ans = (Button) view;
 		if (ans.getText().equals(answer)) {
