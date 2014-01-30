@@ -5,69 +5,73 @@
     android:layout_height="match_parent" >
 
     <!-- The main content view -->
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        android:orientation = "vertical">
-
-        <!-- Displays the question for the screen -->
-        <TextView
-            android:id="@+id/QuestionForTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "@string/Loading"
-            android:layout_marginTop = "20dp"
-            android:layout_marginBottom = "40dp"
-            android:layout_marginLeft = "25dp"
-            android:layout_marginRight = "25dp"
-            android:textSize = "30sp"
-            />
-        <!-- Layouts that contain two buttons each, where if clicked,
-        	the answer on the button will be checked to see if it is the correct
-        	answer. -->
-        <LinearLayout
-            android:orientation = "horizontal"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:layout_marginTop = "50dp">
-        	<Button
-                android:id="@+id/Answer1"
-                android:layout_weight = ".5"
-                android:layout_width = "0dp"
-                android:layout_height = "match_parent"
-                android:text= "@string/Loading"
-                android:onClick="checkAnswer1"></Button>
-        	<Button
-                android:id="@+id/Answer2"
-                android:layout_weight = ".5"
-                android:layout_width = "0dp"
-                android:layout_height = "match_parent"
-                android:text= "@string/Loading"
-                android:onClick="checkAnswer2"></Button>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation = "horizontal"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content">
-        	<Button
-                android:id="@+id/Answer3"
-                android:layout_weight = ".5"
-                android:layout_width = "0dp"
-                android:layout_height = "match_parent"
-                android:text= "@string/Loading"
-                android:onClick="checkAnswer3"></Button>
-        	<Button
-                android:id="@+id/Answer4"
-                android:layout_weight = ".5"
-                android:layout_width = "0dp"
-                android:layout_height = "match_parent"
-                android:text= "@string/Loading"
-                android:onClick = "checkAnswer4"></Button>
-        </LinearLayout>
-    </LinearLayout>
-
+	<ScrollView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+	    >
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:orientation = "vertical">
+	
+	        <!-- Displays the question for the screen -->
+	        <TextView
+	            android:id="@+id/QuestionForTest"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text = "@string/Loading"
+	            android:layout_marginTop = "20dp"
+	            android:layout_marginBottom = "40dp"
+	            android:layout_marginLeft = "25dp"
+	            android:layout_marginRight = "25dp"
+	            android:textSize = "30sp"
+	            />
+	        <!-- Layouts that contain two buttons each, where if clicked,
+	        	the answer on the button will be checked to see if it is the correct
+	        	answer. -->
+	        <LinearLayout
+	            android:orientation = "horizontal"
+	            android:layout_width = "match_parent"
+	            android:layout_height = "wrap_content"
+	            android:layout_marginTop = "50dp">
+	        	<Button
+	                android:id="@+id/Answer1"
+	                android:layout_weight = ".5"
+	                android:layout_width = "0dp"
+	                android:layout_height = "match_parent"
+	                android:text= "@string/Loading"
+	                android:onClick="checkAnswer1"></Button>
+	        	<Button
+	                android:id="@+id/Answer2"
+	                android:layout_weight = ".5"
+	                android:layout_width = "0dp"
+	                android:layout_height = "match_parent"
+	                android:text= "@string/Loading"
+	                android:onClick="checkAnswer2"></Button>
+	        </LinearLayout>
+	        <LinearLayout
+	            android:orientation = "horizontal"
+	            android:layout_width = "match_parent"
+	            android:layout_height = "wrap_content">
+	        	<Button
+	                android:id="@+id/Answer3"
+	                android:layout_weight = ".5"
+	                android:layout_width = "0dp"
+	                android:layout_height = "match_parent"
+	                android:text= "@string/Loading"
+	                android:onClick="checkAnswer3"></Button>
+	        	<Button
+	                android:id="@+id/Answer4"
+	                android:layout_weight = ".5"
+	                android:layout_width = "0dp"
+	                android:layout_height = "match_parent"
+	                android:text= "@string/Loading"
+	                android:onClick = "checkAnswer4"></Button>
+	        </LinearLayout>
+	
+	    </LinearLayout>
+	</ScrollView>
     <!-- The navigation drawer -->
 
     <ListView
