@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.mvfbla.madmvfbla2014.net.Network;
+import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
 import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
 import com.mvfbla.madmvfbla2014.net.data.NetLogin;
@@ -26,7 +27,7 @@ public class ForumServer {
 	public void start() {
 		try {
 			database = DatabaseManager.getInstance();
-			server = new Server() {
+			server = new Server(163840, 20480) {
 				@Override
 				protected Connection newConnection() {
 					return new ForumConnection();
@@ -47,6 +48,7 @@ public class ForumServer {
 	}
 
 	private void received(ForumConnection connection, Object object) {
+		database.ensureValid();
 		if (object instanceof NetLogin) {
 			NetLogin dat = (NetLogin) object;
 			connection.setFBID(dat.id);
@@ -87,6 +89,9 @@ public class ForumServer {
 		if (object instanceof NetCreatePost) {
 			NetCreatePost dat = (NetCreatePost) object;
 			int userID = connection.getUserID();
+			if (database.getUserPostCount(userID) <= 0) {
+				database.addPoints(userID, 10);
+			}
 			database.createPost(dat.content, userID, dat.parent);
 		}
 		if (object instanceof NetEditPost) {
@@ -99,6 +104,9 @@ public class ForumServer {
 		}
 		if (object instanceof NetUsers) {
 			connection.sendTCP(new NetUsers(database.getUsers()));
+		}
+		if (object instanceof NetAddPoints) {
+			database.addPoints(connection.getUserID(), ((NetAddPoints)object).points);
 		}
 	}
 }
