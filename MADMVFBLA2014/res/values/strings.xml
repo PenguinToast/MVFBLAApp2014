@@ -21,6 +21,8 @@
     <string name="addLike">Add Like</string>
     <string name="YourPf">Your Profile</string>
     <string name = "Submit">Submit</string>
+    <string name = "TestYourself">Test Yourself</string>
+    <string name = "Leaderboard">Leaderboard</string>
 
     <string-array name="drawer_array">
         <item>Forums</item>

@@ -1,6 +1,5 @@
 
 <!-- The main content view for MainActivity-->
-
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,24 +11,43 @@
 	<!-- Displays two buttons. One leads to the Forums, and the other 
 		leads to the profile. Can only be pressed on when the user is 
 		logged in. Otherwise, the user will receive no response from buttons -->
-    <Button
+   <Button
         android:id="@+id/Forums"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
         android:onClick="toForumScreen"
         android:text="@string/Forums" />
 
+
     <Button
         android:id="@+id/VisitProfile"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:onClick="toProfileScreen"
         android:text="@string/YourPf"
         android:color="#FFFFFFFF" />
+    
+       <Button
+        android:id="@+id/VisitLb"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:onClick="toLBScreen"
+        android:text="@string/Leaderboard" />
+       
+        <Button
+        android:id="@+id/VisitTest"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:onClick="toTestScreen"
+        android:text="@string/TestYourself" />
 
     <com.facebook.widget.LoginButton
         android:id="@+id/authButton"
