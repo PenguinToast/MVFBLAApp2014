@@ -1,3 +1,7 @@
+/* Data for each user.
+ * Includes name of user and number of points.
+ */
+
 package com.mvfbla.madmvfbla2014.classes;
 
 public class UserData {
