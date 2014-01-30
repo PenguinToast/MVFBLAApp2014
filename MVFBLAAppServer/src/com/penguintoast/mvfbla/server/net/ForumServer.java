@@ -1,8 +1,11 @@
 package com.penguintoast.mvfbla.server.net;
 
+import java.util.ArrayList;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.mvfbla.madmvfbla2014.classes.Submission;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
@@ -89,7 +92,17 @@ public class ForumServer {
 		if (object instanceof NetCreatePost) {
 			NetCreatePost dat = (NetCreatePost) object;
 			int userID = connection.getUserID();
-			if (database.getUserPostCount(userID) <= 0) {
+			// Give dem points
+			ArrayList<Submission> userSubs = database.getUserPosts(userID);
+			boolean brave = true, helpful = true;
+			for(Submission sub : userSubs) {
+				if(sub.getParentID() == -1) {
+					brave = false;
+				} else {
+					helpful = false;
+				}
+			}
+			if (brave || helpful) {
 				database.addPoints(userID, 10);
 			}
 			database.createPost(dat.content, userID, dat.parent);
