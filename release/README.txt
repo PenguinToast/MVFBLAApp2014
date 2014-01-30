@@ -30,4 +30,10 @@ All user data is linked to your Facebook profile, so data is saved across differ
 Source code:
 The source code is in the folder labeled "source".
 
+Screenshots:
+The screen shots are in the PDF file labeled "screenshots.pdf".
+
 Instructions to using the app:
+
+
+
