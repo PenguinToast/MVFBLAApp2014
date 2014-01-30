@@ -17,7 +17,6 @@ import com.mvfbla.madmvfbla2014.classes.Submission;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private ArrayList<Submission> questions;
-	private int lastExpandedGroupPosition;
 	
 	public ExpandableListAdapter(Context context, ArrayList<Submission> questions) {
 		this.context = context;
