@@ -1,3 +1,7 @@
+/* This class represents the activity in which
+ * the user can take practice tests for his or her competition.
+ */
+
 package com.mvfbla.madmvfbla2014;
 
 import android.os.Bundle;
@@ -13,6 +17,7 @@ public class TestingActivity extends DrawerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test);
 		
+		//retrieve from server
 		Button ans1 = (Button)findViewById(R.id.Answer1);
 		Button ans2 = (Button)findViewById(R.id.Answer2);
 		Button ans3 = (Button)findViewById(R.id.Answer3);

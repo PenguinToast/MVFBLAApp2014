@@ -1,3 +1,7 @@
+/* This class represents the activity
+ * in which the user can view his or her own profile.
+ */
+
 package com.mvfbla.madmvfbla2014;
 
 import android.os.Bundle;
@@ -14,11 +18,11 @@ public class ProfileActivity extends DrawerActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);//call DrawerActivity's constructor
 		setContentView(R.layout.activity_profile);
 
 		TextView username = (TextView) findViewById(R.id.Username);
-		username.setText(User.getUsername());
+		username.setText(User.getUsername());//username given by Facebook login
 
 		final TextView points = (TextView) findViewById(R.id.NumPoints);
 		points.setText("Loading...");
@@ -28,8 +32,8 @@ public class ProfileActivity extends DrawerActivity {
 
 		Network.setCallback(NetUserPoints.class, new UserPointsCallback() {
 			@Override
-			public void onResults(final Integer result) {
-				runOnUiThread(new Runnable() {
+			public void onResults(final Integer result) {//display the number
+				runOnUiThread(new Runnable() {			//of points the user has
 					@Override
 					public void run() {
 						points.setText("Points : " + Integer.toString(result));
@@ -42,7 +46,7 @@ public class ProfileActivity extends DrawerActivity {
 		Network.setCallback(NetUserPostCount.class, new UserPostCountCallback() {
 			@Override
 			public void onResults(final Integer result) {
-				runOnUiThread(new Runnable() {
+				runOnUiThread(new Runnable() {//display the number of posts the user has
 					@Override
 					public void run() {
 						posts.setText("Posts : " + Integer.toString(result));
