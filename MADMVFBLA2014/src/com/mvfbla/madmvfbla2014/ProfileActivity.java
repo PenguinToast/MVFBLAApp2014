@@ -29,6 +29,8 @@ public class ProfileActivity extends DrawerActivity {
 		
 		final TextView posts = (TextView) findViewById(R.id.NumPosts);
 		posts.setText("Loading...");
+		
+		final TextView expertise = (TextView)findViewById(R.id.Expertise);
 
 		Network.setCallback(NetUserPoints.class, new UserPointsCallback() {
 			@Override
