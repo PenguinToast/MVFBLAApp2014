@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- The Grouping for the ExpandableListView in ForumActivity  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="55dp"
     android:background="@color/QuestionBackground"
     android:orientation="horizontal" >
+    
+    <!-- Displays the number of likes -->
     <TextView 
 	    android:id ="@+id/numLikes"
 	    android:layout_width = "0dip"
@@ -17,6 +20,7 @@
 	    android:textColor="@color/Black"
 	    />    
 	    
+    <!-- Displays the image for adding a like, or unliking -->
     <ImageView 
         android:id="@+id/addLike"
         android:layout_width = "50dp"
@@ -29,6 +33,8 @@
         android:contentDescription="@string/addLike"
         android:onClick="addLikes"
         />
+    
+    <!-- Displays the question -->
     <TextView 
         android:id="@+id/tvQuestion"
         android:layout_width="0dip"
