@@ -39,6 +39,17 @@ public class ProfileActivity extends DrawerActivity {
 					@Override
 					public void run() {
 						points.setText("Points : " + Integer.toString(result));
+						if (result < 10) {
+							expertise.setText("Learning");
+						} else if(result < 40) {
+							expertise.setText("Inexperienced");
+						} else if(result < 100) {
+							expertise.setText("Experienced");
+						} else if(result < 200) {
+							expertise.setText("Expert");
+						} else {
+							expertise.setText("Master");
+						}
 					}
 				});
 			}
