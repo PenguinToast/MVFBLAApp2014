@@ -19,14 +19,6 @@ Method 2:
 4) Open and install it
 5) Use app by finding its icon in the phone's application list, and touching it
 
-Usage:
-You must be logged in with Facebook to use the app.
-If you are not connected to the internet, any actions that you make, i.e. posting, will be queued and executed when a connection is reestablished.
-You are awarded points for bravery upon your first question, and points for being helpful upon your first reply.
-Select a post to reply to it, deselect it to make a new post.
-Points are gained when someone likes your posts, and when you answer questions correctly when you test yourself.
-All user data is linked to your Facebook profile, so data is saved across different devices.
-
 Source code:
 The source code is in the folder labeled "source".
 
@@ -63,3 +55,7 @@ The fourth and final screen is the testing screen. This screen is used to allow 
 
 Enjoy!
 
+
+Tips:
+If you are not connected to the internet, any actions that you make, i.e. posting, will be queued and executed when a connection is reestablished.
+All user data is linked to your Facebook profile, so data is saved across different devices.
