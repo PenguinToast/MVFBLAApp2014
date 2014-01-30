@@ -115,38 +115,6 @@ public class ForumActivity extends DrawerActivity {
 	}
 
 
-	// Creates the options menu
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.forum, menu);
-		return true;
-	}
-
-	// Actionbar allows sorting for the menus
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
-		// Handle other action bar items...
-		switch (item.getItemId()) {
-			case R.id.SortByTime:
-				sort(ForumActivity.SORT_TIME);
-				break;
-			case R.id.SortByLikes:
-				sort(ForumActivity.SORT_LIKES);
-				break;
-			case R.id.SortByViews:
-				sort(ForumActivity.SORT_VIEWS);
-				break;
-			default:
-				Toast.makeText(this, "Action bar", Toast.LENGTH_SHORT).show();
-		}
-
-		expAdapter.notifyDataSetChanged();
-		return super.onOptionsItemSelected(item);
-	}
 
 	// Sorts the Arraylist by time, likes, and views
 	public void sort(int sortBy) {
