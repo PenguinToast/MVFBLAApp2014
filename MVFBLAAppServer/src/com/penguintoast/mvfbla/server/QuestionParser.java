@@ -19,7 +19,7 @@ public class QuestionParser {
 		letterToNumber.put('C', 3);
 		letterToNumber.put('D', 4);
 		
-		File inputFile = new File("questions.txt");
+		File inputFile = new File("questions2006unparsed.txt");
 		File outputFile = new File("questions2006.txt");
 		BufferedReader br = new BufferedReader(new FileReader(inputFile));
 		PrintWriter pw = new PrintWriter(new FileWriter(outputFile));
@@ -41,7 +41,7 @@ public class QuestionParser {
 			if(!inAnswers) {
 				String[] split = line.split("\\)");
 				if(split.length == 1) {
-					questions.get(currentQuestion)[0] += line;
+					questions.get(currentQuestion)[0] += "  " + line;
 				} else {
 					char firstChar = split[0].charAt(0);
 					if(firstChar == '\t') {
