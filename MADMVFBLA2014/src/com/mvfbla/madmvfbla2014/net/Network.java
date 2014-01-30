@@ -16,6 +16,7 @@ import com.mvfbla.madmvfbla2014.classes.Submission;
 import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.classes.UserData;
 import com.mvfbla.madmvfbla2014.net.callback.Callback;
+import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
 import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
 import com.mvfbla.madmvfbla2014.net.data.NetLogin;
@@ -38,7 +39,7 @@ public class Network {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
 		StrictMode.setThreadPolicy(policy);
-		com.esotericsoftware.minlog.Log.TRACE();
+		//com.esotericsoftware.minlog.Log.TRACE();
 		client = new Client(81920, 20480);
 		register(client.getKryo());
 		callbacks = new ObjectMap<Class, Callback>();
@@ -80,8 +81,9 @@ public class Network {
 				@Override
 				public void run() {
 					try {
-						client.connect(3000, "penguintoast.no-ip.biz", Network.PORT);
+						client.connect(3000, "ec2-54-200-186-68.us-west-2.compute.amazonaws.com", Network.PORT);
 					} catch (Exception ex) {
+						System.out.println("Unable to connect to server.");
 						return;
 					}
 				}
@@ -115,6 +117,7 @@ public class Network {
 				NetEditPost.class,
 				NetLogin.class,
 				NetTopLevelPosts.class,
+				NetAddPoints.class,
 				NetUserPoints.class,
 				NetUserPostCount.class,
 				NetUserPosts.class,
