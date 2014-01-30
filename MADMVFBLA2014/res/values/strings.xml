@@ -23,6 +23,7 @@
     <string name = "Submit">Submit</string>
     <string name = "TestYourself">Test Yourself</string>
     <string name = "Leaderboard">Leaderboard</string>
+    <string name = "CheckIn">Check In Location</string>
 
     <string-array name="drawer_array">
         <item>Forums</item>

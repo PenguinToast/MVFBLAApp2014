@@ -4,9 +4,17 @@
 
 package com.mvfbla.madmvfbla2014;
 
+import org.json.JSONException;
+
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.model.GraphLocation;
+import com.facebook.model.GraphUser;
 import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
@@ -31,6 +39,9 @@ public class ProfileActivity extends DrawerActivity {
 		posts.setText("Loading...");
 		
 		final TextView expertise = (TextView)findViewById(R.id.Expertise);
+		
+		final TextView location = (TextView) findViewById(R.id.NumPosts);
+		location.setText("Current Location : ");
 
 		Network.setCallback(NetUserPoints.class, new UserPointsCallback() {
 			@Override
@@ -63,5 +74,36 @@ public class ProfileActivity extends DrawerActivity {
 
 	public String getPointsText() {
 		return "Points : " + User.getPoints();
+	}
+	
+	public void checkIn(View view) {
+		final TextView location = (TextView) findViewById(R.id.Location);
+		final Session NewSession = Session.getActiveSession();
+		if (NewSession != null && NewSession.isOpened()) {
+			// If the session is open, make an API call to get user data
+			// and define a new callback to handle the response
+			Request request = Request.newMeRequest(NewSession,
+					new Request.GraphUserCallback() {
+						@Override
+						public void onCompleted(GraphUser user,
+								Response response) {
+							// If the response is successful
+							if (NewSession == Session.getActiveSession()) {
+								if (user != null) {
+									GraphLocation locations = user.getLocation();
+									try {
+										location.setText("Current Location : " + locations.getInnerJSONObject().get("name"));
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+									Network.attemptConnect();
+								}
+								
+							}
+						}
+
+					});
+			Request.executeBatchAsync(request);
+		}
 	}
 }
