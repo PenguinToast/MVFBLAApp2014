@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
@@ -93,12 +94,14 @@ public class TestingActivity extends DrawerActivity {
 
 	public void correct() {
 		Network.sendObject(new NetAddPoints(1));
-		// Show dialog for yay!
+		Toast.makeText(this, "Yay! You got it right! You earned 1 point!",Toast.LENGTH_SHORT).show();;
+
 		reset();
 	}
 
 	public void incorrect() {
 		// Show dialog for fail
+		Toast.makeText(this, "Sorry! You got it wrong! The answer was " + answer,Toast.LENGTH_SHORT).show();;
 		reset();
 	}
 

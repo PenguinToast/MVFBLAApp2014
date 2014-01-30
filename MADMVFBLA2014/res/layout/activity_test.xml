@@ -30,7 +30,7 @@
         <LinearLayout
             android:orientation = "horizontal"
             android:layout_width = "match_parent"
-            android:layout_height = "50dp"
+            android:layout_height = "wrap_content"
             android:layout_marginTop = "50dp">
         	<Button
                 android:id="@+id/Answer1"
@@ -50,7 +50,7 @@
         <LinearLayout
             android:orientation = "horizontal"
             android:layout_width = "match_parent"
-            android:layout_height = "50dp">
+            android:layout_height = "wrap_content">
         	<Button
                 android:id="@+id/Answer3"
                 android:layout_weight = ".5"
