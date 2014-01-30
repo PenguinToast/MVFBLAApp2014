@@ -20,7 +20,7 @@ Method 2:
 5) Use app by finding its icon in the phone's application list, and touching it
 
 Usage:
-You must be logged in with Facebook to use the app.
+In order to use the app, you must log in with Facebook through the in app login button.
 If you are not connected to the internet, any actions that you make, i.e. posting, will be queued and executed when a connection is reestablished.
 You are awarded points for bravery upon your first question, and points for being helpful upon your first reply.
 Select a post to reply to it, deselect it to make a new post.
