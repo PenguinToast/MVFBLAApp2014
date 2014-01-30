@@ -4,7 +4,7 @@ Only the first sentence is punctuated correctly.
 Only the second sentence is punctuated correctly.
 Both sentences are punctuated correctly.
 
-Are the following sentences grammatically correct?  All employees must submit his vacation requests.  Your request must be on the administrative assistant’s desk by 9:00 a.m.
+Are the following sentences grammatically correct?  All employees must submit his vacation requests.  Your request must be on the administrative assistant's desk by 9:00 a.m.
 Only the second sentence is correct
 Only the first sentence is correct.
 Both sentences are NOT correct.
@@ -22,19 +22,19 @@ Both sentences are correct.
 Both sentences are NOT correct.
 Only the first sentence is correct.
 
-Are the following sentences grammatically correct?  Is it to late for us to go to the two o’clock meeting today?  I am to give every person a list of conference events.
+Are the following sentences grammatically correct?  Is it to late for us to go to the two o'clock meeting today?  I am to give every person a list of conference events.
 Only the second sentence is correct.
 Both sentences are NOT correct.
 Only the first sentence is correct.
 Both sentences are correct.
 
-Are the following sentences grammatically correct?  It’s up to the everyone to due their work properly.  Our company is going to by new trucks for our delivery unit.
+Are the following sentences grammatically correct?  It's up to the everyone to due their work properly.  Our company is going to by new trucks for our delivery unit.
 Both sentences are NOT correct.
 Only the second sentence is correct.
 Only the first sentence is correct.
 Both sentences are correct.
 
-Are the following sentences grammatically correct?  Mr. Feather is going to the conference too.  They’re decision was quite unfair.
+Are the following sentences grammatically correct?  Mr. Feather is going to the conference too.  They're decision was quite unfair.
 Only the first sentence is correct.
 Both sentences are NOT correct.
 Both sentences are correct.
@@ -46,13 +46,13 @@ Only the second sentence is correct.
 Both sentences are NOT correct.
 Only the first sentence is correct.
 
-Are the following sentences grammatically correct?  The club officers made careful plans for their next meeting.  Our men’s club is meeting today at 5:30 p.m.
+Are the following sentences grammatically correct?  The club officers made careful plans for their next meeting.  Our men's club is meeting today at 5:30 p.m.
 Both sentences are correct.
 Only the first sentence is correct.
 Only the second sentence is correct.
 Both sentences are NOT correct.
 
-Are the following sentences grammatically correct?  The employee group took it’s place at the table.  17 employees attended the meeting.
+Are the following sentences grammatically correct?  The employee group took it's place at the table.  17 employees attended the meeting.
 Both sentences are NOT correct.
 Only the second sentence is correct.
 Only the first sentence is correct.
@@ -76,7 +76,7 @@ Only the second sentence is correct.
 Both sentences are correct.
 Only the first sentence is correct.
 
-Are the following sentences grammatically correct?  When you’re computer is ready, you’ll be able to print in color.  The for employees will be laid off by December.
+Are the following sentences grammatically correct?  When you're computer is ready, you'll be able to print in color.  The for employees will be laid off by December.
 Both sentences are NOT correct.
 Only the second sentence is correct.
 Both sentences are correct.
@@ -136,7 +136,7 @@ How many errors in spelling, capitalization, and word usage are in the following
 5
 6
 
-How many errors in spelling, capitalization, and word usage are in the following sentence? No matter what from you use to turn in you’re expenses, please right legibly. 
+How many errors in spelling, capitalization, and word usage are in the following sentence? No matter what from you use to turn in you're expenses, please right legibly. 
 3
 5
 6
@@ -166,7 +166,7 @@ Both sentences are not punctuated correctly.
 Only the first sentence is punctuated correctly.
 Only the second sentence is punctuated correctly.
 
-Mr. Harrison is an excellent sales representative: he really enjoys his work.  The president’s son will become president, in 2010.
+Mr. Harrison is an excellent sales representative: he really enjoys his work.  The president's son will become president, in 2010.
 Only the first sentence is punctuated correctly.
 Only the second sentence is punctuated correctly.
 Both sentences are not punctuated correctly.
@@ -314,7 +314,7 @@ Which of the following illustrates the best "no" in a letter that contains a neg
 If the electric stapler were still under warranty, it would be replaced.
 I'm sorry that we cannot hire you.
 Your request for a replacement must be denied.
-I’m sorry that your request must be denied.
+I'm sorry that your request must be denied.
 
 When organizing letters containing negative messages, which concept should be followed? 
 State or imply the negative message.
