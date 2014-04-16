@@ -1,20 +1,10 @@
-/* This class represents a single user
- * of the app.
- */
 package com.mvfbla.madmvfbla2014.classes;
 
-public class User {
-
+public class OtherUser {
 	private int POINTS = 0;
 	private String ID = "";
 	private String USERNAME = "";
-	private int POSTS = 0;
-	private int COMMENTS = 0;
-	private int NUMQUESTIONS = 0;
-	private int NUMCORRECT = 0;
-	
-	
-	
+
 	public void setUsername(String firstName, String lastName) {
 		USERNAME = firstName + " " + lastName;
 	}
