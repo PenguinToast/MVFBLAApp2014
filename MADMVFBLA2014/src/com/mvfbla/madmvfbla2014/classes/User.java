@@ -5,43 +5,43 @@ package com.mvfbla.madmvfbla2014.classes;
 
 public class User {
 
-	private int POINTS = 0;
-	private String ID = "";
-	private String USERNAME = "";
-	private int POSTS = 0;
-	private int COMMENTS = 0;
-	private int NUMQUESTIONS = 0;
-	private int NUMCORRECT = 0;
+	private static int POINTS = 0;
+	private static String ID = "";
+	private static String USERNAME = "";
+	private static int POSTS = 0;
+	private static int COMMENTS = 0;
+	private static int NUMQUESTIONS = 0;
+	private static int NUMCORRECT = 0;
 	
 	
 	
-	public void setUsername(String firstName, String lastName) {
+	public static void setUsername(String firstName, String lastName) {
 		USERNAME = firstName + " " + lastName;
 	}
 
 	/* Getters and Setters */
 	
-	public String getUsername() {
+	public static String getUsername() {
 		return USERNAME;
 	}
 
-	public void setPoints(int numPoints) {
+	public static void setPoints(int numPoints) {
 		POINTS = numPoints;
 	}
 
-	public int getPoints() {
+	public static int getPoints() {
 		return POINTS;
 	}
 
-	public void incrementPoints() {
+	public static void incrementPoints() {
 		POINTS = getPoints() + 1;
 	}
 
-	public void setId(String id) {
+	public static void setId(String id) {
 		ID = id;
 	}
 
-	public String getId() {
+	public static String getId() {
 		return ID;
 	}
 }
