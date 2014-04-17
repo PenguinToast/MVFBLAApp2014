@@ -44,4 +44,36 @@ public class User {
 	public static String getId() {
 		return ID;
 	}
+
+	public static int getNumQuestions() {
+		return NUMQUESTIONS;
+	}
+
+	public static void setNumQuestions(int NumQuestions) {
+		NUMQUESTIONS = NumQuestions;
+	}
+
+	public static int getNumCorrect() {
+		return NUMCORRECT;
+	}
+
+	public static void setNumCorrect(int NumCorrect) {
+		NUMCORRECT = NumCorrect;
+	}
+
+	public static int getComments() {
+		return COMMENTS;
+	}
+
+	public static void setComments(int Comments) {
+		COMMENTS = Comments;
+	}
+
+	public static int getPosts() {
+		return POSTS;
+	}
+
+	public static void setPosts(int Posts) {
+		POSTS = Posts;
+	}
 }

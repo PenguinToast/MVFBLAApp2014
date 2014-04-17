@@ -7,6 +7,7 @@ package com.mvfbla.madmvfbla2014.classes;
 public class UserData {
 	private String name;
 	private int points;
+	private String ID;
 
 	public UserData() {
 	}
@@ -15,6 +16,11 @@ public class UserData {
 		this.name = name;
 		this.points = points;
 	}
+	public UserData(String name, int points, String id) {
+		this.name = name;
+		this.points = points;
+		this.ID = id;
+	}
 	
 	public String getName() {
 		return name;
@@ -22,5 +28,9 @@ public class UserData {
 	
 	public int getPoints() {
 		return points;
+	}
+	
+	public String getId() {
+		return ID;
 	}
 }

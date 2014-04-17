@@ -21,7 +21,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:textSize  ="30sp"
-            android:layout_marginTop="36dp" />
+            android:layout_marginTop="36dp"
+            android:text = "@string/Loading" />
 		<!-- Displays the number of points the user has -->
         <TextView
             android:id="@+id/NumPoints"
@@ -30,7 +31,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
 		    android:textSize  ="25sp"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="80dp" 
+            android:text = "@string/Loading"/>
         
         <!-- Displays the number of posts the user has -->
         <TextView
@@ -40,7 +42,8 @@
 	        android:layout_alignParentTop = "true"
             android:textSize  ="25sp"
 	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="120dp" />
+	        android:layout_marginTop="120dp"
+	        android:text = "@string/Loading" />
         
         <TextView 
             android:id = "@+id/Expertise"
