@@ -11,6 +11,7 @@ import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetCreatePost;
 import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
 import com.mvfbla.madmvfbla2014.net.data.NetLogin;
+import com.mvfbla.madmvfbla2014.net.data.NetQuestionAnswered;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
@@ -120,6 +121,9 @@ public class ForumServer {
 		}
 		if (object instanceof NetAddPoints) {
 			database.addPoints(connection.getUserID(), ((NetAddPoints)object).points);
+		}
+		if (object instanceof NetQuestionAnswered) {
+			database.userQuestionResult(connection.getUserID(), ((NetQuestionAnswered)object).correct);
 		}
 	}
 }

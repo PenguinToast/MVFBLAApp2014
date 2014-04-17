@@ -73,7 +73,19 @@ public class DatabaseManager {
 
 	public UserData readUserData(ResultSet set) {
 		try {
-			return new UserData(set.getString("user_name"), set.getInt("user_points"));
+			UserData out = new UserData(set.getString("user_name"), set.getInt("user_points"));
+			out.setUserId(set.getInt("user_id"));
+			out.setQuestionsCorrect(set.getInt("user_correct"));
+			out.setQuestionsIncorrect(set.getInt("user_incorrect"));
+			out.setPostCount(getUserPostCount(userID));
+			// Get user vote count
+			PreparedStatement getVoteCount = connect
+					.prepareStatement("SELECT COUNT(*) FROM upvotes AS v INNER JOIN posts AS p ON p.post_id=v.post_id WHERE p.post_by=?;");
+			getVoteCount.setInt(1, out.getUserId());
+			ResultSet results = getVoteCount.executeQuery();
+			results.first();
+			out.setVoteCount(results.getInt(1));
+			return out;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
@@ -322,7 +334,7 @@ public class DatabaseManager {
 				voteRemove.setInt(2, postID);
 
 				// Remove points from user
-				addPoints(getPostOwner(postID), -1);
+				addPoints(getPostOwner(postID), -100);
 				return voteRemove.executeUpdate() > 0;
 			} else {
 				// Add vote - userID, postID
@@ -331,7 +343,7 @@ public class DatabaseManager {
 				voteAdd.setInt(2, postID);
 
 				// Add points to user
-				addPoints(getPostOwner(postID), 1);
+				addPoints(getPostOwner(postID), 100);
 				return voteAdd.executeUpdate() > 0;
 			}
 		} catch (Exception ex) {
@@ -443,6 +455,30 @@ public class DatabaseManager {
 		try {
 			int numPoints = getPoints(userID);
 			return setPoints(userID, numPoints + points);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Adds to the user correct/incorrect count
+	 * 
+	 * @param userId
+	 *            ID of user to modify
+	 * @param correct
+	 *            Whether to add to correct or incorrect
+	 * @return Whether or not the change was successful
+	 */
+	public boolean userQuestionResult(int userId, boolean correct) {
+		try {
+			String field = "user_correct";
+			if (!correct) {
+				field = "user_incorrect";
+			}
+			PreparedStatement add = connect.prepareStatement("UPDATE users SET " + field + "=" + field + "+1 WHERE user_id=?;");
+			add.setInt(1, userId);
+			return add.executeUpdate() > 0;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
