@@ -47,7 +47,7 @@ public class ProfileActivity extends DrawerActivity {
 				runOnUiThread(new Runnable() {			//of points the user has
 					@Override
 					public void run() {
-						points.setText("Points : " + Integer.toString(result));
+						points.setText("" + Integer.toString(result));
 						if (result < 10) {
 							expertise.setText("Learning");
 						} else if(result < 40) {
@@ -71,7 +71,7 @@ public class ProfileActivity extends DrawerActivity {
 				runOnUiThread(new Runnable() {//display the number of posts the user has
 					@Override
 					public void run() {
-						posts.setText("Posts : " + Integer.toString(result));
+						posts.setText("" + Integer.toString(result));
 					}
 				});
 			}
@@ -82,7 +82,7 @@ public class ProfileActivity extends DrawerActivity {
 	}
 
 	public String getPointsText() {
-		return "Points : " + User.getPoints();
+		return "" + User.getPoints();
 	}
 	
 	/*public void checkIn(View view) {
