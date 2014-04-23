@@ -22,6 +22,7 @@ import com.mvfbla.madmvfbla2014.net.data.NetEditPost;
 import com.mvfbla.madmvfbla2014.net.data.NetLogin;
 import com.mvfbla.madmvfbla2014.net.data.NetQuestionAnswered;
 import com.mvfbla.madmvfbla2014.net.data.NetTopLevelPosts;
+import com.mvfbla.madmvfbla2014.net.data.NetUserData;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPosts;
@@ -144,6 +145,7 @@ public class Network {
 				NetVote.class,
 				NetVoteCount.class,
 				NetQuestionAnswered.class,
+				NetUserData.class,
 
 				Submission.class,
 				UserData.class,

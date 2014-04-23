@@ -229,7 +229,7 @@ public class DatabaseManager {
 	public boolean createUser(String fb_id, String name) {
 		try {
 			// Insert user - facebookID, date
-			PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, NOW(), 0, ?);");
+			PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, NOW(), 0, ?, 0, 0);");
 			createUser.setString(1, fb_id);
 			createUser.setString(2, name);
 			return createUser.executeUpdate() > 0;
