@@ -108,6 +108,20 @@ public class DatabaseManager {
 			return null;
 		}
 	}
+	
+	public UserData getUser(int userId) {
+		try {
+			PreparedStatement getUserData = connect.prepareStatement("SELECT * from forums.users WHERE user_id=?");
+			getUserData.setInt(1, userId);
+			ResultSet results = getUserData.executeQuery();
+			results.first();
+			UserData out = readUserData(results);
+			return out;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 
 	public int getUserID(String fbID, String name) {
 		try {
