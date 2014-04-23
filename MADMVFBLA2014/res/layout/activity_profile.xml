@@ -7,72 +7,170 @@
 
     <!-- The main content view -->
 
-    <RelativeLayout
+ 	<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-		android:background="@drawable/mainbackground" >
-		
-        <!-- Displays the user's name -->
+        android:background="@drawable/mainbackground" >
+
+
         <TextView
-            android:id="@+id/Username"
+            android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textSize  ="30sp"
-            android:layout_marginTop="36dp"
-            android:text = "@string/Loading" />
-		<!-- Displays the number of points the user has -->
+            android:layout_marginTop="37dp"
+            android:text="@string/Loading"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/Back1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="31dp"
+            android:src="@drawable/plain_grey_background" />
+
+        <ImageView
+            android:id="@+id/Back3"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+			android:layout_toRightOf="@+id/Name"
+			android:layout_below = "@+id/Name"
+            android:layout_alignTop="@+id/Back1"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/plain_grey_background" />
+
+        <ImageView
+            android:id="@+id/Back2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/Back1"
+            android:layout_toLeftOf="@+id/Name"
+            android:layout_marginRight = "10dp"
+            android:src="@drawable/plain_grey_background" />
+
         <TextView
-            android:id="@+id/NumPoints"
+            android:id="@+id/Likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-		    android:textSize  ="25sp"
-            android:layout_marginTop="80dp" 
-            android:text = "@string/Loading"/>
-        
-        <!-- Displays the number of posts the user has -->
+            android:layout_alignLeft="@+id/Back2"
+            android:layout_alignRight="@+id/Back2"
+            android:layout_alignBottom="@+id/Back2"
+            android:layout_alignTop="@+id/Back2"
+            android:gravity = "center"
+            android:text="100"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <TextView
-	        android:id = "@+id/NumPosts"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop = "true"
-            android:textSize  ="25sp"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="120dp"
-	        android:text = "@string/Loading" />
+            android:id="@+id/LikeCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/Back2"
+            android:layout_alignLeft="@+id/Back2"
+            android:layout_alignRight = "@+id/Back2"
+            android:gravity = "center"
+            android:text="Likes"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
         
-        <TextView 
-            android:id = "@+id/Expertise"
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:layout_alignParentTop = "true"
-            android:textSize = "25sp"
-            android:text = "@string/Loading"
-            android:layout_centerHorizontal="true"
-	        android:layout_marginTop="160dp"></TextView>
+        <TextView
+            android:id="@+id/Posts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Back3"
+            android:layout_alignRight="@+id/Back3"
+            android:layout_alignBottom="@+id/Back3"
+            android:layout_alignTop="@+id/Back3"
+            android:gravity = "center"
+            android:text="100"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/PostsCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/Back3"
+            android:layout_alignLeft="@+id/Back3"
+            android:layout_alignRight = "@+id/Back3"
+            android:gravity = "center"
+            android:text="Posts"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
         
-        <Button
-            android:id = "@+id/CheckIn"
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:layout_alignParentTop = "true"
-            android:text = "@string/CheckIn"
+        <TextView
+            android:id="@+id/Points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Back1"
+            android:layout_alignRight="@+id/Back1"
+            android:layout_alignBottom="@+id/Back1"
+            android:layout_alignTop="@+id/Back1"
+            android:gravity = "center"
+            android:text="100"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/PointsCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/Back1"
+            android:layout_alignLeft="@+id/Back1"
+            android:layout_alignRight = "@+id/Back1"
+            android:gravity = "center"
+            android:text="Points"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/NumAnswered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/QuestionsAnsweredCaption"
+            android:layout_alignBottom="@+id/QuestionsAnsweredCaption"
+            android:layout_toRightOf="@+id/QuestionsAnsweredCaption"
+            android:text="100"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/NumCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/QuestionsCorrectCaption"
+            android:layout_alignBottom="@+id/QuestionsCorrectCaption"
+            android:layout_toRightOf="@+id/QuestionsCorrectCaption"
+            android:text="100"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/Expertise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/QuestionsCorrectCaption"
             android:layout_centerHorizontal="true"
-	        android:layout_marginTop="430dp"
-	        android:onClick = "checkIn"
-            ></Button>
-        <TextView 
-            android:id = "@+id/Location"
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:layout_alignParentTop = "true"
-            android:textSize = "20sp"
+            android:layout_marginTop="23dp"
+            android:text="Expert"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/QuestionsCorrectCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/QuestionsAnsweredCaption"
             android:layout_centerHorizontal="true"
-	        android:layout_marginTop="480dp"></TextView>
+            android:layout_marginTop="24dp"
+            android:text="Questions Correct : "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/QuestionsAnsweredCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Back1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            android:text="Questions Answered : "
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
     </RelativeLayout>
 
     <!-- The navigation drawer -->

@@ -4,17 +4,9 @@
 
 package com.mvfbla.madmvfbla2014;
 
-import org.json.JSONException;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.model.GraphLocation;
-import com.facebook.model.GraphUser;
 import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
@@ -29,27 +21,33 @@ public class ProfileActivity extends DrawerActivity {
 		super.onCreate(savedInstanceState);//call DrawerActivity's constructor
 		setContentView(R.layout.activity_profile);
 
-		TextView username = (TextView) findViewById(R.id.Username);
+		TextView username = (TextView) findViewById(R.id.Name);
 		username.setText(User.getUsername());//username given by Facebook login
 
-		final TextView points = (TextView) findViewById(R.id.NumPoints);
+		final TextView points = (TextView) findViewById(R.id.Points);
 		points.setText("Loading...");
 		
-		final TextView posts = (TextView) findViewById(R.id.NumPosts);
+		final TextView posts = (TextView) findViewById(R.id.Posts);
 		posts.setText("Loading...");
 		
 		final TextView expertise = (TextView)findViewById(R.id.Expertise);
 		
-		final TextView location = (TextView) findViewById(R.id.NumPosts);
+		final TextView likes = (TextView)findViewById(R.id.Likes);
+		likes.setText("Loading...");
+		
+		final TextView numAnswered = (TextView)findViewById(R.id.NumAnswered);
+		final TextView numCorrect = (TextView)findViewById(R.id.NumCorrect);
+		
+	/*	final TextView location = (TextView) findViewById(R.id.NumPosts);
 		location.setText("Current Location : ");
-
+*/
 		Network.setCallback(NetUserPoints.class, new UserPointsCallback() {
 			@Override
 			public void onResults(final Integer result) {//display the number
 				runOnUiThread(new Runnable() {			//of points the user has
 					@Override
 					public void run() {
-						points.setText("Points : " + Integer.toString(result));
+						points.setText("" + Integer.toString(result));
 						if (result < 10) {
 							expertise.setText("Learning");
 						} else if(result < 40) {
@@ -73,7 +71,7 @@ public class ProfileActivity extends DrawerActivity {
 				runOnUiThread(new Runnable() {//display the number of posts the user has
 					@Override
 					public void run() {
-						posts.setText("Posts : " + Integer.toString(result));
+						posts.setText("" + Integer.toString(result));
 					}
 				});
 			}
@@ -84,10 +82,10 @@ public class ProfileActivity extends DrawerActivity {
 	}
 
 	public String getPointsText() {
-		return "Points : " + User.getPoints();
+		return "" + User.getPoints();
 	}
 	
-	public void checkIn(View view) {
+	/*public void checkIn(View view) {
 		final TextView location = (TextView) findViewById(R.id.Location);
 		final Session NewSession = Session.getActiveSession();
 		if (NewSession != null && NewSession.isOpened()) {
@@ -116,5 +114,5 @@ public class ProfileActivity extends DrawerActivity {
 					});
 			Request.executeBatchAsync(request);
 		}
-	}
+	}*/
 }
