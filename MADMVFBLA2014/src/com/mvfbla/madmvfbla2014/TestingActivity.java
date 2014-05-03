@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
+import com.mvfbla.madmvfbla2014.net.data.NetQuestionAnswered;
 
 public class TestingActivity extends DrawerActivity {
 	private String answer;
@@ -109,6 +110,7 @@ public class TestingActivity extends DrawerActivity {
 		catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}*/
+		Network.sendObject(new NetQuestionAnswered(true));
 		 new Handler().postDelayed(new Runnable() {
              @Override
              public void run() {
@@ -128,6 +130,7 @@ public class TestingActivity extends DrawerActivity {
 		catch(InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}*/
+		Network.sendObject(new NetQuestionAnswered(false));
 		new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
