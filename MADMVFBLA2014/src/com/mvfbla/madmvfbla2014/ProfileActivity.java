@@ -4,9 +4,17 @@
 
 package com.mvfbla.madmvfbla2014;
 
+import org.json.JSONException;
+
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.model.GraphLocation;
+import com.facebook.model.GraphUser;
 import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
@@ -86,7 +94,7 @@ public class ProfileActivity extends DrawerActivity {
 		return "" + User.getPoints();
 	}
 	
-	/*public void checkIn(View view) {
+	public void checkIn(View view) {
 		final TextView location = (TextView) findViewById(R.id.Location);
 		final Session NewSession = Session.getActiveSession();
 		if (NewSession != null && NewSession.isOpened()) {
@@ -115,5 +123,5 @@ public class ProfileActivity extends DrawerActivity {
 					});
 			Request.executeBatchAsync(request);
 		}
-	}*/
+	}
 }
