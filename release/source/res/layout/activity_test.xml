@@ -34,21 +34,26 @@
 	            android:orientation = "horizontal"
 	            android:layout_width = "match_parent"
 	            android:layout_height = "wrap_content"
-	            android:layout_marginTop = "50dp">
+	            android:layout_marginTop = "50dp"
+	            android:layout_marginBottom="15dp">
 	        	<Button
 	                android:id="@+id/Answer1"
-	                android:layout_weight = ".5"
+	                android:layout_weight = ".4"
 	                android:layout_width = "0dp"
 	                android:layout_height = "match_parent"
 	                android:text= "@string/Loading"
-	                android:onClick="checkAnswer1"></Button>
+	                android:onClick="checkAnswer1"
+	                android:layout_marginRight ="5dp"
+	                android:layout_marginLeft ="5dp"></Button>
 	        	<Button
 	                android:id="@+id/Answer2"
-	                android:layout_weight = ".5"
+	                android:layout_weight = ".4"
 	                android:layout_width = "0dp"
 	                android:layout_height = "match_parent"
 	                android:text= "@string/Loading"
-	                android:onClick="checkAnswer2"></Button>
+	                android:onClick="checkAnswer2"
+	                android:layout_marginRight ="5dp"
+	                android:layout_marginLeft ="5dp"></Button>
 	        </LinearLayout>
 	        <LinearLayout
 	            android:orientation = "horizontal"
@@ -60,14 +65,18 @@
 	                android:layout_width = "0dp"
 	                android:layout_height = "match_parent"
 	                android:text= "@string/Loading"
-	                android:onClick="checkAnswer3"></Button>
+	                android:onClick="checkAnswer3"
+					android:layout_marginRight ="5dp"
+	                android:layout_marginLeft ="5dp"></Button>
 	        	<Button
 	                android:id="@+id/Answer4"
 	                android:layout_weight = ".5"
 	                android:layout_width = "0dp"
 	                android:layout_height = "match_parent"
 	                android:text= "@string/Loading"
-	                android:onClick = "checkAnswer4"></Button>
+	                android:onClick = "checkAnswer4"
+	                android:layout_marginRight ="5dp"
+	                android:layout_marginLeft ="5dp"></Button>
 	        </LinearLayout>
 	
 	    </LinearLayout>

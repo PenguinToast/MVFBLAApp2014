@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Timer;
 
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,14 +22,22 @@ import android.widget.Toast;
 
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.data.NetAddPoints;
+import com.mvfbla.madmvfbla2014.net.data.NetQuestionAnswered;
 
 public class TestingActivity extends DrawerActivity {
 	private String answer;
+	Button[] ans = new Button[4];
+	boolean alreadyClicked = false;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test);
+		ans[0] = (Button) findViewById(R.id.Answer1);
+		ans[1] = (Button) findViewById(R.id.Answer2);
+		ans[2] = (Button) findViewById(R.id.Answer3);
+		ans[3] = (Button) findViewById(R.id.Answer4);
 		reset();
 
 		super.initNavDrawer();// initialize navigation drawer from DrawerActivity
@@ -71,17 +83,14 @@ public class TestingActivity extends DrawerActivity {
 
 		answer = new String(question.get(1));
 
-		Button[] ans = new Button[4];
-		ans[0] = (Button) findViewById(R.id.Answer1);
-		ans[1] = (Button) findViewById(R.id.Answer2);
-		ans[2] = (Button) findViewById(R.id.Answer3);
-		ans[3] = (Button) findViewById(R.id.Answer4);
+		
 		// To set the answers, just do ans1.setText("answer here") for each of them
 		for (int i = 0; i < 4; i++) {
 			int chosen = (int) (Math.random() * (question.size() - 1));
 			ans[i].setText(question.remove(chosen + 1));
+			ans[i].setBackgroundColor(Color.GRAY);
 		}
-
+		alreadyClicked = false;
 		TextView q = (TextView) findViewById(R.id.QuestionForTest);
 		// Set the question by q.setText("question here")
 		q.setText(question.get(0));
@@ -94,59 +103,105 @@ public class TestingActivity extends DrawerActivity {
 	// called if user answers a question correctly
 	public void correct() {
 		Network.sendObject(new NetAddPoints(1));
-		Toast.makeText(this, "Yay! You got it right! You earned 1 point!", Toast.LENGTH_SHORT).show();
-		;
-
-		reset();
+		alreadyClicked = true;
+		/*try {
+			Thread.sleep(1000);
+		}
+		catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}*/
+		Network.sendObject(new NetQuestionAnswered(true));
+		 new Handler().postDelayed(new Runnable() {
+             @Override
+             public void run() {
+            	 reset();
+             }
+         }, 3000);
 	}
 
 	// called if user answers a question incorrectly
 	public void incorrect() {
 		// Show dialog for fail
-		Toast.makeText(this, "Sorry! You got it wrong! The answer was " + answer, Toast.LENGTH_SHORT).show();
-		;
-		reset();
+		checkCorrectAnswer();
+		alreadyClicked = true;
+		/*try {
+			Thread.sleep(1000);
+		}
+		catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}*/
+		Network.sendObject(new NetQuestionAnswered(false));
+		new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+           	 reset();
+            }
+        }, 3000);
 	}
 
 	/* These methods check if answers are correctly chosen. */
 
 	public void checkAnswer1(View view) {
-		Button ans = (Button) view;
-		if (ans.getText().equals(answer)) {
-			correct();
-		}
-		else {
-			incorrect();
+		if(!alreadyClicked){
+			Button ans = (Button) view;
+			if (ans.getText().equals(answer)) {
+				view.setBackgroundColor(Color.GREEN);
+				correct();
+			}
+			else {
+				view.setBackgroundColor(Color.RED);
+				incorrect();
+			}
 		}
 	}
 
 	public void checkAnswer2(View view) {
-		Button ans = (Button) view;
-		if (ans.getText().equals(answer)) {
-			correct();
-		}
-		else {
-			incorrect();
+		if(!alreadyClicked){
+			Button ans = (Button) view;
+			if (ans.getText().equals(answer)) {
+				view.setBackgroundColor(Color.GREEN);
+				correct();
+			}
+			else {
+				view.setBackgroundColor(Color.RED);			
+				incorrect();
+			}
 		}
 	}
 
 	public void checkAnswer3(View view) {
-		Button ans = (Button) view;
-		if (ans.getText().equals(answer)) {
-			correct();
-		}
-		else {
-			incorrect();
+		if(!alreadyClicked){
+			Button ans = (Button) view;
+			if (ans.getText().equals(answer)) {
+				view.setBackgroundColor(Color.GREEN);
+				correct();
+			}
+			else {
+				view.setBackgroundColor(Color.RED);
+				incorrect();
+			}
 		}
 	}
 
 	public void checkAnswer4(View view) {
-		Button ans = (Button) view;
-		if (ans.getText().equals(answer)) {
-			correct();
+		if(!alreadyClicked){
+			Button ans = (Button) view;
+			if (ans.getText().equals(answer)) {
+				view.setBackgroundColor(Color.GREEN);
+				correct();
+			}
+			else {
+				view.setBackgroundColor(Color.RED);
+				incorrect();
+			}
 		}
-		else {
-			incorrect();
+	}
+	
+	public void checkCorrectAnswer() {
+		for(int i = 0; i < ans.length; i++) {
+			if(ans[i].getText().equals(answer)) {
+				ans[i].setBackgroundColor(Color.GREEN);
+			}
 		}
 	}
 }

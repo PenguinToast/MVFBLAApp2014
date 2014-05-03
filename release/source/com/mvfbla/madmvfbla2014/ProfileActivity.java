@@ -16,11 +16,10 @@ import com.facebook.Session;
 import com.facebook.model.GraphLocation;
 import com.facebook.model.GraphUser;
 import com.mvfbla.madmvfbla2014.classes.User;
+import com.mvfbla.madmvfbla2014.classes.UserData;
 import com.mvfbla.madmvfbla2014.net.Network;
-import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
-import com.mvfbla.madmvfbla2014.net.callback.UserPostCountCallback;
-import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
-import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
+import com.mvfbla.madmvfbla2014.net.callback.UserDataCallback;
+import com.mvfbla.madmvfbla2014.net.data.NetUserData;
 
 public class ProfileActivity extends DrawerActivity {
 	
@@ -29,62 +28,72 @@ public class ProfileActivity extends DrawerActivity {
 		super.onCreate(savedInstanceState);//call DrawerActivity's constructor
 		setContentView(R.layout.activity_profile);
 
-		TextView username = (TextView) findViewById(R.id.Username);
+		TextView username = (TextView) findViewById(R.id.Name);
 		username.setText(User.getUsername());//username given by Facebook login
 
-		final TextView points = (TextView) findViewById(R.id.NumPoints);
+		final TextView points = (TextView) findViewById(R.id.Points);
 		points.setText("Loading...");
 		
-		final TextView posts = (TextView) findViewById(R.id.NumPosts);
+		final TextView posts = (TextView) findViewById(R.id.Posts);
 		posts.setText("Loading...");
 		
 		final TextView expertise = (TextView)findViewById(R.id.Expertise);
 		
-		final TextView location = (TextView) findViewById(R.id.NumPosts);
-		location.setText("Current Location : ");
+		final TextView likes = (TextView)findViewById(R.id.Likes);
+		likes.setText("Loading...");
+		
+		final TextView numAnswered = (TextView)findViewById(R.id.NumAnswered);
+		final TextView numCorrect = (TextView)findViewById(R.id.NumCorrect);
 
-		Network.setCallback(NetUserPoints.class, new UserPointsCallback() {
+		
+		Network.setCallback(NetUserData.class, new UserDataCallback() {
 			@Override
-			public void onResults(final Integer result) {//display the number
-				runOnUiThread(new Runnable() {			//of points the user has
+			public void onResults(final UserData result) {
+				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						points.setText("Points : " + Integer.toString(result));
-						if (result < 10) {
-							expertise.setText("Learning");
-						} else if(result < 40) {
-							expertise.setText("Inexperienced");
-						} else if(result < 100) {
-							expertise.setText("Experienced");
-						} else if(result < 200) {
-							expertise.setText("Expert");
+						// Show points
+						int ratio;
+						int numPoints = result.getPoints();
+						points.setText("" + Integer.toString(numPoints));
+						
+						
+						// Show post count
+						int numPosts = result.getPostCount();
+						posts.setText("" + Integer.toString(numPosts));
+						
+						// Show likes
+						int numLikes = result.getVoteCount();
+						likes.setText("" + numLikes);
+						
+						// Show answered
+						numAnswered.setText("" + (result.getQuestionsCorrect() + result.getQuestionsIncorrect()));
+						numCorrect.setText("" + result.getQuestionsCorrect());
+						
+						if (numPoints < 1000) {
+							expertise.setText("Expertise : Learning");
+						} else if(numPoints < 4000) {
+							expertise.setText("Expertise : Inexperienced");
+						} else if(numPoints < 10000) {
+							expertise.setText("Expertise : Experienced");
+						} else if(numPoints < 20000) {
+							expertise.setText("Expertise : Expert");
 						} else {
-							expertise.setText("Master");
+							expertise.setText("Expertise : Master");
 						}
 					}
 				});
 			}
 		});
-		Network.sendObject(new NetUserPoints());
+		Network.sendObject(new NetUserData());
 		
-		Network.setCallback(NetUserPostCount.class, new UserPostCountCallback() {
-			@Override
-			public void onResults(final Integer result) {
-				runOnUiThread(new Runnable() {//display the number of posts the user has
-					@Override
-					public void run() {
-						posts.setText("Posts : " + Integer.toString(result));
-					}
-				});
-			}
-		});
-		Network.sendObject(new NetUserPostCount());
 		super.initNavDrawer();
 		setTitle("Profile");//set the action bar to display "Profile"
+		
 	}
 
 	public String getPointsText() {
-		return "Points : " + User.getPoints();
+		return "" + User.getPoints();
 	}
 	
 	public void checkIn(View view) {

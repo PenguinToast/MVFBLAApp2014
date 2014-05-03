@@ -27,6 +27,7 @@ public class LeaderboardActivity extends DrawerActivity {
 		leaderboard = new ArrayList<UserData>();
 		//ListView of the users in the leaderboards
 		ListView listView = (ListView)findViewById(R.id.Leaderboard);
+		
 		final LeaderboardAdapter leaderboardAdapter = new LeaderboardAdapter(LeaderboardActivity.this, leaderboard);
 		
 		Network.setCallback(NetUsers.class, new UsersCallback() {
@@ -39,11 +40,6 @@ public class LeaderboardActivity extends DrawerActivity {
 					@Override
 					public void run() {
 						leaderboardAdapter.notifyDataSetChanged();
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
 					}
 				});
 			}
