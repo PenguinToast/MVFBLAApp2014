@@ -19,11 +19,7 @@ import com.mvfbla.madmvfbla2014.classes.User;
 import com.mvfbla.madmvfbla2014.classes.UserData;
 import com.mvfbla.madmvfbla2014.net.Network;
 import com.mvfbla.madmvfbla2014.net.callback.UserDataCallback;
-import com.mvfbla.madmvfbla2014.net.callback.UserPointsCallback;
-import com.mvfbla.madmvfbla2014.net.callback.UserPostCountCallback;
 import com.mvfbla.madmvfbla2014.net.data.NetUserData;
-import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
-import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 
 public class ProfileActivity extends DrawerActivity {
 	
@@ -48,10 +44,7 @@ public class ProfileActivity extends DrawerActivity {
 		
 		final TextView numAnswered = (TextView)findViewById(R.id.NumAnswered);
 		final TextView numCorrect = (TextView)findViewById(R.id.NumCorrect);
-		
-	/*	final TextView location = (TextView) findViewById(R.id.NumPosts);
-		location.setText("Current Location : ");
-*/
+
 		
 		Network.setCallback(NetUserData.class, new UserDataCallback() {
 			@Override
@@ -60,19 +53,10 @@ public class ProfileActivity extends DrawerActivity {
 					@Override
 					public void run() {
 						// Show points
+						int ratio;
 						int numPoints = result.getPoints();
 						points.setText("" + Integer.toString(numPoints));
-						if (numPoints < 10) {
-							expertise.setText("Learning");
-						} else if(numPoints < 40) {
-							expertise.setText("Inexperienced");
-						} else if(numPoints < 100) {
-							expertise.setText("Experienced");
-						} else if(numPoints < 200) {
-							expertise.setText("Expert");
-						} else {
-							expertise.setText("Master");
-						}
+						
 						
 						// Show post count
 						int numPosts = result.getPostCount();
@@ -85,6 +69,18 @@ public class ProfileActivity extends DrawerActivity {
 						// Show answered
 						numAnswered.setText("" + (result.getQuestionsCorrect() + result.getQuestionsIncorrect()));
 						numCorrect.setText("" + result.getQuestionsCorrect());
+						
+						if (numPoints < 1000) {
+							expertise.setText("Expertise : Learning");
+						} else if(numPoints < 4000) {
+							expertise.setText("Expertise : Inexperienced");
+						} else if(numPoints < 10000) {
+							expertise.setText("Expertise : Experienced");
+						} else if(numPoints < 20000) {
+							expertise.setText("Expertise : Expert");
+						} else {
+							expertise.setText("Expertise : Master");
+						}
 					}
 				});
 			}
