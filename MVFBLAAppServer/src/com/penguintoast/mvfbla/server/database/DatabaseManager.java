@@ -108,6 +108,20 @@ public class DatabaseManager {
 			return null;
 		}
 	}
+	
+	public UserData getUser(int userId) {
+		try {
+			PreparedStatement getUserData = connect.prepareStatement("SELECT * from forums.users WHERE user_id=?");
+			getUserData.setInt(1, userId);
+			ResultSet results = getUserData.executeQuery();
+			results.first();
+			UserData out = readUserData(results);
+			return out;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 
 	public int getUserID(String fbID, String name) {
 		try {
@@ -215,7 +229,7 @@ public class DatabaseManager {
 	public boolean createUser(String fb_id, String name) {
 		try {
 			// Insert user - facebookID, date
-			PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, NOW(), 0, ?);");
+			PreparedStatement createUser = connect.prepareStatement("INSERT INTO forums.users VALUES (default, ?, NOW(), 0, ?, 0, 0);");
 			createUser.setString(1, fb_id);
 			createUser.setString(2, name);
 			return createUser.executeUpdate() > 0;
