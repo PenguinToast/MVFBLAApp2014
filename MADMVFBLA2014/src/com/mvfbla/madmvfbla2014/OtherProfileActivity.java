@@ -14,7 +14,7 @@ import com.mvfbla.madmvfbla2014.net.callback.UserPostCountCallback;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPoints;
 import com.mvfbla.madmvfbla2014.net.data.NetUserPostCount;
 
-public class ProfileActivity extends DrawerActivity {
+public class OtherProfileActivity extends DrawerActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

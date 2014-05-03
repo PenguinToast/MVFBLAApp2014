@@ -6,7 +6,11 @@ package com.mvfbla.madmvfbla2014;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.mvfbla.madmvfbla2014.adapters.LeaderboardAdapter;
@@ -25,8 +29,10 @@ public class LeaderboardActivity extends DrawerActivity {
 		setContentView(R.layout.activity_leaderboard);
 		super.initNavDrawer();//call DrawerActivity's constructor
 		leaderboard = new ArrayList<UserData>();
+		final ArrayList<UserData> leaderboardFinal = leaderboard;
 		//ListView of the users in the leaderboards
 		ListView listView = (ListView)findViewById(R.id.Leaderboard);
+		
 		final LeaderboardAdapter leaderboardAdapter = new LeaderboardAdapter(LeaderboardActivity.this, leaderboard);
 		
 		Network.setCallback(NetUsers.class, new UsersCallback() {
@@ -39,11 +45,6 @@ public class LeaderboardActivity extends DrawerActivity {
 					@Override
 					public void run() {
 						leaderboardAdapter.notifyDataSetChanged();
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
-//						System.out.println("user data num " + leaderboard.size());
 					}
 				});
 			}
@@ -51,5 +52,19 @@ public class LeaderboardActivity extends DrawerActivity {
 		Network.sendObject(new NetUsers());
 		listView.setAdapter(leaderboardAdapter);
 
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent otherProfiles = new Intent(view.getContext(), OtherProfileActivity.class);
+				otherProfiles.putExtra("Points", ((UserData)leaderboardFinal.get((int) id)).getPoints());
+				otherProfiles.putExtra("Username", ((UserData)leaderboardFinal.get((int) id)).getName());
+				otherProfiles.putExtra("Likes", ((UserData)leaderboardFinal.get((int) id)).getVoteCount());
+				otherProfiles.putExtra("Posts", ((UserData)leaderboardFinal.get((int) id)).getName());
+
+			}
+			
+		});
 	}
 }
